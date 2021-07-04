@@ -6,6 +6,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 connectDB();
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// routes
+app.get("/", (req, res) => {
+  res.send("welcome");
+});
 
 // port
 const PORT = process.env.PORT || 5000;
