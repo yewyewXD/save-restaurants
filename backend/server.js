@@ -10,9 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get("/", (req, res) => {
-  res.send("welcome");
-});
+const userRoute = require("./routes/user.route");
+app.use("/api/user", userRoute);
 
 // port
 const PORT = process.env.PORT || 5000;
