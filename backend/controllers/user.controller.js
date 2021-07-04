@@ -5,20 +5,21 @@ const UserModel = require("../models/user.model");
 // @access public
 exports.registerUser = async (req, res, next) => {
   try {
-    const createUserRes = await UserModel.create({
-      displayName: "tester",
-      email: "tester@mail.com",
-      password: "tester",
-    });
+    const { displayName, email, password } = req.body;
 
-    console.log(createUserRes);
+    // create user
+    const userInfo = {
+      displayName,
+      email,
+      password,
+    };
+    await UserModel.create(userInfo);
 
     return res.status(201).json({
       success: true,
-      data: createUserRes, // not used in client side
+      data: { displayName, email }, // not used in client side
     });
   } catch (err) {
-    console.log(err.message);
     return res.status(500).json({ error: err.message });
   }
 };
