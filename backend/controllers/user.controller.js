@@ -46,3 +46,41 @@ exports.registerUser = async (req, res, next) => {
     return res.status(500).json({ error: err.message });
   }
 };
+
+// @desc Login user
+// @route POST /api/user/login
+// @access public
+exports.loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validation
+    const existingUser = await UserModel.findOne({ email });
+    if (!existingUser) {
+      return res.status(401).json({
+        success: false,
+        error: "User does not exist",
+      });
+    }
+    const verified = await bcrypt.compare(password, existingUser.password);
+    if (!verified) {
+      return res.status(401).json({
+        success: false,
+        error: "Password is incorrect",
+      });
+    }
+
+    return res.status(201).json({
+      success: true,
+      data: {
+        user: {
+          userId: existingUser.id,
+          displayName: existingUser.displayName,
+          email: existingUser.email,
+        },
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
