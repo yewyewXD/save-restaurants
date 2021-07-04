@@ -7,7 +7,28 @@ exports.registerUser = async (req, res, next) => {
   try {
     const { displayName, email, password } = req.body;
 
-    // create user
+    // Validation
+    if (!displayName || !email || !password) {
+      return res.status(401).json({
+        success: false,
+        error: "One or more field is missing",
+      });
+    }
+    const emailExist = await UserModel.findOne({ email });
+    if (emailExist) {
+      return res.status(401).json({
+        success: false,
+        error: "This email has been used",
+      });
+    }
+    if (password.length < 5) {
+      return res.status(401).json({
+        success: false,
+        error: "Password needs to be at least 5 characters long",
+      });
+    }
+
+    // Create user
     const userInfo = {
       displayName,
       email,
