@@ -1,14 +1,8 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import Layout from "../components/Layout";
 
-interface RegisterInfo {
-  displayName: string;
-  email: string;
-  password: string;
-}
-
 const Home: FC = () => {
-  const [registerInfo, setRegisterInfo] = useState<RegisterInfo>({
+  const [registerInfo, setRegisterInfo] = useState({
     displayName: "",
     email: "",
     password: "",
