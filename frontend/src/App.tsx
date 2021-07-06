@@ -1,7 +1,15 @@
 import React from "react";
+import Home from "./pages/Home";
+const { BrowserRouter, Switch, Route } = require("react-router-dom");
 
 function App() {
-  return <div className="App">hello world</div>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={Home} exact />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
