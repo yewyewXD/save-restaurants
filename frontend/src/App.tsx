@@ -1,12 +1,14 @@
-import React from "react";
-import Home from "./pages/Home";
+import React, { Suspense, lazy } from "react";
 const { BrowserRouter, Switch, Route } = require("react-router-dom");
+const Home = lazy(() => import("./pages/Home"));
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Suspense fallback="Loading...">
+          <Route path="/" component={Home} exact />
+        </Suspense>
       </Switch>
     </BrowserRouter>
   );
