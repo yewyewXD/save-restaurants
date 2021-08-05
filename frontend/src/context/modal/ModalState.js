@@ -43,17 +43,21 @@ export const ModalContext = createContext({});
 export function ModalProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState(null);
-  const show = useCallback((_content) => {
+  const handleShowModal = useCallback((_content) => {
     setContent(_content);
     setShowModal(true);
   }, []);
-  const hide = useCallback(() => {
+  const handleHideModal = useCallback(() => {
     setShowModal(false);
     debounce(() => setContent(null), 250)();
   }, []);
   return (
-    <ModalContext.Provider value={{ show, hide }}>
-      <ModalComponent content={content} close={hide} isShowing={showModal} />
+    <ModalContext.Provider value={{ handleShowModal, handleHideModal }}>
+      <ModalComponent
+        content={content}
+        close={handleHideModal}
+        isShowing={showModal}
+      />
       {children}
     </ModalContext.Provider>
   );
@@ -65,7 +69,7 @@ export function ModalProvider({ children }) {
  * show<Component>(ReactComponent)
  */
 export function useModal() {
-  const { show, hide } = useContext(ModalContext);
+  const { handleShowModal, handleHideModal } = useContext(ModalContext);
 
-  return { show, hide };
+  return { handleShowModal, handleHideModal };
 }
