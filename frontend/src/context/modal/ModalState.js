@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback, useContext } from "react";
-import ModalComponent from "../../globalComponents/Modal/ModalComponent";
+import ModalComponent from "../../globalUI/Modal/ModalComponent";
 import { debounce } from "../../utils/modal.utils";
 
 export const ModalContext = createContext({});
