@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { ModalProvider } from "./context/modal/ModalState";
 const { BrowserRouter, Switch, Route } = require("react-router-dom");
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./pages/Home/Home"));
 
 function App() {
   return (
