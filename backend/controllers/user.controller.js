@@ -12,20 +12,20 @@ exports.registerUser = async (req, res, next) => {
     if (!displayName || !email || !password) {
       return res.status(400).json({
         success: false,
-        error: "One or more field is missing",
+        message: "One or more field is missing",
       });
     }
     const emailExist = await UserModel.findOne({ email });
     if (emailExist) {
       return res.status(400).json({
         success: false,
-        error: "This email has been used",
+        message: "This email has been used",
       });
     }
     if (password.length < 5) {
       return res.status(400).json({
         success: false,
-        error: "Password needs to be at least 5 characters long",
+        message: "Password needs to be at least 5 characters long",
       });
     }
 
@@ -43,7 +43,7 @@ exports.registerUser = async (req, res, next) => {
       data: { displayName, email }, // not used in client side
     });
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -59,14 +59,14 @@ exports.loginUser = async (req, res, next) => {
     if (!existingUser) {
       return res.status(400).json({
         success: false,
-        error: "User does not exist",
+        message: "User does not exist",
       });
     }
     const verified = await bcrypt.compare(password, existingUser.password);
     if (!verified) {
       return res.status(400).json({
         success: false,
-        error: "Password is incorrect",
+        message: "Password is incorrect",
       });
     }
 
@@ -81,6 +81,6 @@ exports.loginUser = async (req, res, next) => {
       },
     });
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
