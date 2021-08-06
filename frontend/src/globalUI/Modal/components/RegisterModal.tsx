@@ -39,7 +39,7 @@ const RegisterModal: FC = () => {
       !registerInfo.email ||
       !registerInfo.password
     ) {
-      setErrMsg("Please fill in all fields");
+      setErrMsg("Please complete all fields");
       return false;
     }
 
@@ -117,7 +117,10 @@ const RegisterModal: FC = () => {
           type="password"
           placeholder="***********"
         />
-        {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
+
+        {(errMsg ? true : false) && (
+          <p className="text-red-500 text-xs italic">{errMsg}</p>
+        )}
       </div>
 
       <div className="flex items-center">
