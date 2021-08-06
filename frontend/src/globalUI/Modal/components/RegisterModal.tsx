@@ -1,15 +1,26 @@
 import React, { FC, ChangeEvent, useState } from "react";
+import { registerUser } from "../api/user.api";
 
 const RegisterModal: FC = () => {
+  const [errMsg, setErrMsg] = useState("");
   const [registerInfo, setRegisterInfo] = useState({
     displayName: "",
     email: "",
     password: "",
   });
 
-  function handleLogin() {
-    console.log("register clicked");
-    console.log(registerInfo);
+  async function handleRegisterUser() {
+    if (!handleValidateForm()) {
+      return;
+    }
+
+    try {
+      console.log(registerInfo);
+      const res = await registerUser(registerInfo);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err.response.data);
+    }
   }
 
   function handleUpdateForm(e: ChangeEvent<HTMLInputElement>) {
@@ -20,6 +31,35 @@ const RegisterModal: FC = () => {
         [e.target.id]: e.target.value,
       };
     });
+  }
+
+  function handleValidateForm() {
+    if (
+      !registerInfo.displayName ||
+      !registerInfo.email ||
+      !registerInfo.password
+    ) {
+      setErrMsg("Please fill in all fields");
+      return false;
+    }
+
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(String(registerInfo.email).toLowerCase())) {
+      setErrMsg("Please enter a valid email");
+      return false;
+    }
+
+    if (registerInfo.password.length < 5) {
+      setErrMsg("Password needs to have at least 5 characters");
+      return false;
+    }
+
+    if (errMsg) {
+      setErrMsg("");
+    }
+
+    return true;
   }
 
   return (
@@ -82,7 +122,7 @@ const RegisterModal: FC = () => {
 
       <div className="flex items-center">
         <button
-          onClick={handleLogin}
+          onClick={handleRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
