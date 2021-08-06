@@ -3,6 +3,7 @@ import { registerUser } from "../api/user.api";
 
 const RegisterModal: FC = () => {
   const [errMsg, setErrMsg] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
     displayName: "",
     email: "",
@@ -14,12 +15,17 @@ const RegisterModal: FC = () => {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       console.log(registerInfo);
       const res = await registerUser(registerInfo);
       console.log(res.data);
+      setIsSubmitting(false);
     } catch (err) {
       console.log(err.response.data);
+      setErrMsg(err.response.data.message);
+      setIsSubmitting(false);
     }
   }
 
@@ -125,6 +131,7 @@ const RegisterModal: FC = () => {
 
       <div className="flex items-center">
         <button
+          disabled={isSubmitting}
           onClick={handleRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
