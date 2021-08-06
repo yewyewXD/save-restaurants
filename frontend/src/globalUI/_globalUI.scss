@@ -1,3 +1,4 @@
+// ModalComponent
 .ModalOverlay {
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
@@ -47,4 +48,9 @@
   @media (min-height: 800px) {
     max-height: calc(100vh - 6em);
   }
+}
+
+// NotificationBar
+.NotificationBar {
+  width: 200px;
 }
