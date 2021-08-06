@@ -38,10 +38,9 @@ exports.registerUser = async (req, res, next) => {
     };
     await UserModel.create(userInfo);
 
-    return res.status(200).json({
-      success: true,
-      data: { displayName, email }, // not used in client side
-    });
+    return res.status(200).json(
+      { displayName, email } // not used in client side
+    );
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -71,14 +70,9 @@ exports.loginUser = async (req, res, next) => {
     }
 
     return res.status(200).json({
-      success: true,
-      data: {
-        user: {
-          userId: existingUser.id,
-          displayName: existingUser.displayName,
-          email: existingUser.email,
-        },
-      },
+      userId: existingUser.id,
+      displayName: existingUser.displayName,
+      email: existingUser.email,
     });
   } catch (err) {
     return res.status(500).json({ message: err.message });
