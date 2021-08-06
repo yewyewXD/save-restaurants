@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent, useState } from "react";
+import HeroSection from "./components/HeroSection";
 
 const Home: FC = () => {
   const [registerInfo, setRegisterInfo] = useState({
@@ -23,6 +24,7 @@ const Home: FC = () => {
 
   return (
     <div>
+      <HeroSection />
       <div>
         <label htmlFor="displayName">Enter Username</label>
         <input
