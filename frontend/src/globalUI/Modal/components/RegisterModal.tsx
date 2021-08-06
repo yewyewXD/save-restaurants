@@ -1,5 +1,6 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import { registerUser } from "../api/user.api";
+const { GoogleLogin } = require("react-google-login");
 
 const RegisterModal: FC = () => {
   const [errMsg, setErrMsg] = useState("");
@@ -66,6 +67,10 @@ const RegisterModal: FC = () => {
     }
 
     return true;
+  }
+
+  function googleLogin(response: object) {
+    console.log({ response });
   }
 
   return (
@@ -138,6 +143,16 @@ const RegisterModal: FC = () => {
         >
           Register
         </button>
+      </div>
+
+      <div className="mt-6">
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Sign in with Google"
+          onSuccess={googleLogin}
+          onFailure={googleLogin}
+          cookiePolicy={"single_host_origin"}
+        />
       </div>
     </div>
   );
