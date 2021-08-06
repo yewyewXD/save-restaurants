@@ -1,6 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 
-const NotificationBar = () => {
+interface Props {
+  notificationStatus: string;
+}
+
+const NotificationBar: FC<Props> = ({ notificationStatus = "error" }) => {
   return (
     <div className="fixed flex items-center justify-center bottom-6 right-6">
       <div className="NotificationBar bg-red-600 p-3 rounded-lg shadow-lg relative hover:shadow-2xl transition duration-500">
