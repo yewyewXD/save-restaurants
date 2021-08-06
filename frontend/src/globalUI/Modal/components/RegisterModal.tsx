@@ -8,7 +8,8 @@ const RegisterModal: FC = () => {
   });
 
   function handleLogin() {
-    console.log("going to login");
+    console.log("register clicked");
+    console.log(registerInfo);
   }
 
   function handleUpdateForm(e: ChangeEvent<HTMLInputElement>) {
@@ -22,38 +23,72 @@ const RegisterModal: FC = () => {
   }
 
   return (
-    <div>
-      <div>
-        <label htmlFor="displayName">Enter Username</label>
+    <div className="p-3">
+      {/* username */}
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="displayName"
+        >
+          Username
+        </label>
         <input
           value={registerInfo.displayName}
-          type="text"
-          id="displayName"
           onChange={handleUpdateForm}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="displayName"
+          type="text"
+          placeholder="Username"
         />
       </div>
 
-      <div>
-        <label htmlFor="email">Enter Email</label>
+      {/* email */}
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="email"
+        >
+          Email
+        </label>
         <input
           value={registerInfo.email}
           onChange={handleUpdateForm}
-          type="email"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
+          type="text"
+          placeholder="info@example.com"
         />
       </div>
 
-      <div>
-        <label htmlFor="password">Enter Password</label>
+      {/* password */}
+      <div className="mb-6">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="password"
+        >
+          Password
+        </label>
         <input
           value={registerInfo.password}
           onChange={handleUpdateForm}
-          type="password"
+          // border-red-500
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           id="password"
+          type="password"
+          placeholder="***********"
         />
+        {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
       </div>
 
-      <button onClick={handleLogin}>Login</button>
+      <div className="flex items-center">
+        <button
+          onClick={handleLogin}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+        >
+          Register
+        </button>
+      </div>
     </div>
   );
 };
