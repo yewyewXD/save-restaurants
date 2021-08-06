@@ -8,7 +8,11 @@ interface Props {
   close: () => {};
 }
 
-const ModalComponent: FC<Props> = ({ isShowing, content, close }) => {
+const ModalComponent: FC<Props> = ({
+  isShowing,
+  content,
+  close = () => {},
+}) => {
   const location = useLocation();
   const locationRef = useRef(location.pathname);
 
