@@ -66,7 +66,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
   function handleValidateForm() {
     if (
-      (isLogin ? true : !authInfo.displayName) ||
+      (isLogin ? false : !authInfo.displayName) ||
       !authInfo.email ||
       !authInfo.password
     ) {
