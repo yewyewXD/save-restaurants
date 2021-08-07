@@ -6,7 +6,7 @@ const HeroSection = () => {
   const { handleShowModal } = useModal();
 
   function showLoginModal() {
-    handleShowModal(<div>test login</div>);
+    handleShowModal(<AuthModal isLogin={true} />);
   }
 
   function showRegisterModal() {
