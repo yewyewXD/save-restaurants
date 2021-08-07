@@ -9,14 +9,14 @@ interface Props {
 const AuthModal: FC<Props> = ({ isLogin }) => {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [registerInfo, setRegisterInfo] = useState({
+  const [authInfo, setAuthInfo] = useState({
     displayName: "",
     email: "",
     password: "",
   });
 
   async function handleLoginUser() {
-    console.log(registerInfo);
+    console.log(authInfo);
   }
 
   async function handleRegisterUser() {
@@ -27,8 +27,8 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     setIsSubmitting(true);
 
     try {
-      console.log(registerInfo);
-      const res = await registerUser(registerInfo);
+      console.log(authInfo);
+      const res = await registerUser(authInfo);
       console.log(res.data);
       setIsSubmitting(false);
     } catch (err) {
@@ -40,7 +40,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
   function handleUpdateForm(e: ChangeEvent<HTMLInputElement>) {
     e.persist();
-    setRegisterInfo((prevInfo) => {
+    setAuthInfo((prevInfo) => {
       return {
         ...prevInfo,
         [e.target.id]: e.target.value,
@@ -49,23 +49,19 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   }
 
   function handleValidateForm() {
-    if (
-      !registerInfo.displayName ||
-      !registerInfo.email ||
-      !registerInfo.password
-    ) {
+    if (!authInfo.displayName || !authInfo.email || !authInfo.password) {
       setErrMsg("Please complete all fields");
       return false;
     }
 
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailRegex.test(String(registerInfo.email).toLowerCase())) {
+    if (!emailRegex.test(String(authInfo.email).toLowerCase())) {
       setErrMsg("Please enter a valid email");
       return false;
     }
 
-    if (registerInfo.password.length < 5) {
+    if (authInfo.password.length < 5) {
       setErrMsg("Password needs to have at least 5 characters");
       return false;
     }
@@ -93,7 +89,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
             Username
           </label>
           <input
-            value={registerInfo.displayName}
+            value={authInfo.displayName}
             onChange={handleUpdateForm}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="displayName"
@@ -112,7 +108,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           Email
         </label>
         <input
-          value={registerInfo.email}
+          value={authInfo.email}
           onChange={handleUpdateForm}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
@@ -130,7 +126,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           Password
         </label>
         <input
-          value={registerInfo.password}
+          value={authInfo.password}
           onChange={handleUpdateForm}
           // border-red-500
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
