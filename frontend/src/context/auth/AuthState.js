@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useContext } from "react";
 import AuthReducer from "./AuthReducer";
 
 const initialState = {
@@ -53,3 +53,10 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export function useAuth() {
+  const { authName, authToken, saveUserAuth, clearUserAuth } =
+    useContext(AuthContext);
+
+  return { authName, authToken, saveUserAuth, clearUserAuth };
+}
