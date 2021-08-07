@@ -6,8 +6,8 @@ const Home: FC = () => {
   const { authName, clearUserAuth } = useAuth();
   return (
     <main>
-      <nav className="h-12 ">
-        <div className="my-2 h-full w-full flex justify-between mx-5">
+      <nav className="h-12 border-b border-black">
+        <div className="my-2 h-full w-full flex justify-between items-center mx-5">
           <div>
             {authName ? `Welcome back, ${authName}!` : "You are not logged in"}
           </div>
