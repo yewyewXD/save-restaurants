@@ -1,5 +1,6 @@
 const UserModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // @desc Register user
 // @route POST /api/user/register
@@ -69,10 +70,16 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
+    const jwtToken = jwt.sign(
+      { email: existingUser.email, id: existingUser.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
     return res.status(200).json({
-      userId: existingUser.id,
       displayName: existingUser.displayName,
       email: existingUser.email,
+      token: jwtToken,
     });
   } catch (err) {
     return res.status(500).json({ message: err.message });
