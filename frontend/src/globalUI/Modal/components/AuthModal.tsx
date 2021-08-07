@@ -18,7 +18,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authInfo, setAuthInfo] = useState({
-    displayName: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -37,11 +37,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           password: authInfo.password,
         });
         console.log("User logged in:", loginRes.data);
-        saveUserAuth({ authName: loginRes.data.displayName, authToken: "" });
+        saveUserAuth({ authName: loginRes.data.username, authToken: "" });
       } else {
         const registerRes = await registerUser(authInfo);
         console.log("User registered:", registerRes.data);
-        saveUserAuth({ authName: registerRes.data.displayName, authToken: "" });
+        saveUserAuth({ authName: registerRes.data.username, authToken: "" });
       }
       handleHideModal();
       setIsSubmitting(false);
@@ -72,7 +72,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
   function handleValidateForm() {
     if (
-      (isLogin ? false : !authInfo.displayName) ||
+      (isLogin ? false : !authInfo.username) ||
       !authInfo.email ||
       !authInfo.password
     ) {
@@ -110,15 +110,15 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="displayName"
+            htmlFor="username"
           >
             Username
           </label>
           <input
-            value={authInfo.displayName}
+            value={authInfo.username}
             onChange={handleUpdateForm}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="displayName"
+            id="username"
             type="text"
             placeholder="Username"
           />

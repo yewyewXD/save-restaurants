@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 // @access public
 exports.registerUser = async (req, res, next) => {
   try {
-    const { displayName, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     // Validation
-    if (!displayName || !email || !password) {
+    if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
         message: "One or more field is missing",
@@ -33,7 +33,7 @@ exports.registerUser = async (req, res, next) => {
     // Hash password and create user
     const hashedPassword = await bcrypt.hash(password, 12);
     const userInfo = {
-      displayName,
+      username,
       email,
       password: hashedPassword,
     };
@@ -46,7 +46,7 @@ exports.registerUser = async (req, res, next) => {
     );
 
     return res.status(200).json({
-      displayName: addedUser.displayName,
+      username: addedUser.username,
       email: addedUser.email,
       token: jwtToken,
     });
@@ -85,7 +85,7 @@ exports.loginUser = async (req, res, next) => {
     );
 
     return res.status(200).json({
-      displayName: existingUser.displayName,
+      username: existingUser.username,
       email: existingUser.email,
       token: jwtToken,
     });

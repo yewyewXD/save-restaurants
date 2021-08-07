@@ -8,14 +8,14 @@ describe("testing register modal and form", () => {
   });
 
   it("all 3 form fields should render", () => {
-    cy.get("#displayName").should("not.be.null");
+    cy.get("#username").should("not.be.null");
     cy.get("#email").should("not.be.null");
     cy.get("#password").should("not.be.null");
   });
 
   it("username field work correctly", () => {
-    cy.get("#displayName").focus().type("tester6").blur();
-    cy.get("#displayName").should("contain.value", "tester6");
+    cy.get("#username").focus().type("tester6").blur();
+    cy.get("#username").should("contain.value", "tester6");
   });
 
   it("email field work correctly", () => {
@@ -45,14 +45,14 @@ describe("testing register modal and form", () => {
     );
 
     cy.get("#email").type("tester6@mail.com");
-    cy.get("#displayName").clear();
+    cy.get("#username").clear();
     cy.get('[data-testid="submit-user-register"]').click();
     cy.get('[data-testid="register-err-msg"]').should(
       "contain.text",
       "Please complete all fields"
     );
 
-    cy.get("#displayName").type("tester6");
+    cy.get("#username").type("tester6");
     cy.get("#password").clear();
     cy.get('[data-testid="submit-user-register"]').click();
     cy.get('[data-testid="register-err-msg"]').should(
