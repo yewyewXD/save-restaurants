@@ -20,5 +20,8 @@ jobs:
           record: true
           parallel: true
           group: "Actions example"
+          build: npm run build
+          start: npm start
+          working-directory: frontend
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
