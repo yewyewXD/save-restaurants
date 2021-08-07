@@ -130,12 +130,18 @@ const RegisterModal: FC = () => {
         />
 
         {(errMsg ? true : false) && (
-          <p className="text-red-500 text-xs italic">{errMsg}</p>
+          <p
+            data-testid="register-err-msg"
+            className="text-red-500 text-xs italic"
+          >
+            {errMsg}
+          </p>
         )}
       </div>
 
       <div className="flex items-center">
         <button
+          data-testid="submit-user-register"
           disabled={isSubmitting}
           onClick={handleRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
