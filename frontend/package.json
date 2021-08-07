@@ -8,6 +8,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
+    "cross-env": "^7.0.3",
     "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "cypress:start:app": "BROWSER=none react-scripts -r @cypress/instrument-cra start",
+    "cypress:start:app": "cross-env BROWSER=none react-scripts -r @cypress/instrument-cra start",
     "cypress:start:wait": "start-server-and-test cypress:start:app http://localhost:3000",
     "cypress:open": "npm run cypress:start:wait -- \"cypress open\"",
     "cypress:run": "npm run cypress:start:wait -- \"cypress run\"",
