@@ -15,6 +15,10 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     password: "",
   });
 
+  async function handleLoginUser() {
+    console.log(registerInfo);
+  }
+
   async function handleRegisterUser() {
     if (!handleValidateForm()) {
       return;
@@ -80,22 +84,24 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   return (
     <div className="p-3" data-testid="register-modal">
       {/* username */}
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="displayName"
-        >
-          Username
-        </label>
-        <input
-          value={registerInfo.displayName}
-          onChange={handleUpdateForm}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="displayName"
-          type="text"
-          placeholder="Username"
-        />
-      </div>
+      {!isLogin && (
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="displayName"
+          >
+            Username
+          </label>
+          <input
+            value={registerInfo.displayName}
+            onChange={handleUpdateForm}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="displayName"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
+      )}
 
       {/* email */}
       <div className="mb-4">
@@ -147,11 +153,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <button
           data-testid="submit-user-register"
           disabled={isSubmitting}
-          onClick={handleRegisterUser}
+          onClick={isLogin ? handleLoginUser : handleRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
-          Register
+          {isLogin ? "Login" : "Register"}
         </button>
       </div>
 
