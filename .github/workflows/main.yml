@@ -10,6 +10,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
-          build: cd frontend && npm run build
-          start: cd frontend && npm start
-          wait-on: http://localhost:3000
+          build: npm run build
+          start: npm start
+          working-directory: frontend
