@@ -1,5 +1,6 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
+import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
 import { loginUser, registerUser } from "../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
@@ -11,6 +12,7 @@ interface Props {
 const AuthModal: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
   const { saveUserAuth } = useAuth();
+  const { handleHideModal } = useModal();
 
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,6 +40,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         const registerRes = await registerUser(authInfo);
         console.log("User registered:", registerRes.data);
         saveUserAuth({ authName: registerRes.data.displayName, authToken: "" });
+        handleHideModal();
       }
       setIsSubmitting(false);
     } catch (err) {
