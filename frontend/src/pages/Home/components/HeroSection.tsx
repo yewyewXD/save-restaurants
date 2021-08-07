@@ -1,6 +1,6 @@
 import React from "react";
 import { useModal } from "../../../context/modal/ModalState";
-import RegisterModal from "../../../globalUI/Modal/components/RegisterModal";
+import AuthModal from "../../../globalUI/Modal/components/AuthModal";
 
 const HeroSection = () => {
   const { handleShowModal } = useModal();
@@ -10,7 +10,7 @@ const HeroSection = () => {
   }
 
   function showRegisterModal() {
-    handleShowModal(<RegisterModal />);
+    handleShowModal(<AuthModal />);
   }
 
   return (

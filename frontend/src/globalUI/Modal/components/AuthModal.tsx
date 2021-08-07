@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent, useState } from "react";
 import { registerUser } from "../api/user.api";
 const { GoogleLogin } = require("react-google-login");
 
-const RegisterModal: FC = () => {
+const AuthModal: FC = () => {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
@@ -164,4 +164,4 @@ const RegisterModal: FC = () => {
   );
 };
 
-export default RegisterModal;
+export default AuthModal;
