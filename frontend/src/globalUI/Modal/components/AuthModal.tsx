@@ -95,7 +95,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   }
 
   function googleLogin(response: object) {
-    console.log({ response });
+    console.log(response);
   }
 
   return (
@@ -146,15 +146,23 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         >
           Password
         </label>
-        <input
-          value={authInfo.password}
-          onChange={handleUpdateForm}
-          // border-red-500
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="password"
-          placeholder="***********"
-        />
+        <div className="flex relative items-center">
+          <input
+            value={authInfo.password}
+            onChange={handleUpdateForm}
+            // border-red-500
+            className="col-span-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            placeholder="***********"
+          />
+          <div
+            className="col-span-4 absolute cursor-pointer"
+            style={{ right: "0.75rem", top: "0.4rem" }}
+          >
+            show
+          </div>
+        </div>
 
         {(errMsg ? true : false) && (
           <p
