@@ -7,3 +7,11 @@ export function registerUser(data) {
     data,
   });
 }
+
+export function loginUser(data) {
+  return axios({
+    method: "post",
+    url: `http://localhost:5000/api/auth/login`,
+    data,
+  });
+}

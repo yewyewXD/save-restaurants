@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, useState } from "react";
-import { registerUser } from "../api/auth.api";
+import { loginUser, registerUser } from "../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
 
 interface Props {
@@ -15,11 +15,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     password: "",
   });
 
-  async function handleLoginUser() {
-    console.log(authInfo);
-  }
-
-  async function handleRegisterUser() {
+  async function handleLoginOrRegisterUser() {
     if (!handleValidateForm()) {
       return;
     }
@@ -28,8 +24,16 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
     try {
       console.log(authInfo);
-      const res = await registerUser(authInfo);
-      console.log(res.data);
+      if (isLogin) {
+        const loginRes = await loginUser({
+          email: authInfo.email,
+          password: authInfo.password,
+        });
+        console.log(loginRes.data);
+      } else {
+        const registerRes = await registerUser(authInfo);
+        console.log(registerRes.data);
+      }
       setIsSubmitting(false);
     } catch (err) {
       console.log(err.response.data);
@@ -49,7 +53,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   }
 
   function handleValidateForm() {
-    if (!authInfo.displayName || !authInfo.email || !authInfo.password) {
+    if (
+      (isLogin ? true : !authInfo.displayName) ||
+      !authInfo.email ||
+      !authInfo.password
+    ) {
       setErrMsg("Please complete all fields");
       return false;
     }
@@ -149,7 +157,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <button
           data-testid="submit-user-register"
           disabled={isSubmitting}
-          onClick={isLogin ? handleLoginUser : handleRegisterUser}
+          onClick={handleLoginOrRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
