@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent, useState } from "react";
+import { useNotification } from "../../../context/notification/NotificationState";
 import { loginUser, registerUser } from "../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
 
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const AuthModal: FC<Props> = ({ isLogin }) => {
+  const { showNotification } = useNotification();
+
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authInfo, setAuthInfo] = useState({
@@ -36,8 +39,12 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       }
       setIsSubmitting(false);
     } catch (err) {
-      console.log(err.response.data);
-      setErrMsg(err.response.data.message);
+      console.log(err?.response?.data);
+      if (err?.response?.data?.message) {
+        setErrMsg(err.response.data.message);
+      } else {
+        showNotification("error");
+      }
       setIsSubmitting(false);
     }
   }
