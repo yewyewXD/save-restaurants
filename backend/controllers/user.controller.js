@@ -37,11 +37,19 @@ exports.registerUser = async (req, res, next) => {
       email,
       password: hashedPassword,
     };
-    await UserModel.create(userInfo);
+    const addedUser = await UserModel.create(userInfo);
 
-    return res.status(200).json(
-      { displayName, email } // not used in client side
+    const jwtToken = jwt.sign(
+      { email: addedUser.email, id: addedUser._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" }
     );
+
+    return res.status(200).json({
+      displayName: addedUser.displayName,
+      email: addedUser.email,
+      token: jwtToken,
+    });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
