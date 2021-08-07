@@ -6,7 +6,6 @@ jobs:
   test:
     name: Run Frontend Cypress Test
     runs-on: ubuntu-latest
-    container: cypress/included:3.8.3
     strategy:
       matrix:
         machines: [1, 2, 3]
