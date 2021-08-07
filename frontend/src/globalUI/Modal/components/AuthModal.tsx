@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, useState } from "react";
-import { registerUser } from "../api/user.api";
+import { registerUser } from "../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
 
 interface Props {
