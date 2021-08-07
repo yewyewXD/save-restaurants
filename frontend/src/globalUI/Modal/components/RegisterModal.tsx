@@ -74,7 +74,7 @@ const RegisterModal: FC = () => {
   }
 
   return (
-    <div className="p-3">
+    <div className="p-3" data-testid="register-modal">
       {/* username */}
       <div className="mb-4">
         <label

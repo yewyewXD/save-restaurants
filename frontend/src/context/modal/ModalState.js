@@ -19,7 +19,7 @@ export function ModalProvider({ children }) {
     <ModalContext.Provider value={{ handleShowModal, handleHideModal }}>
       <ModalComponent
         content={content}
-        close={handleHideModal}
+        close={handleHideModal ? handleHideModal : () => {}}
         isShowing={showModal}
       />
       {children}
