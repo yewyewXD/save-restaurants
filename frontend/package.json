@@ -48,8 +48,12 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.10",
+    "@cypress/instrument-cra": "^1.4.0",
     "autoprefixer": "^9",
+    "cypress": "^8.2.0",
     "postcss": "^7",
+    "start-server-and-test": "^1.13.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
