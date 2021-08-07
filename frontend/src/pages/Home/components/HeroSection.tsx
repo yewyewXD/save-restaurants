@@ -10,7 +10,7 @@ const HeroSection = () => {
   }
 
   function showRegisterModal() {
-    handleShowModal(<AuthModal />);
+    handleShowModal(<AuthModal isLogin={false} />);
   }
 
   return (

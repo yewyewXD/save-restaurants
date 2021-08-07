@@ -2,7 +2,11 @@ import React, { FC, ChangeEvent, useState } from "react";
 import { registerUser } from "../api/user.api";
 const { GoogleLogin } = require("react-google-login");
 
-const AuthModal: FC = () => {
+interface Props {
+  isLogin: boolean;
+}
+
+const AuthModal: FC<Props> = ({ isLogin }) => {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
