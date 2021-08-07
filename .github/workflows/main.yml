@@ -1,15 +1,26 @@
-name: End-to-end tests
+name: Frontend Cypress Test
+
 on: [push]
+
 jobs:
-  cypress-run:
+  test:
+    name: Run Frontend Cypress Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # the actual items in the array do not matter,
+        # just the number - to force CI to sping 3 copies
+        # of the current job in parallel
+        machines: [1, 2, 3]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Cypress run
+      - name: Connect and test
         uses: cypress-io/github-action@v1
         with:
-          build: npm run build
-          start: npm start
-          working-directory: frontend
+          record: true
+          parallel: true
+          group: "Actions example"
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
