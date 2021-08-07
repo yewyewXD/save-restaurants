@@ -35,13 +35,14 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           email: authInfo.email,
           password: authInfo.password,
         });
-        console.log(loginRes.data);
+        console.log("User logged in:", loginRes.data);
+        saveUserAuth({ authName: loginRes.data.displayName, authToken: "" });
       } else {
         const registerRes = await registerUser(authInfo);
         console.log("User registered:", registerRes.data);
         saveUserAuth({ authName: registerRes.data.displayName, authToken: "" });
-        handleHideModal();
       }
+      handleHideModal();
       setIsSubmitting(false);
     } catch (err) {
       console.log(err?.response?.data);
