@@ -14,6 +14,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const { saveUserAuth } = useAuth();
   const { handleHideModal } = useModal();
 
+  const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authInfo, setAuthInfo] = useState({
@@ -53,6 +54,10 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       }
       setIsSubmitting(false);
     }
+  }
+
+  function handleShowPassword() {
+    setIsShowingPw((prevIsShowing) => !prevIsShowing);
   }
 
   function handleUpdateForm(e: ChangeEvent<HTMLInputElement>) {
@@ -146,21 +151,22 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         >
           Password
         </label>
-        <div className="flex relative items-center">
+        <div className="flex relative items-center justify-center">
           <input
             value={authInfo.password}
             onChange={handleUpdateForm}
             // border-red-500
             className="col-span-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
-            type="password"
+            type={isShowingPw ? "text" : "password"}
             placeholder="***********"
           />
           <div
-            className="col-span-4 absolute cursor-pointer"
-            style={{ right: "0.75rem", top: "0.4rem" }}
+            className="col-span-4 absolute cursor-pointer text-xs"
+            onClick={handleShowPassword}
+            style={{ right: "0.75rem", top: "0.6rem" }}
           >
-            show
+            {isShowingPw ? "hide" : "show"}
           </div>
         </div>
 
