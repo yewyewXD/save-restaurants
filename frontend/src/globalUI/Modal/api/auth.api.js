@@ -15,3 +15,11 @@ export function loginUser(data) {
     data,
   });
 }
+
+export function googleLoginUser(data) {
+  return axios({
+    method: "post",
+    url: `http://localhost:5000/api/auth/google-login`,
+    data,
+  });
+}
