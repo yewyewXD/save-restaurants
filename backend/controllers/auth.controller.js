@@ -125,41 +125,40 @@ exports.googleLoginUser = async (req, res, next) => {
       });
     }
 
-    //     const userExists = await UserModel.findOne({ googleId:sub });
-    //       if (!userExists) {
-    // const userInfo = {username: name, email, googleId:sub,password: 'notARealPassword'}
-    //     const addedUser = await UserModel.create();
-    //   }
+    const existingUser = await UserModel.findOne({ googleId: sub });
+    if (!existingUser) {
+      const userInfo = {
+        username: name,
+        email,
+        googleId: sub,
+        password: "notARealPassword",
+      };
+      const addedUser = await UserModel.create(userInfo);
 
-    //     // Validation
-    //     const existingUser = await UserModel.findOne({ email });
-    //     if (!existingUser) {
-    //       return res.status(400).json({
-    //         success: false,
-    //         message: "User does not exist",
-    //       });
-    //     }
+      const jwtToken = jwt.sign(
+        { email: addedUser.email, id: addedUser._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "24h" }
+      );
 
-    // const verified = await bcrypt.compare(password, existingUser.password);
-    // if (!verified) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Password is incorrect",
-    //   });
-    // }
+      return res.status(200).json({
+        username: addedUser.username,
+        email: addedUser.email,
+        token: jwtToken,
+      });
+    } else {
+      const jwtToken = jwt.sign(
+        { email: existingUser.email, id: existingUser._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "24h" }
+      );
 
-    // const jwtToken = jwt.sign(
-    //   { email: existingUser.email, id: existingUser.id },
-    //   process.env.JWT_SECRET,
-    //   { expiresIn: "24h" }
-    // );
-
-    return res.status(200).json({
-      username: name,
-      email,
-      tokenId,
-      data: googleRes.payload,
-    });
+      return res.status(200).json({
+        username: existingUser.username,
+        email: existingUser.email,
+        token: jwtToken,
+      });
+    }
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
