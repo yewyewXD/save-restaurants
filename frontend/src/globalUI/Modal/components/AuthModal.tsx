@@ -39,18 +39,15 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     setIsSubmitting(true);
 
     try {
+      let res: any = {};
       if (isLogin) {
-        const loginRes = await loginUser({
-          email: authInfo.email,
-          password: authInfo.password,
-        });
-        console.log("User logged in:", loginRes.data);
-        saveUserAuth({ authName: loginRes.data.username, authToken: "" });
+        res = await loginUser(authInfo);
       } else {
-        const registerRes = await registerUser(authInfo);
-        console.log("User registered:", registerRes.data);
-        saveUserAuth({ authName: registerRes.data.username, authToken: "" });
+        res = await registerUser(authInfo);
       }
+      console.log("User auth:", res.data);
+      saveUserAuth({ authName: res.data.username, authToken: res.data.token });
+
       handleHideModal();
       setIsSubmitting(false);
     } catch (err) {
