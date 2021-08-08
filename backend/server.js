@@ -3,15 +3,16 @@ const connectDB = require("./config/database");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require("compression");
+const cookieParser = require("cookie-parser");
 
 // middleware
 dotenv.config();
 connectDB();
 const app = express();
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression());
+app.use(cookieParser());
 
 // routes
 const userRoute = require("./routes/user.route");
