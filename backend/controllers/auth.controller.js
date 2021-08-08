@@ -104,7 +104,7 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
-// @desc Login / Register user with Google
+// @desc Login or register user with Google
 // @route POST /api/auth/google-login
 // @access public
 exports.googleLoginUser = async (req, res, next) => {

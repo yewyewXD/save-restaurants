@@ -108,12 +108,25 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   }
 
   async function handleGoogleLogin(response: googleResponse) {
-    const res = await googleLoginUser({
-      username: response.profileObj.name,
-      email: response.profileObj.email,
-      tokenId: response.tokenId,
-    });
-    console.log("Google login:", res.data);
+    setIsSubmitting(true);
+    try {
+      const res = await googleLoginUser({
+        tokenId: response.tokenId,
+      });
+      console.log("Google auth:", res.data);
+      saveUserAuth({ authName: res.data.username, authToken: res.data.token });
+
+      handleHideModal();
+      setIsSubmitting(false);
+    } catch (err) {
+      console.log(err?.response?.data);
+      if (err?.response?.data?.message) {
+        setErrMsg(err.response.data.message);
+      } else {
+        showNotification("error");
+      }
+      setIsSubmitting(false);
+    }
   }
 
   return (
