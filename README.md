@@ -22,17 +22,20 @@ coming soon
 
 #### Frontend
 
+- Typescript
 - React.js
-- Cypress
-- TailwindCSS
 - Sass
+- TailwindCSS
+- Cypress
 
 #### Backend
 
+- MongoDB
 - Node.js
 - Express.js
-- MongoDB
 - Fastify.js (in progress)
+- Chai (in progress)
+- Mocha (in progress)
 
 #### DevOps
 
