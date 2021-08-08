@@ -47,11 +47,17 @@ exports.registerUser = async (req, res, next) => {
       { expiresIn: "24h" }
     );
 
-    return res.status(200).json({
-      username: addedUser.username,
-      email: addedUser.email,
-      token: jwtToken,
-    });
+    return res
+      .status(200)
+      .cookie("authToken", jwtToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      })
+      .json({
+        username: addedUser.username,
+        email: addedUser.email,
+        token: jwtToken,
+      });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -94,11 +100,17 @@ exports.loginUser = async (req, res, next) => {
       { expiresIn: "24h" }
     );
 
-    return res.status(200).json({
-      username: existingUser.username,
-      email: existingUser.email,
-      token: jwtToken,
-    });
+    return res
+      .status(200)
+      .cookie("authToken", jwtToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      })
+      .json({
+        username: existingUser.username,
+        email: existingUser.email,
+        token: jwtToken,
+      });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -141,11 +153,17 @@ exports.googleLoginUser = async (req, res, next) => {
         { expiresIn: "24h" }
       );
 
-      return res.status(200).json({
-        username: addedUser.username,
-        email: addedUser.email,
-        token: jwtToken,
-      });
+      return res
+        .status(200)
+        .cookie("authToken", jwtToken, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+        })
+        .json({
+          username: addedUser.username,
+          email: addedUser.email,
+          token: jwtToken,
+        });
     } else {
       const jwtToken = jwt.sign(
         { email: existingUser.email, id: existingUser._id },
@@ -153,11 +171,17 @@ exports.googleLoginUser = async (req, res, next) => {
         { expiresIn: "24h" }
       );
 
-      return res.status(200).json({
-        username: existingUser.username,
-        email: existingUser.email,
-        token: jwtToken,
-      });
+      return res
+        .status(200)
+        .cookie("authToken", jwtToken, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+        })
+        .json({
+          username: existingUser.username,
+          email: existingUser.email,
+          token: jwtToken,
+        });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
