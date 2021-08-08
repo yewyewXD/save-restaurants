@@ -2,11 +2,19 @@ import React, { FC, ChangeEvent, useState } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
-import { loginUser, registerUser } from "../api/auth.api";
+import { googleLoginUser, loginUser, registerUser } from "../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
 
 interface Props {
   isLogin: boolean;
+}
+
+interface googleResponse {
+  profileObj: {
+    email: string;
+    name: string;
+  };
+  tokenId: string;
 }
 
 const AuthModal: FC<Props> = ({ isLogin }) => {
@@ -99,8 +107,13 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     return true;
   }
 
-  function googleLogin(response: object) {
-    console.log(response);
+  async function handleGoogleLogin(response: googleResponse) {
+    const res = await googleLoginUser({
+      username: response.profileObj.name,
+      email: response.profileObj.email,
+      tokenId: response.tokenId,
+    });
+    console.log("Google login:", res.data);
   }
 
   return (
@@ -196,8 +209,8 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Sign in with Google"
-          onSuccess={googleLogin}
-          onFailure={googleLogin}
+          onSuccess={handleGoogleLogin}
+          onFailure={handleGoogleLogin}
           cookiePolicy={"single_host_origin"}
         />
       </div>
