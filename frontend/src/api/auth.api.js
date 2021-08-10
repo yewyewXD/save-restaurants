@@ -26,3 +26,11 @@ export function googleLoginUser(data) {
     data,
   });
 }
+
+export function logoutUser() {
+  return axios({
+    method: "post",
+    url: `http://localhost:5000/api/auth/logout`,
+    withCredentials: true,
+  });
+}

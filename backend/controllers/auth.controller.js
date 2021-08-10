@@ -183,3 +183,22 @@ exports.googleLoginUser = async (req, res, next) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+// @desc Logout user
+// @route POST /api/auth/logout
+// @access public
+exports.logoutUser = async (req, res, next) => {
+  try {
+    return res
+      .status(200)
+      .cookie("authToken", "expired", {
+        httpOnly: true,
+        expires: "Wed, 05 Aug 2020 23:00:00 UTC",
+      })
+      .json({
+        success: true,
+      });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
