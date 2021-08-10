@@ -2,8 +2,8 @@ import React, { createContext, useReducer, useEffect, useContext } from "react";
 import AuthReducer from "./AuthReducer";
 
 const initialState = {
-  authName: "",
-  authToken: "",
+  userInfo: null,
+  isLoggedIn: false,
 };
 
 export const AuthContext = createContext(initialState);
@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
   function saveUserAuth(userData) {
     dispatch({
       type: "SAVE_USER_AUTH",
-      payload: userData,
+      payload: { userData },
     });
   }
 
@@ -43,8 +43,8 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        authName: state.authName,
-        authToken: state.authToken,
+        userInfo: state.userInfo,
+        isLoggedIn: state.authName,
         saveUserAuth,
         clearUserAuth,
       }}
@@ -55,8 +55,8 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export function useAuth() {
-  const { authName, authToken, saveUserAuth, clearUserAuth } =
+  const { userInfo, isLoggedIn, saveUserAuth, clearUserAuth } =
     useContext(AuthContext);
 
-  return { authName, authToken, saveUserAuth, clearUserAuth };
+  return { userInfo, isLoggedIn, saveUserAuth, clearUserAuth };
 }

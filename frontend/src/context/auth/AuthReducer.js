@@ -2,15 +2,14 @@ const AuthReducer = (state, { type, payload }) => {
   switch (type) {
     case "SAVE_USER_AUTH":
       return {
-        ...state,
-        authName: payload.authName,
-        authToken: payload.authToken,
+        userInfo: payload.userData,
+        isLoggedIn: true,
       };
 
     case "CLEAR_USER_AUTH":
       return {
-        authName: "",
-        authToken: "",
+        userInfo: null,
+        isLoggedIn: false,
       };
 
     default:
