@@ -194,15 +194,9 @@ exports.googleLoginUser = async (req, res, next) => {
 // @access public
 exports.logoutUser = async (req, res, next) => {
   try {
-    return res
-      .status(200)
-      .cookie("authToken", "expired", {
-        httpOnly: true,
-        expires: new Date(Date.now() - 90000),
-      })
-      .json({
-        success: true,
-      });
+    return res.status(200).clearCookie("authToken").json({
+      success: true,
+    });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
