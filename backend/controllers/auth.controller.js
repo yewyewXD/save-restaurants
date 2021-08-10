@@ -193,7 +193,7 @@ exports.logoutUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", "expired", {
         httpOnly: true,
-        expires: "Wed, 05 Aug 2020 23:00:00 UTC",
+        expires: new Date(Date.now() - 90000),
       })
       .json({
         success: true,
