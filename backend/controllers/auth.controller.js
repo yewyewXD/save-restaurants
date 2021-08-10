@@ -67,21 +67,6 @@ exports.registerUser = async (req, res, next) => {
 // @route POST /api/auth/login
 // @access public
 exports.loginUser = async (req, res, next) => {
-  const token = req.cookies.authToken;
-  if (token) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const userFoundByToken = await UserModel.findOne({
-        _id: decoded.id,
-      });
-      return res.status(200).json({
-        username: userFoundByToken.username,
-        email: userFoundByToken.email,
-        token: token,
-      });
-    } catch {}
-  }
-
   try {
     const { email, password } = req.body;
 
