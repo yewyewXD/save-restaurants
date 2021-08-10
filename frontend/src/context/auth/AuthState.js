@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
     async function handleGetMyInfo() {
       try {
         const res = await getUserMe();
-        console.log(res.data);
+        saveUserAuth(res.data);
       } catch {}
     }
 
