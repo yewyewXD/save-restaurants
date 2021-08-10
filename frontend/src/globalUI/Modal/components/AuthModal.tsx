@@ -2,7 +2,11 @@ import React, { FC, ChangeEvent, useState } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
-import { googleLoginUser, loginUser, registerUser } from "../api/auth.api";
+import {
+  googleLoginUser,
+  loginUser,
+  registerUser,
+} from "../../../api/auth.api";
 const { GoogleLogin } = require("react-google-login");
 
 interface Props {
