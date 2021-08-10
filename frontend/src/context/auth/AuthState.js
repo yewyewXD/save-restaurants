@@ -62,7 +62,7 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         userInfo: state.userInfo,
-        isLoggedIn: state.authName,
+        isLoggedIn: state.isLoggedIn,
         saveUserAuth,
         clearUserAuth,
       }}
