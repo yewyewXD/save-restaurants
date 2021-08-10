@@ -31,17 +31,32 @@ export const AuthContextProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
+    // on close browser remove local auth
+    function removeLocalAuth() {
+      localStorage.removeItem("AuthState");
+    }
+    if (typeof window !== "undefined") {
+      window.addEventListener("unload", removeLocalAuth);
+    }
+
+    // auto login on load
     async function handleAutoLogin() {
       try {
         const res = await getUserMe();
         saveUserAuth(res.data);
       } catch {}
     }
-
     const storedAuth = localStorage.getItem("AuthState");
     if (!JSON.parse(storedAuth).isLoggedIn) {
       handleAutoLogin();
     }
+
+    // clean up remove local auth function
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("unload", removeLocalAuth);
+      }
+    };
   }, []);
 
   // actions
