@@ -2,7 +2,10 @@ import React, { createContext, useReducer, useEffect, useContext } from "react";
 import AuthReducer from "./AuthReducer";
 
 const initialState = {
-  userInfo: null,
+  userInfo: {
+    username: "",
+    email: "",
+  },
   isLoggedIn: false,
 };
 

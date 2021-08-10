@@ -3,16 +3,18 @@ import { useAuth } from "../../context/auth/AuthState";
 import HeroSection from "./components/HeroSection";
 
 const Home: FC = () => {
-  const { authName, clearUserAuth } = useAuth();
+  const { userInfo, isLoggedIn, clearUserAuth } = useAuth();
   return (
     <main>
       <nav className="h-12 border-b border-black">
         <div className="my-2 h-full w-full flex justify-between items-center mx-5">
           <div>
-            {authName ? `Welcome back, ${authName}!` : "You are not logged in"}
+            {isLoggedIn
+              ? `Welcome back, ${userInfo.username}!`
+              : "You are not logged in"}
           </div>
 
-          {authName && (
+          {isLoggedIn && (
             <button
               onClick={clearUserAuth}
               data-testid="register-btn"
