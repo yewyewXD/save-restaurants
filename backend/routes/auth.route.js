@@ -6,7 +6,6 @@ const {
   googleLoginUser,
 } = require("../controllers/auth.controller");
 
-// Register user
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/google-login", googleLoginUser);
