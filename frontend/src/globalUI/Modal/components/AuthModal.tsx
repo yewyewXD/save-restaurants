@@ -46,7 +46,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         res = await registerUser(authInfo);
       }
       console.log("User auth:", res.data);
-      saveUserAuth({ authName: res.data.username, authToken: res.data.token });
+      saveUserAuth({ authName: res.data.username });
 
       handleHideModal();
       setIsSubmitting(false);
@@ -111,7 +111,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         tokenId: response.tokenId,
       });
       console.log("Google auth:", res.data);
-      saveUserAuth({ authName: res.data.username, authToken: res.data.token });
+      saveUserAuth({ authName: res.data.username });
 
       handleHideModal();
       setIsSubmitting(false);

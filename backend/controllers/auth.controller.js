@@ -56,7 +56,6 @@ exports.registerUser = async (req, res, next) => {
       .json({
         username: addedUser.username,
         email: addedUser.email,
-        token: jwtToken,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -109,7 +108,6 @@ exports.loginUser = async (req, res, next) => {
       .json({
         username: existingUser.username,
         email: existingUser.email,
-        token: jwtToken,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -162,7 +160,6 @@ exports.googleLoginUser = async (req, res, next) => {
         .json({
           username: addedUser.username,
           email: addedUser.email,
-          token: jwtToken,
         });
     } else {
       const jwtToken = jwt.sign(
@@ -180,7 +177,6 @@ exports.googleLoginUser = async (req, res, next) => {
         .json({
           username: existingUser.username,
           email: existingUser.email,
-          token: jwtToken,
         });
     }
   } catch (err) {
