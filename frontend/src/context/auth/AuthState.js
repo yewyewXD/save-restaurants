@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useEffect, useContext } from "react";
+import { logoutUser } from "../../api/auth.api";
 import { getUserMe } from "../../api/user.api";
 import AuthReducer from "./AuthReducer";
 
@@ -51,7 +52,9 @@ export const AuthContextProvider = ({ children }) => {
     });
   }
 
-  function clearUserAuth() {
+  async function clearUserAuth() {
+    await logoutUser();
+
     dispatch({
       type: "CLEAR_USER_AUTH",
       payload: null,
