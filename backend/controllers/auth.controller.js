@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { ONE_DAY_IN_SEC, getOneDayFromNow } = require("../utils/day.utils");
+const { ONE_DAY_IN_SEC } = require("../utils/day.utils");
 
 // @desc Register user
 // @route POST /api/auth/register
@@ -57,7 +57,6 @@ exports.registerUser = async (req, res, next) => {
       .json({
         username: addedUser.username,
         email: addedUser.email,
-        expires: getOneDayFromNow(),
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -110,7 +109,6 @@ exports.loginUser = async (req, res, next) => {
       .json({
         username: existingUser.username,
         email: existingUser.email,
-        expires: getOneDayFromNow(),
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -163,7 +161,6 @@ exports.googleLoginUser = async (req, res, next) => {
         .json({
           username: addedUser.username,
           email: addedUser.email,
-          expires: getOneDayFromNow(),
         });
     } else {
       const jwtToken = jwt.sign(
@@ -181,7 +178,6 @@ exports.googleLoginUser = async (req, res, next) => {
         .json({
           username: existingUser.username,
           email: existingUser.email,
-          expires: getOneDayFromNow(),
         });
     }
   } catch (err) {
