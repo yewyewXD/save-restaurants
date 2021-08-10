@@ -8,7 +8,10 @@ const AuthReducer = (state, { type, payload }) => {
 
     case "CLEAR_USER_AUTH":
       return {
-        userInfo: null,
+        userInfo: {
+          username: "",
+          email: "",
+        },
         isLoggedIn: false,
       };
 
