@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useEffect, useContext } from "react";
+import { getUserMe } from "../../api/user.api";
 import AuthReducer from "./AuthReducer";
 
 const initialState = {
@@ -27,6 +28,20 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.setItem("AuthState", JSON.stringify(state));
     }
   }, [state]);
+
+  useEffect(() => {
+    async function handleGetMyInfo() {
+      try {
+        const res = await getUserMe();
+        console.log(res.data);
+      } catch {}
+    }
+
+    const storedAuth = localStorage.getItem("AuthState");
+    if (!JSON.parse(storedAuth).isLoggedIn) {
+      handleGetMyInfo();
+    }
+  }, []);
 
   // actions
   function saveUserAuth(userData) {
