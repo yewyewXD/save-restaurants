@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
-    async function handleGetMyInfo() {
+    async function handleAutoLogin() {
       try {
         const res = await getUserMe();
         saveUserAuth(res.data);
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const storedAuth = localStorage.getItem("AuthState");
     if (!JSON.parse(storedAuth).isLoggedIn) {
-      handleGetMyInfo();
+      handleAutoLogin();
     }
   }, []);
 
