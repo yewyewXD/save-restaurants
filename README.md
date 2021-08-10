@@ -4,15 +4,17 @@
 
 Online restaurant in one click. We are here to rescue restaurant businesses!
 
-## Build status
+## Status
 
-**Success:** [See Live](https://yewkangwei.com/)
+<!-- **Success:** [See Live](https://yewkangwei.com/) -->
+
+**In progress**
 
 Started on: 3 Jul 2021 <br>
 
 <!-- Completed on: 7 Oct 2020 <br> -->
 
-Last modified on: 07 Aug 2021 <br>
+Last modified on: 10 Aug 2021 <br>
 
 ## Screenshots
 
