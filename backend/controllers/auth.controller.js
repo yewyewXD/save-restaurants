@@ -1,6 +1,7 @@
 const UserModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fetch = require("isomorphic-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { ONE_DAY_IN_SEC } = require("../utils/day.utils");
@@ -68,7 +69,17 @@ exports.registerUser = async (req, res, next) => {
 // @access public
 exports.loginUser = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, reCaptchaToken } = req.body;
+    const reCaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET}&response=${reCaptchaToken}`;
+
+    const reCaptchaRes = await fetch(reCaptchaUrl, { method: "post" });
+    const reCaptchaResJSON = await reCaptchaRes.json();
+    if (!reCaptchaResJSON?.success) {
+      return res.status(400).json({
+        success: false,
+        message: "Bot detected by Google",
+      });
+    }
 
     // Validation
     const existingUser = await UserModel.findOne({ email });
