@@ -27,6 +27,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const { saveUserAuth } = useAuth();
   const { handleHideModal } = useModal();
 
+  const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,18 +38,18 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   });
 
   async function handleLoginOrRegisterUser() {
-    if (!handleValidateForm()) {
-      return;
-    }
-
+    if (!handleValidateForm()) return;
     setIsSubmitting(true);
+    if (!reCaptchaToken) handleLoginOrRegisterUser();
+
+    const payload = { ...authInfo, reCaptchaToken };
 
     try {
       let res: any = {};
       if (isLogin) {
-        res = await loginUser(authInfo);
+        res = await loginUser(payload);
       } else {
-        res = await registerUser(authInfo);
+        res = await registerUser(payload);
       }
       console.log("User auth:", res.data);
       saveUserAuth(res.data);
@@ -209,7 +210,10 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       </div>
 
       <div className="mb-6">
-        <ReCaptcha />
+        <ReCaptcha
+          isSubmittingForm={isSubmitting}
+          setReCaptchaToken={setReCaptchaToken}
+        />
       </div>
 
       <div className="flex items-center">
