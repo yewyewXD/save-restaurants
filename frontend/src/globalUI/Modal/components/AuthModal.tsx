@@ -215,13 +215,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         )}
       </div>
 
-      <div className="mb-6">
-        <ReCaptcha
-          isSubmittingForm={validationCount}
-          setReCaptchaToken={setReCaptchaToken}
-        />
-      </div>
-
       <div className="flex items-center">
         <button
           data-testid="submit-user-register"
@@ -245,6 +238,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           cookiePolicy={"single_host_origin"}
         />
       </div>
+
+      <ReCaptcha
+        isSubmittingForm={validationCount}
+        setReCaptchaToken={setReCaptchaToken}
+      />
     </div>
   );
 };
