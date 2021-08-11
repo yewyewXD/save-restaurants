@@ -7,6 +7,7 @@ import {
   loginUser,
   registerUser,
 } from "../../../api/auth.api";
+import ReCaptcha from "./ReCaptcha";
 const { GoogleLogin } = require("react-google-login");
 
 interface Props {
@@ -205,6 +206,10 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
             {errMsg}
           </p>
         )}
+      </div>
+
+      <div className="mb-6">
+        <ReCaptcha />
       </div>
 
       <div className="flex items-center">
