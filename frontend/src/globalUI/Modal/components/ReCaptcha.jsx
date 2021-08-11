@@ -6,8 +6,8 @@ const ReCaptcha = ({ isSubmittingForm, setReCaptchaToken }) => {
 
   async function getReCaptchaValue() {
     const token = await reCaptchaRef.current.executeAsync();
-    reCaptchaRef.current.reset();
     setReCaptchaToken(token);
+    reCaptchaRef.current.reset();
   }
 
   useEffect(() => {

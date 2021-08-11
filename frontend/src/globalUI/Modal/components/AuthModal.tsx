@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState } from "react";
+import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
@@ -27,6 +27,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const { saveUserAuth } = useAuth();
   const { handleHideModal } = useModal();
 
+  const [validationCount, setValidationCount] = useState(0);
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -40,8 +41,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   async function handleLoginOrRegisterUser() {
     if (!handleValidateForm()) return;
     setIsSubmitting(true);
-    if (!reCaptchaToken) handleLoginOrRegisterUser();
-
     const payload = { ...authInfo, reCaptchaToken };
 
     try {
@@ -132,6 +131,13 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     }
   }
 
+  useEffect(() => {
+    if (validationCount && reCaptchaToken) {
+      handleLoginOrRegisterUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validationCount, reCaptchaToken]);
+
   return (
     <div className="p-3" data-testid="register-modal">
       {/* username */}
@@ -211,7 +217,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
       <div className="mb-6">
         <ReCaptcha
-          isSubmittingForm={isSubmitting}
+          isSubmittingForm={validationCount}
           setReCaptchaToken={setReCaptchaToken}
         />
       </div>
@@ -220,7 +226,9 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <button
           data-testid="submit-user-register"
           disabled={isSubmitting}
-          onClick={handleLoginOrRegisterUser}
+          onClick={() => {
+            setValidationCount((prevCount) => prevCount + 1);
+          }}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
