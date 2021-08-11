@@ -54,6 +54,7 @@ exports.registerUser = async (req, res, next) => {
       .cookie("authToken", jwtToken, {
         httpOnly: true,
         maxAge: ONE_DAY_IN_SEC,
+        sameSite: "Lax",
       })
       .json({
         username: addedUser.username,
@@ -116,6 +117,7 @@ exports.loginUser = async (req, res, next) => {
       .cookie("authToken", jwtToken, {
         httpOnly: true,
         maxAge: ONE_DAY_IN_SEC,
+        sameSite: "Lax",
       })
       .json({
         username: existingUser.username,
@@ -168,6 +170,7 @@ exports.googleLoginUser = async (req, res, next) => {
         .cookie("authToken", jwtToken, {
           httpOnly: true,
           maxAge: ONE_DAY_IN_SEC,
+          sameSite: "Lax",
         })
         .json({
           username: addedUser.username,
@@ -185,6 +188,7 @@ exports.googleLoginUser = async (req, res, next) => {
         .cookie("authToken", jwtToken, {
           httpOnly: true,
           maxAge: ONE_DAY_IN_SEC,
+          sameSite: "Lax",
         })
         .json({
           username: existingUser.username,
