@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import AuthModal from "../../../globalUI/Modal/components/AuthModal";
-const { useHistory } = require("react-router-dom");
+const { useHistory, Link } = require("react-router-dom");
 
 const Navbar = () => {
   const { isLoggedIn } = useAuth();
@@ -23,9 +23,18 @@ const Navbar = () => {
     handleShowModal(<AuthModal isLogin={true} />);
   }
 
+  const navLinks = useMemo(() => {
+    return [
+      { id: 1, name: "Home", link: "/" },
+      { id: 2, name: "About", link: "/about" },
+      { id: 3, name: "Blogs", link: "/blogs" },
+      { id: 5, name: "Contact", link: "/contact" },
+    ];
+  }, []);
+
   return (
     <nav className="flex items-center justify-between bg-white flex-wrap p-6">
-      <div className="flex items-center flex-shrink-0 mr-14">
+      <div className="flex items-center flex-shrink-0 mr-10">
         <svg
           className="fill-current h-8 w-8 mr-2"
           width="54"
@@ -58,12 +67,15 @@ const Navbar = () => {
         } w-full flex-grow md:flex md:items-center md:w-auto`}
       >
         <div className="text-sm md:flex-grow">
-          <a
-            href="#responsive-header"
-            className="block mt-4 md:inline-block md:mt-0 text-teal-200  mr-4"
-          >
-            Docs
-          </a>
+          {navLinks.map((navLink) => (
+            <Link
+              key={navLink.id}
+              to={navLink.link}
+              className="block mt-4 md:inline-block md:mt-0 text-teal-200  mr-4"
+            >
+              {navLink.name}
+            </Link>
+          ))}
         </div>
         <div>
           <button
