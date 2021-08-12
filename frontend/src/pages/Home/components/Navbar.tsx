@@ -1,10 +1,26 @@
 import React, { useState } from "react";
+import { useAuth } from "../../../context/auth/AuthState";
+import { useModal } from "../../../context/modal/ModalState";
+import AuthModal from "../../../globalUI/Modal/components/AuthModal";
+const { useHistory } = require("react-router-dom");
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth();
+  const { handleShowModal } = useModal();
+  const history = useHistory();
+
   const [showNavbar, setShowNavbar] = useState(false);
 
   function toggleShowNavbar() {
     setShowNavbar((prevShow) => !prevShow);
+  }
+
+  function redirectToDashboard() {
+    history.push("/dashboard");
+  }
+
+  function openAuthModal() {
+    handleShowModal(<AuthModal isLogin={true} />);
   }
 
   return (
@@ -50,12 +66,12 @@ const Navbar = () => {
           </a>
         </div>
         <div>
-          <a
-            href="/"
+          <button
+            onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
             className="transition duration-200 inline-block text-sm px-6 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-yellow-400 text-white hover:text-black hover:bg-white hover:border-yellow-400 border"
           >
-            Sign in
-          </a>
+            {isLoggedIn ? "Dashboard" : "Login"}
+          </button>
         </div>
       </div>
     </nav>
