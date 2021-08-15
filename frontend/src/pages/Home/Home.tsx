@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import HeroSection from "./components/HeroSection";
+import IntegrationSection from "./components/IntegrationSection";
 import Navbar from "./components/Navbar";
 
 const Home: FC = () => {
@@ -7,6 +8,7 @@ const Home: FC = () => {
     <main>
       <Navbar />
       <HeroSection />
+      <IntegrationSection />
     </main>
   );
 };
