@@ -45,7 +45,7 @@ const IntegrationSection = () => {
   }, []);
 
   return (
-    <section className="flex w-full justify-center items-center flex-col py-16 bg-gray-100">
+    <section className="flex w-full justify-center items-center flex-col py-16">
       <h1 className="leading-none text-4xl font-bold">Integrations</h1>
       <div className="text-gray-500 mt-6 mb-8">
         Synchronize your applications with all social networks for better
