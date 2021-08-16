@@ -9,8 +9,8 @@ const Home: FC = () => {
     <main>
       <Navbar />
       <HeroSection />
-      <IntegrationSection />
       <CountUpSection />
+      <IntegrationSection />
     </main>
   );
 };
