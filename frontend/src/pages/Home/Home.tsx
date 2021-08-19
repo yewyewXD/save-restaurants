@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import CountUpSection from "./components/CountUpSection";
+import GetStartedSection from "./components/GetStartedSection";
 import HeroSection from "./components/HeroSection";
 import IntegrationSection from "./components/IntegrationSection";
 import Navbar from "./components/Navbar";
@@ -11,6 +12,7 @@ const Home: FC = () => {
       <HeroSection />
       <CountUpSection />
       <IntegrationSection />
+      <GetStartedSection />
     </main>
   );
 };
