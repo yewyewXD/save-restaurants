@@ -46,7 +46,8 @@ const Navbar = () => {
         </svg>
         <span className="font-semibold text-xl tracking-tight">Instantfly</span>
       </div>
-      <div className="block md:hidden">
+      {/* <div className="block md:hidden"> */}
+      <div className="hidden">
         <button
           onClick={toggleShowNavbar}
           className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400  hover:border-white"
@@ -61,12 +62,22 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
+
+      <div className="ml-auto flex justify-center items-center md:hidden">
+        <button
+          onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
+          className="transition duration-200 block text-sm px-7 font-bold py-2 leading-none rounded bg-yellow-400 hover:text-white hover:bg-black"
+        >
+          {isLoggedIn ? "Dashboard" : "Login"}
+        </button>
+      </div>
+
       <div
         className={`${
           showNavbar ? "block" : "hidden"
         } w-full flex-grow md:flex md:items-center md:w-auto`}
       >
-        <div className="text-sm md:flex-grow">
+        <div className="text-sm md:flex-grow hidden">
           {navLinks.map((navLink) => (
             <Link
               key={navLink.id}
@@ -77,7 +88,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div>
+        <div className="ml-auto">
           <button
             onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
             className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-yellow-400 hover:text-white hover:bg-black"
