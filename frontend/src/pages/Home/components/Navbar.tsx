@@ -80,7 +80,7 @@ const Navbar = () => {
         <div>
           <button
             onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
-            className="transition duration-200 inline-block text-sm px-6 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-yellow-400 text-white hover:text-black hover:bg-white hover:border-yellow-400 border"
+            className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-yellow-400 hover:text-white hover:bg-black"
           >
             {isLoggedIn ? "Dashboard" : "Login"}
           </button>
