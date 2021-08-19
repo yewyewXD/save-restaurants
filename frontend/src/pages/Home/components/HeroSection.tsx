@@ -14,7 +14,7 @@ const HeroSection = () => {
             We've programmed our very own IT system for restaurant businesses to
             go online effortlessly
           </div>
-          <button className="bg-yellow-400 px-9 py-3 rounded text-white hover:bg-black transition duration-200 font-bold">
+          <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
             Get Free Forever
           </button>
         </div>
