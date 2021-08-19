@@ -13,7 +13,7 @@ const TestimonialSection = () => {
     <section className="text-center w-full py-16 bg-yellow-400">
       <CarouselProvider
         naturalSlideWidth={100}
-        naturalSlideHeight={20}
+        naturalSlideHeight={25}
         totalSlides={3}
         infinite={true}
       >
