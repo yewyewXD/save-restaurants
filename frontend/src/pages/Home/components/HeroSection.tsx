@@ -1,6 +1,14 @@
 import React from "react";
+import { useModal } from "../../../context/modal/ModalState";
+import AuthModal from "../../../globalUI/Modal/components/AuthModal";
 
 const HeroSection = () => {
+  const { handleShowModal } = useModal();
+
+  function showRegisterModal() {
+    handleShowModal(<AuthModal isLogin={false} />);
+  }
+
   return (
     <section
       className="flex w-full justify-center items-center"
@@ -18,7 +26,10 @@ const HeroSection = () => {
             We've programmed our very own IT system for restaurant businesses to
             go online effortlessly
           </div>
-          <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
+          <button
+            className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold"
+            onClick={showRegisterModal}
+          >
             Get Free Forever
           </button>
         </div>
