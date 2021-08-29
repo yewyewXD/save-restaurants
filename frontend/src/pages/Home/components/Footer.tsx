@@ -1,11 +1,48 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 const Footer = () => {
+  const socialMedia = useMemo(() => {
+    return [
+      //   {
+      //     id: 1,
+      //     name: "facebook",
+      //     link: "#",
+      //   },
+      {
+        id: 2,
+        name: "twitter",
+        link: "https://twitter.com/eatery_malaysia",
+      },
+      //   {
+      //     id: 3,
+      //     name: "instagram",
+      //     link: "#",
+      //   },
+      //   {
+      //     id: 4,
+      //     name: "linkedin",
+      //     link: "#",
+      //   },
+    ];
+  }, []);
+
   return (
     <footer className="bg-black text-white flex py-8 w-full justify-center items-center">
       <div>Copyright © 2021 | All rights reserved</div>
 
-      <div className="ml-3">Facebook Twitter</div>
+      <div>
+        {socialMedia.map((social) => (
+          <a
+            key={social.id}
+            href={social.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer"
+          >
+            <i className={`icon-inno icon-inno_${social.name} ml-3`} />
+          </a>
+        ))}
+      </div>
     </footer>
   );
 };
