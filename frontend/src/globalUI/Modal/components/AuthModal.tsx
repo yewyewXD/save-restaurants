@@ -55,7 +55,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
       handleHideModal();
       setIsSubmitting(false);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err?.response?.data);
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
@@ -120,7 +120,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
       handleHideModal();
       setIsSubmitting(false);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err?.response?.data);
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
