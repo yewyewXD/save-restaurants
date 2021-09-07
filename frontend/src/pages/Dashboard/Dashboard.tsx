@@ -5,7 +5,31 @@ const Dashboard: FC = () => {
     return ["ABOUT US", "MENU", "RESERVATION", "CONTACT"];
   }, []);
 
-  const logo = "LOGO";
+  const menuCategories = useMemo(() => {
+    return [
+      {
+        title: "Menu 1",
+        items: [
+          { name: "food 1", price: "$1.00" },
+          { name: "food 2", price: "$1.00" },
+        ],
+      },
+      {
+        title: "Menu 2",
+        items: [
+          { name: "food 1", price: "$1.00" },
+          { name: "food 2", price: "$1.00" },
+        ],
+      },
+      {
+        title: "Menu 3",
+        items: [
+          { name: "food 1", price: "$1.00" },
+          { name: "food 2", price: "$1.00" },
+        ],
+      },
+    ];
+  }, []);
 
   return (
     <main>
@@ -23,7 +47,7 @@ const Dashboard: FC = () => {
                       navItems.length < 2 ? "col-start-3" : ""
                     } col-span-2 py-6`}
                   >
-                    {logo}
+                    LOGO
                   </div>
                 )}
               </Fragment>
@@ -64,30 +88,18 @@ const Dashboard: FC = () => {
       <section className="w-full border-t border-b border-red-700 py-16">
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
         <div className="grid grid-cols-3 gap-6 auto-rows-auto w-full text-center">
-          <div className="border border-red-600">
-            <h5 className="mb-6">Menu 1</h5>
-            <div className="grid grid-cols-1 gap-3">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
+          {menuCategories.map((menu, index) => (
+            <div key={`menu-${index}`} className="border border-red-600">
+              <h5 className="mb-6">{menu.title}</h5>
+              <div className="grid grid-cols-1 gap-3">
+                {menu.items.map((item) => (
+                  <span>
+                    {item.name} - {item.price}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="border border-red-600">
-            <h5 className="mb-6">Menu 2</h5>
-            <div className="grid grid-cols-1 gap-3">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border border-red-600">
-            <h5 className="mb-6">Menu 3</h5>
-            <div className="grid grid-cols-1 gap-3">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
