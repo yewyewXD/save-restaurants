@@ -116,6 +116,21 @@ const Dashboard: FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="pt-32 pb-24 w-100 justify-center items-center flex-col bg-black text-white">
+        <div className="flex w-full text-center justify-center mb-12">
+          <span className="mr-6">facebook</span>
+          <span className="mr-6">twitter</span>
+          <span>instagram</span>
+        </div>
+        <div className="grid grid-cols-4 gap-6 text-center">
+          <span>About Us</span>
+          <span>Our Menu</span>
+          <span>Reservation</span>
+          <span>Contact</span>
+        </div>
+      </footer>
     </main>
   );
 };
