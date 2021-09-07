@@ -1,16 +1,34 @@
-import React, { FC } from "react";
+import React, { FC, useMemo, Fragment } from "react";
 
 const Dashboard: FC = () => {
+  const navItems = useMemo(() => {
+    return ["ABOUT US", "MENU", "RESERVATION", "CONTACT"];
+  }, []);
+
+  const logo = "LOGO";
+
   return (
     <main>
       {/* Navbar */}
       <header>
         <nav className="w-full grid grid-cols-6 text-center">
-          <span className="py-6">ABOUT US</span>
-          <span className="py-6">OUR MENU</span>
-          <div className="col-span-2 py-6">LOGO</div>
-          <span className="py-6">RESERVATION</span>
-          <span className="py-6">CONTACT</span>
+          {navItems.map((navItem, index) => {
+            return (
+              <Fragment key={`navItem-${index}`}>
+                <span className="py-6">{navItem}</span>
+                {((navItems.length <= 2 && index === navItems.length - 1) ||
+                  (navItems.length > 2 && index === 1)) && (
+                  <div
+                    className={`${
+                      navItems.length < 2 ? "col-start-3" : ""
+                    } col-span-2 py-6`}
+                  >
+                    {logo}
+                  </div>
+                )}
+              </Fragment>
+            );
+          })}
         </nav>
       </header>
 
