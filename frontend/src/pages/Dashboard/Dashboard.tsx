@@ -1,35 +1,33 @@
-import React, { FC, useMemo, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 
 const Dashboard: FC = () => {
-  const navItems = useMemo(() => {
-    return ["ABOUT US", "MENU", "RESERVATION", "CONTACT"];
-  }, []);
+  const navItems = ["ABOUT US", "MENU", "RESERVATION", "CONTACT"];
 
-  const menuCategories = useMemo(() => {
-    return [
-      {
-        title: "Menu 1",
-        items: [
-          { name: "food 1", price: "$1.00" },
-          { name: "food 2", price: "$1.00" },
-        ],
-      },
-      {
-        title: "Menu 2",
-        items: [
-          { name: "food 1", price: "$1.00" },
-          { name: "food 2", price: "$1.00" },
-        ],
-      },
-      {
-        title: "Menu 3",
-        items: [
-          { name: "food 1", price: "$1.00" },
-          { name: "food 2", price: "$1.00" },
-        ],
-      },
-    ];
-  }, []);
+  const menuCategories = [
+    {
+      title: "Menu 1",
+      items: [
+        { name: "food 1", price: "$1.00" },
+        { name: "food 2", price: "$1.00" },
+      ],
+    },
+    {
+      title: "Menu 2",
+      items: [
+        { name: "food 1", price: "$1.00" },
+        { name: "food 2", price: "$1.00" },
+      ],
+    },
+    {
+      title: "Menu 3",
+      items: [
+        { name: "food 1", price: "$1.00" },
+        { name: "food 2", price: "$1.00" },
+      ],
+    },
+  ];
+
+  const socialMedias = [{ name: "Facebook", link: "www.facebook.com" }];
 
   return (
     <main>
@@ -149,16 +147,25 @@ const Dashboard: FC = () => {
 
       {/* Footer */}
       <footer className="pt-32 pb-24 w-100 justify-center items-center flex-col bg-black text-white">
-        <div className="flex w-full text-center justify-center mb-12">
-          <span className="mr-6">facebook</span>
-          <span className="mr-6">twitter</span>
-          <span>instagram</span>
+        <div
+          className={`w-full grid grid-cols-${socialMedias.length} text-center  mb-12`}
+        >
+          {socialMedias.map((socialMedia, index) => (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={socialMedia.link}
+              className="mr-6"
+              key={`social-${index}`}
+            >
+              {socialMedia.name}
+            </a>
+          ))}
         </div>
         <div className="grid grid-cols-4 gap-6 text-center">
-          <span>About Us</span>
-          <span>Our Menu</span>
-          <span>Reservation</span>
-          <span>Contact</span>
+          {navItems.map((navItem, index) => (
+            <span key={`footerNav-${index}`}>{navItem}</span>
+          ))}
         </div>
       </footer>
     </main>
