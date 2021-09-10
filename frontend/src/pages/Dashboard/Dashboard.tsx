@@ -1,7 +1,12 @@
 import React, { FC } from "react";
+import NavSidebar from "./components/NavSidebar";
 
 const Dashboard: FC = () => {
-  return <> </>;
+  return (
+    <>
+      <NavSidebar />
+    </>
+  );
 };
 
 export default Dashboard;
