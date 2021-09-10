@@ -1,8 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
-const NavSidebar: FC = () => {
-  const [currentTab, setCurrentTab] = useState("Sites");
+interface Props {
+  currentTab: string;
+  setCurrentTab: React.SetStateAction<any>;
+}
 
+const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
   const sidebarTabs = [{ name: "Profile" }, { name: "Sites" }];
 
   return (
