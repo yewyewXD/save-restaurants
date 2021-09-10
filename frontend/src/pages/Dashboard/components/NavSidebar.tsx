@@ -9,7 +9,7 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
   const sidebarTabs = [{ name: "Profile" }, { name: "Sites" }];
 
   return (
-    <div className="relative h-screen w-60">
+    <div className="relative min-h-screen h-full w-60">
       <div className="p-4 h-screen fixed left-0 top-0 bg-black text-white w-60">
         <div>Eatery</div>
 
