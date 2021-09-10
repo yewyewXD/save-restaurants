@@ -2,9 +2,9 @@ import React from "react";
 
 const SiteAll = () => {
   return (
-    <div className="flex-grow">
-      <div>testing only</div>
-    </div>
+    <>
+      <div className="leading-none text-2xl">All My Sites</div>
+    </>
   );
 };
 

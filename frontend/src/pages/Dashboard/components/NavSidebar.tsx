@@ -10,10 +10,12 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
 
   return (
     <div className="relative min-h-screen h-full w-60">
-      <div className="p-4 h-screen fixed left-0 top-0 bg-black text-white w-60">
-        <div>Eatery</div>
+      <div className="h-screen fixed left-0 top-0 bg-black text-white w-60">
+        <div className="h-14 p-4 flex items-center">
+          <div>Eatery</div>
+        </div>
 
-        <div className="mt-8">
+        <div className="p-4">
           {sidebarTabs.map((tab, index) => (
             <div
               onClick={() => {
