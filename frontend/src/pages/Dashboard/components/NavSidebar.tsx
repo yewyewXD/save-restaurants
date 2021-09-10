@@ -1,6 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 const NavSidebar: FC = () => {
+  const [currentTab, setCurrentTab] = useState("Sites");
+
+  const sidebarTabs = [{ name: "Profile" }, { name: "Sites" }];
+
   return (
     <div
       className="p-4 h-screen fixed left-0 top-0 bg-black text-white"
@@ -9,15 +13,20 @@ const NavSidebar: FC = () => {
       <div>Eatery</div>
 
       <div className="mt-14">
-        <div className="mb-3 border rounded-xl p-5 flex border-red-600 items-center">
-          <i className="icon-inno icon-inno_clock mr-3" />
-          Profile
-        </div>
-
-        <div className="mb-3 border rounded-xl p-5 flex border-red-600 items-center">
-          <i className="icon-inno icon-inno_clock mr-3" />
-          Sites
-        </div>
+        {sidebarTabs.map((tab, index) => (
+          <div
+            onClick={() => {
+              setCurrentTab(tab.name);
+            }}
+            className={`mb-3 border rounded-xl p-5 flex items-center ${
+              currentTab === tab.name ? "border-red-600" : ""
+            }`}
+            key={`sidebar-${index}`}
+          >
+            <i className="icon-inno icon-inno_clock mr-3" />
+            {tab.name}
+          </div>
+        ))}
       </div>
     </div>
   );
