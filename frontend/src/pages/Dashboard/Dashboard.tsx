@@ -27,7 +27,11 @@ const Dashboard: FC = () => {
     },
   ];
 
-  const socialMedias = [{ name: "Facebook", link: "www.facebook.com" }];
+  const socialMedias = [
+    { name: "Facebook", link: "www.facebook.com" },
+    { name: "Facebook", link: "www.facebook.com" },
+    { name: "Facebook", link: "www.facebook.com" },
+  ];
 
   return (
     <main>
@@ -148,14 +152,14 @@ const Dashboard: FC = () => {
       {/* Footer */}
       <footer className="pt-32 pb-24 w-100 justify-center items-center flex-col bg-black text-white">
         <div
-          className={`w-full grid grid-cols-${socialMedias.length} text-center  mb-12`}
+          className={`w-full flex justify-center items-center text-center mb-12`}
         >
           {socialMedias.map((socialMedia, index) => (
             <a
               target="_blank"
               rel="noopener noreferrer"
               href={socialMedia.link}
-              className="mr-6"
+              className={index === socialMedias.length - 1 ? "" : "mr-6"}
               key={`social-${index}`}
             >
               {socialMedia.name}
