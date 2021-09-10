@@ -123,7 +123,7 @@ const Dashboard: FC = () => {
 
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 px-5">
-            <h2 className="text-4xl leading-none text-center">Opening Hours</h2>
+            <h2 className="text-4xl leading-none">Opening Hours</h2>
             <div className="mt-6 grid grid-cols-1 gap-3">
               <div>
                 <div className="font-bold">Monday - Friday</div>
