@@ -1,18 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SiteAll = () => {
   const sites = [
     {
+      id: 1,
       name: "site 1",
       updated: new Date().toDateString(),
       image: null,
     },
     {
+      id: 2,
       name: "site 1",
       updated: new Date().toDateString(),
       image: null,
     },
     {
+      id: 3,
       name: "site 1",
       updated: new Date().toDateString(),
       image: null,
@@ -24,7 +28,8 @@ const SiteAll = () => {
 
       <div className="mt-6 grid grid-cols-3 gap-16 auto-rows-auto">
         {sites.map((site, index) => (
-          <div
+          <Link
+            to={`/dashboard/sites/${site.id}`}
             key={`site-${index}`}
             className="border h-50 w-50 flex justify-center items-center flex-col border-red-600"
           >
@@ -33,7 +38,7 @@ const SiteAll = () => {
               <div>{site.name}</div>
               <div>{site.updated}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>
