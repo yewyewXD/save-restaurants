@@ -24,7 +24,11 @@ const SiteAll = () => {
   ];
   return (
     <>
-      <div className="leading-none text-2xl">All My Sites</div>
+      <div className="flex justify-between items-center">
+        <div className="leading-none text-2xl">All My Sites</div>
+
+        <Link to="/dashboard/sites/new">Create New</Link>
+      </div>
 
       <div className="mt-6 grid grid-cols-3 gap-16 auto-rows-auto">
         {sites.map((site, index) => (
