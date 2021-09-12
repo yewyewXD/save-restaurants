@@ -3,11 +3,11 @@ import { AuthContextProvider } from "./context/auth/AuthState";
 import { ModalProvider } from "./context/modal/ModalState";
 import { NotificationProvider } from "./context/notification/NotificationState";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import SiteSingle from "./pages/SiteSingle/SiteSingle";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
+const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle"));
 
 function App() {
   return (
