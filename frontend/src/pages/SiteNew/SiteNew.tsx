@@ -41,29 +41,31 @@ const SiteNew: FC = () => {
   return (
     <main>
       {/* Navbar */}
-      <header>
-        <nav className="w-full grid grid-cols-6 text-center">
-          {navItems.map((navItem, index) => {
-            return (
-              <Fragment key={`navItem-${index}`}>
-                <a href={navItem.link} className="py-6">
-                  {navItem.name}
-                </a>
-                {((navItems.length <= 2 && index === navItems.length - 1) ||
-                  (navItems.length > 2 && index === 1)) && (
-                  <div
-                    className={`${
-                      navItems.length < 2 ? "col-start-3" : ""
-                    } col-span-2 py-6`}
-                  >
-                    LOGO
-                  </div>
-                )}
-              </Fragment>
-            );
-          })}
-        </nav>
-      </header>
+      <div className="relative h-20 w-full">
+        <header className="fixed flex justify-center items-center h-20 w-full top-0">
+          <nav className="w-full grid grid-cols-6 text-center">
+            {navItems.map((navItem, index) => {
+              return (
+                <Fragment key={`navItem-${index}`}>
+                  <a href={navItem.link} className="py-6">
+                    {navItem.name}
+                  </a>
+                  {((navItems.length <= 2 && index === navItems.length - 1) ||
+                    (navItems.length > 2 && index === 1)) && (
+                    <div
+                      className={`${
+                        navItems.length < 2 ? "col-start-3" : ""
+                      } col-span-2 py-6`}
+                    >
+                      LOGO
+                    </div>
+                  )}
+                </Fragment>
+              );
+            })}
+          </nav>
+        </header>
+      </div>
 
       {/* Hero */}
       <section className="h-screen w-full flex justify-center items-center border-t border-b border-red-700">
