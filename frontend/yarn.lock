@@ -2609,6 +2609,13 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/react-scrollspy@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@types/react-scrollspy/-/react-scrollspy-3.3.4.tgz#60fd2a48e899b5911c8c044844a3fc2d379b7fa2"
+  integrity sha512-nm7JqM1kWmx2wU0YTr4KwyoKedeoHyKpel9dTlQaTaolicFGOAVx5uCWVjf0bXt1zXU1Tk4aKdBWtxrB5Ccnxg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.0":
   version "17.0.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.13.tgz#6b7c9a8f2868586ad87d941c02337c6888fb874f"
