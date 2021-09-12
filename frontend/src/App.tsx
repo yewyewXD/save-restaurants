@@ -7,6 +7,7 @@ import SiteSingle from "./pages/SiteSingle/SiteSingle";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
 
 function App() {
   return (
@@ -18,7 +19,12 @@ function App() {
               <Suspense fallback="Loading...">
                 <Route path="/" component={Home} exact />
                 <Route path="/dashboard" component={Dashboard} exact />
-                <Route path="/dashboard/sites/:id" component={SiteSingle} />
+                <Route path="/dashboard/sites/new" component={SiteNew} exact />
+                <Route
+                  path="/dashboard/sites/:id"
+                  component={SiteSingle}
+                  exact
+                />
               </Suspense>
             </Switch>
           </ModalProvider>

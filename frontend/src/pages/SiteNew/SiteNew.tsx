@@ -95,7 +95,7 @@ const SiteNew: FC = () => {
               <h5 className="mb-6">{menu.title}</h5>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
-                  <span>
+                  <span key={`menuItem-${item.name}-${item.price}`}>
                     {item.name} - {item.price}
                   </span>
                 ))}
