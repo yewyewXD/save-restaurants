@@ -46,7 +46,9 @@ const SiteNew: FC = () => {
           {navItems.map((navItem, index) => {
             return (
               <Fragment key={`navItem-${index}`}>
-                <span className="py-6">{navItem}</span>
+                <a href={navItem.link} className="py-6">
+                  {navItem.name}
+                </a>
                 {((navItems.length <= 2 && index === navItems.length - 1) ||
                   (navItems.length > 2 && index === 1)) && (
                   <div
@@ -173,7 +175,7 @@ const SiteNew: FC = () => {
         </div>
         <div className="grid grid-cols-4 gap-6 text-center">
           {navItems.map((navItem, index) => (
-            <span key={`footerNav-${index}`}>{navItem}</span>
+            <span key={`footerNav-${index}`}>{navItem.name}</span>
           ))}
         </div>
       </footer>
