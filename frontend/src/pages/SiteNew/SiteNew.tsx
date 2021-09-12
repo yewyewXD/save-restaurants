@@ -1,7 +1,12 @@
 import React, { Fragment, FC } from "react";
 
 const SiteNew: FC = () => {
-  const navItems = ["ABOUT US", "MENU", "RESERVATION", "CONTACT"];
+  const navItems = [
+    { name: "ABOUT US", link: "#about" },
+    { name: "MENU", link: "#menu" },
+    { name: "RESERVATION", link: "#reservation" },
+    { name: "CONTACT", link: "#contact" },
+  ];
 
   const menuCategories = [
     {
