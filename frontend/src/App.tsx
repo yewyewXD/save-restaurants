@@ -2,7 +2,8 @@ import React, { Suspense, lazy } from "react";
 import { AuthContextProvider } from "./context/auth/AuthState";
 import { ModalProvider } from "./context/modal/ModalState";
 import { NotificationProvider } from "./context/notification/NotificationState";
-const { BrowserRouter, Switch, Route } = require("react-router-dom");
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import SiteSingle from "./pages/SiteSingle/SiteSingle";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
@@ -16,7 +17,8 @@ function App() {
             <Switch>
               <Suspense fallback="Loading...">
                 <Route path="/" component={Home} exact />
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} exact />
+                <Route path="/dashboard/sites/:id" component={SiteSingle} />
               </Suspense>
             </Switch>
           </ModalProvider>
