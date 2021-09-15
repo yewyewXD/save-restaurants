@@ -1,11 +1,8 @@
-import React, { Fragment, FC, useState } from "react";
-import { slide as Menu } from "react-burger-menu";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+import React, { Fragment, FC } from "react";
+
+import SideMenu from "./components/SideMenu";
 
 const SiteNew: FC = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const navItems = [
     { name: "ABOUT US", link: "#about" },
     { name: "MENU", link: "#menu" },
@@ -45,44 +42,7 @@ const SiteNew: FC = () => {
 
   return (
     <main>
-      {/* edit button */}
-      <Menu
-        right={true}
-        onStateChange={({ isOpen }) => {
-          setIsSidebarOpen(isOpen);
-        }}
-        customBurgerIcon={
-          isSidebarOpen ? (
-            false
-          ) : (
-            <i className="icon-inno icon-inno_edit text-white" />
-          )
-        }
-      >
-        <Tabs>
-          <TabList>
-            <Tab>Title 1</Tab>
-            <Tab>Title 2</Tab>
-          </TabList>
-
-          <TabPanel>
-            <div className="flex flex-col">
-              <a id="home" href="/">
-                Home
-              </a>
-              <a id="about" href="/about">
-                About
-              </a>
-              <a id="contact" href="/contact">
-                Contact
-              </a>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <h2>Any content 2</h2>
-          </TabPanel>
-        </Tabs>
-      </Menu>
+      <SideMenu />
 
       {/* Navbar */}
       <div className="relative h-20 w-full">
