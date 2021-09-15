@@ -1,6 +1,9 @@
-import React, { Fragment, FC } from "react";
+import React, { Fragment, FC, useState } from "react";
+import { slide as Menu } from "react-burger-menu";
 
 const SiteNew: FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const navItems = [
     { name: "ABOUT US", link: "#about" },
     { name: "MENU", link: "#menu" },
@@ -40,6 +43,31 @@ const SiteNew: FC = () => {
 
   return (
     <main>
+      {/* edit button */}
+      <Menu
+        right={true}
+        onStateChange={({ isOpen }) => {
+          setIsSidebarOpen(isOpen);
+        }}
+        customBurgerIcon={
+          isSidebarOpen ? (
+            false
+          ) : (
+            <i className="icon-inno icon-inno_edit text-white" />
+          )
+        }
+      >
+        <a id="home" className="menu-item" href="/">
+          Home
+        </a>
+        <a id="about" className="menu-item" href="/about">
+          About
+        </a>
+        <a id="contact" className="menu-item" href="/contact">
+          Contact
+        </a>
+      </Menu>
+
       {/* Navbar */}
       <div className="relative h-20 w-full">
         <header className="fixed flex justify-center items-center h-20 w-full top-0">
