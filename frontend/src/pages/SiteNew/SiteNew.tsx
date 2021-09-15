@@ -1,5 +1,7 @@
 import React, { Fragment, FC, useState } from "react";
 import { slide as Menu } from "react-burger-menu";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const SiteNew: FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -57,15 +59,29 @@ const SiteNew: FC = () => {
           )
         }
       >
-        <a id="home" className="menu-item" href="/">
-          Home
-        </a>
-        <a id="about" className="menu-item" href="/about">
-          About
-        </a>
-        <a id="contact" className="menu-item" href="/contact">
-          Contact
-        </a>
+        <Tabs>
+          <TabList>
+            <Tab>Title 1</Tab>
+            <Tab>Title 2</Tab>
+          </TabList>
+
+          <TabPanel>
+            <div className="flex flex-col">
+              <a id="home" href="/">
+                Home
+              </a>
+              <a id="about" href="/about">
+                About
+              </a>
+              <a id="contact" href="/contact">
+                Contact
+              </a>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <h2>Any content 2</h2>
+          </TabPanel>
+        </Tabs>
       </Menu>
 
       {/* Navbar */}
