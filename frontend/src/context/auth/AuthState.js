@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useEffect, useContext } from "react";
 import { logoutUser } from "../../api/auth.api";
 import { getUserMe } from "../../api/user.api";
 import AuthReducer from "./AuthReducer";
+import serialize from "serialize-javascript";
 
 const initialState = {
   userInfo: {
@@ -26,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
   // save to localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("AuthState", JSON.stringify(state));
+      localStorage.setItem("AuthState", serialize(state, { isJSON: true }));
     }
   }, [state]);
 
