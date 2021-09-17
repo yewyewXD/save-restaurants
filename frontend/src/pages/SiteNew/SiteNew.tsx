@@ -1,6 +1,7 @@
 import React, { Fragment, FC } from "react";
 
 import SideMenu from "./components/SideMenu";
+import { Link } from "react-router-dom";
 
 const SiteNew: FC = () => {
   const navItems = [
@@ -51,9 +52,9 @@ const SiteNew: FC = () => {
             {navItems.map((navItem, index) => {
               return (
                 <Fragment key={`navItem-${index}`}>
-                  <a href={navItem.link} className="py-6">
+                  <Link to={navItem.link} className="py-6">
                     {navItem.name}
-                  </a>
+                  </Link>
                   {((navItems.length <= 2 && index === navItems.length - 1) ||
                     (navItems.length > 2 && index === 1)) && (
                     <div
