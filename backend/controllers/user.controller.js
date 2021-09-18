@@ -1,12 +1,12 @@
 const UserModel = require("../models/user.model");
 
 // @desc Get own user information
-// @route GET /api/auth/user
+// @route GET /api/user
 // @access private
 exports.getUser = async (req, res, next) => {
   try {
     // Validation
-    const existingUser = await UserModel.findOne({ _id: req.session.userId });
+    const existingUser = await UserModel.findOne({ _id: req.userId });
     if (!existingUser) {
       return res.status(400).json({
         success: false,
