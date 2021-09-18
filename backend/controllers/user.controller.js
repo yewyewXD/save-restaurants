@@ -6,7 +6,7 @@ const UserModel = require("../models/user.model");
 exports.getUser = async (req, res, next) => {
   try {
     // Validation
-    const existingUser = await UserModel.findOne({ _id: req.userId });
+    const existingUser = await UserModel.findOne({ _id: req.session.userId });
     if (!existingUser) {
       return res.status(400).json({
         success: false,
