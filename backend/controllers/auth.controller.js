@@ -141,7 +141,12 @@ exports.googleLoginUser = async (req, res, next) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
-    const { email_verified, name, sub, email } = googleRes.payload;
+    const {
+      email_verified,
+      name: googleUsername,
+      sub,
+      email,
+    } = googleRes.payload;
 
     if (!email_verified) {
       return res.status(400).json({
@@ -153,7 +158,6 @@ exports.googleLoginUser = async (req, res, next) => {
     const existingUser = await UserModel.findOne({ googleId: sub });
     if (!existingUser) {
       const userInfo = {
-        username: name,
         email,
         googleId: sub,
         password: "notARealPassword",
