@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const fetch = require("isomorphic-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { ONE_DAY_IN_SEC } = require("../utils/day.utils");
+const { HALF_DAY_IN_SEC } = require("../utils/day.utils");
 
 // @desc Register user
 // @route POST /api/auth/register
@@ -20,11 +20,12 @@ exports.registerUser = async (req, res, next) => {
         message: "One or more field is missing",
       });
     }
-    const emailExist = await UserModel.findOne({ email });
-    if (emailExist) {
+    const userExist = await UserModel.find({ $or: [{ email }, { username }] });
+    console.log({ userExist });
+    if (userExist.length) {
       return res.status(400).json({
         success: false,
-        message: "This email has been used",
+        message: "Email or username is already taken",
       });
     }
     if (password.length < 5) {
@@ -46,14 +47,14 @@ exports.registerUser = async (req, res, next) => {
     const jwtToken = jwt.sign(
       { email: addedUser.email, id: addedUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: "12h" }
     );
 
     return res
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: ONE_DAY_IN_SEC,
+        maxAge: HALF_DAY_IN_SEC,
         sameSite: "Lax",
       })
       .json({
@@ -109,14 +110,14 @@ exports.loginUser = async (req, res, next) => {
     const jwtToken = jwt.sign(
       { email: existingUser.email, id: existingUser.id },
       process.env.JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: "12h" }
     );
 
     return res
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: ONE_DAY_IN_SEC,
+        maxAge: HALF_DAY_IN_SEC,
         sameSite: "Lax",
       })
       .json({
@@ -162,14 +163,14 @@ exports.googleLoginUser = async (req, res, next) => {
       const jwtToken = jwt.sign(
         { email: addedUser.email, id: addedUser._id },
         process.env.JWT_SECRET,
-        { expiresIn: "24h" }
+        { expiresIn: "12h" }
       );
 
       return res
         .status(200)
         .cookie("authToken", jwtToken, {
           httpOnly: true,
-          maxAge: ONE_DAY_IN_SEC,
+          maxAge: HALF_DAY_IN_SEC,
           sameSite: "Lax",
         })
         .json({
@@ -180,14 +181,14 @@ exports.googleLoginUser = async (req, res, next) => {
       const jwtToken = jwt.sign(
         { email: existingUser.email, id: existingUser._id },
         process.env.JWT_SECRET,
-        { expiresIn: "24h" }
+        { expiresIn: "12h" }
       );
 
       return res
         .status(200)
         .cookie("authToken", jwtToken, {
           httpOnly: true,
-          maxAge: ONE_DAY_IN_SEC,
+          maxAge: HALF_DAY_IN_SEC,
           sameSite: "Lax",
         })
         .json({
