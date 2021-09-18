@@ -59,7 +59,6 @@ exports.registerUser = async (req, res, next) => {
       })
       .json({
         username: addedUser.username,
-        email: addedUser.email,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -122,7 +121,6 @@ exports.loginUser = async (req, res, next) => {
       })
       .json({
         username: existingUser.username,
-        email: existingUser.email,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -157,6 +155,7 @@ exports.googleLoginUser = async (req, res, next) => {
 
     const existingUser = await UserModel.findOne({ googleId: sub });
     if (!existingUser) {
+      // create user
       const userInfo = {
         email,
         googleId: sub,
@@ -178,10 +177,10 @@ exports.googleLoginUser = async (req, res, next) => {
           sameSite: "Lax",
         })
         .json({
-          username: addedUser.username,
-          email: addedUser.email,
+          username: googleUsername,
         });
     } else {
+      // login user
       const jwtToken = jwt.sign(
         { username: googleUsername, userId: existingUser._id },
         process.env.JWT_SECRET,
@@ -196,8 +195,7 @@ exports.googleLoginUser = async (req, res, next) => {
           sameSite: "Lax",
         })
         .json({
-          username: existingUser.username,
-          email: existingUser.email,
+          username: googleUsername,
         });
     }
   } catch (err) {
