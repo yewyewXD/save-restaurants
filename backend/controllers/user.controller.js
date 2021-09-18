@@ -1,9 +1,9 @@
 const UserModel = require("../models/user.model");
 
 // @desc Get own user information
-// @route GET /api/user
+// @route GET /api/user/me
 // @access private
-exports.getUser = async (req, res, next) => {
+exports.getUserMe = async (req, res, next) => {
   try {
     // Validation
     const existingUser = await UserModel.findOne({ _id: req.userId });
