@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useEffect, useContext } from "react";
 import { logoutUser } from "../../api/auth.api";
-import { getUserMe } from "../../api/user.api";
 import AuthReducer from "./AuthReducer";
 import serialize from "serialize-javascript";
 
@@ -30,35 +29,6 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.setItem("AuthState", serialize(state, { isJSON: true }));
     }
   }, [state]);
-
-  useEffect(() => {
-    // on close browser remove local auth
-    function removeLocalAuth() {
-      localStorage.removeItem("AuthState");
-    }
-    if (typeof window !== "undefined") {
-      window.addEventListener("unload", removeLocalAuth);
-    }
-
-    // auto login on load
-    async function handleAutoLogin() {
-      try {
-        const res = await getUserMe();
-        saveUserAuth(res.data);
-      } catch {}
-    }
-    const storedAuth = localStorage.getItem("AuthState");
-    if (!JSON.parse(storedAuth).isLoggedIn) {
-      handleAutoLogin();
-    }
-
-    // clean up remove local auth function
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("unload", removeLocalAuth);
-      }
-    };
-  }, []);
 
   // actions
   function saveUserAuth(userData) {
