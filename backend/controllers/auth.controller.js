@@ -45,7 +45,7 @@ exports.registerUser = async (req, res, next) => {
     const addedUser = await UserModel.create(userInfo);
 
     const jwtToken = jwt.sign(
-      { email: addedUser.email, id: addedUser._id },
+      { username: addedUser.username, userId: addedUser._id },
       process.env.JWT_SECRET,
       { expiresIn: "12h" }
     );
@@ -108,7 +108,7 @@ exports.loginUser = async (req, res, next) => {
     }
 
     const jwtToken = jwt.sign(
-      { email: existingUser.email, id: existingUser.id },
+      { username: existingUser.username, userId: existingUser._id },
       process.env.JWT_SECRET,
       { expiresIn: "12h" }
     );
@@ -165,7 +165,7 @@ exports.googleLoginUser = async (req, res, next) => {
       const addedUser = await UserModel.create(userInfo);
 
       const jwtToken = jwt.sign(
-        { email: addedUser.email, id: addedUser._id },
+        { username: googleUsername, userId: addedUser._id },
         process.env.JWT_SECRET,
         { expiresIn: "12h" }
       );
@@ -183,7 +183,7 @@ exports.googleLoginUser = async (req, res, next) => {
         });
     } else {
       const jwtToken = jwt.sign(
-        { email: existingUser.email, id: existingUser._id },
+        { username: googleUsername, userId: existingUser._id },
         process.env.JWT_SECRET,
         { expiresIn: "12h" }
       );

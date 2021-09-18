@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
       return res.status(401).json({ error: "Token verification failed" });
     }
 
-    req.session.userId = verifiedToken.id;
+    req.session.userId = verifiedToken.userId;
 
     next();
   } catch (err) {
