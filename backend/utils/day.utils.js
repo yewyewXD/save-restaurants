@@ -7,6 +7,6 @@ exports.getFull6HFromNow = () => {
   currentDate.setHours(currentDate.getHours() + 6);
   return {
     ms: currentDate.getTime(),
-    utc: currentDate.toUTCString(),
+    gmt: currentDate,
   };
 };
