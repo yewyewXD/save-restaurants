@@ -69,7 +69,8 @@ exports.registerUser = async (req, res, next) => {
       .cookie("authToken", jwtToken, {
         httpOnly: true,
         expires: sixHoursFromNow.gmt,
-        sameSite: "Lax",
+        sameSite: "Strict",
+        domain: process.env.FRONTEND_BASE_URL,
       })
       .json({
         user: {
@@ -139,7 +140,8 @@ exports.loginUser = async (req, res, next) => {
       .cookie("authToken", jwtToken, {
         httpOnly: true,
         expires: sixHoursFromNow.gmt,
-        sameSite: "Lax",
+        sameSite: "Strict",
+        domain: process.env.FRONTEND_BASE_URL,
       })
       .json({
         user: {
@@ -217,7 +219,8 @@ exports.googleLoginUser = async (req, res, next) => {
       .cookie("authToken", jwtToken, {
         httpOnly: true,
         expires: sixHoursFromNow.gmt,
-        sameSite: "Lax",
+        sameSite: "Strict",
+        domain: process.env.FRONTEND_BASE_URL,
       })
       .json({
         user: {
