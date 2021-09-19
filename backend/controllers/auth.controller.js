@@ -72,7 +72,9 @@ exports.registerUser = async (req, res, next) => {
         sameSite: "Lax",
       })
       .json({
-        username: addedUser.username,
+        user: {
+          username: addedUser.username,
+        },
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
@@ -140,7 +142,9 @@ exports.loginUser = async (req, res, next) => {
         sameSite: "Lax",
       })
       .json({
-        username: existingUser.username,
+        user: {
+          username: existingUser.username,
+        },
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
@@ -216,7 +220,9 @@ exports.googleLoginUser = async (req, res, next) => {
         sameSite: "Lax",
       })
       .json({
-        username: googleUsername,
+        user: {
+          username: googleUsername,
+        },
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
