@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const fetch = require("isomorphic-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { SIX_HOURS_IN_SEC } = require("../utils/day.utils");
+const { getFull6HFromNow } = require("../utils/day.utils");
 const fs = require("fs");
 
 // Get private EC key to sign JWT
@@ -53,11 +53,12 @@ exports.registerUser = async (req, res, next) => {
     };
     const addedUser = await UserModel.create(userInfo);
 
+    const sixHoursFromNow = getFull6HFromNow();
     const jwtToken = jwt.sign(
       { username: addedUser.username, userId: addedUser._id },
       privateECDSA,
       {
-        expiresIn: "6h",
+        expiresIn: sixHoursFromNow.ms,
         algorithm: "ES256",
         issuer: process.env.BACKEND_BASE_URL,
       }
@@ -67,11 +68,12 @@ exports.registerUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: SIX_HOURS_IN_SEC,
+        expires: sixHoursFromNow.utc,
         sameSite: "Lax",
       })
       .json({
         username: addedUser.username,
+        expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -119,11 +121,12 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
+    const sixHoursFromNow = getFull6HFromNow();
     const jwtToken = jwt.sign(
       { username: existingUser.username, userId: existingUser._id },
       privateECDSA,
       {
-        expiresIn: "6h",
+        expiresIn: sixHoursFromNow.ms,
         algorithm: "ES256",
         issuer: process.env.BACKEND_BASE_URL,
       }
@@ -133,11 +136,12 @@ exports.loginUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: SIX_HOURS_IN_SEC,
+        expires: sixHoursFromNow.utc,
         sameSite: "Lax",
       })
       .json({
         username: existingUser.username,
+        expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -172,6 +176,7 @@ exports.googleLoginUser = async (req, res, next) => {
 
     const existingUser = await UserModel.findOne({ googleId: sub });
     let jwtToken = "";
+    const sixHoursFromNow = getFull6HFromNow();
     if (!existingUser) {
       // create user
       const userInfo = {
@@ -185,7 +190,7 @@ exports.googleLoginUser = async (req, res, next) => {
         { username: googleUsername, userId: addedUser._id },
         privateECDSA,
         {
-          expiresIn: "6h",
+          expiresIn: sixHoursFromNow.ms,
           algorithm: "ES256",
           issuer: process.env.BACKEND_BASE_URL,
         }
@@ -196,7 +201,7 @@ exports.googleLoginUser = async (req, res, next) => {
         { username: googleUsername, userId: existingUser._id },
         privateECDSA,
         {
-          expiresIn: "6h",
+          expiresIn: sixHoursFromNow.ms,
           algorithm: "ES256",
           issuer: process.env.BACKEND_BASE_URL,
         }
@@ -207,11 +212,12 @@ exports.googleLoginUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: SIX_HOURS_IN_SEC,
+        expires: sixHoursFromNow.utc,
         sameSite: "Lax",
       })
       .json({
         username: googleUsername,
+        expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
     return res.status(500).json({ message: err.message });
