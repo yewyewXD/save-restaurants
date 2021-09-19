@@ -5,6 +5,7 @@ const fetch = require("isomorphic-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { HALF_DAY_IN_SEC } = require("../utils/day.utils");
+const fs = require("fs");
 
 // @desc Register user
 // @route POST /api/auth/register
@@ -181,6 +182,15 @@ exports.googleLoginUser = async (req, res, next) => {
         });
     } else {
       // login user
+      let privateECDSA = "";
+      if (process.env.NODE_ENV === "production") {
+        privateECDSA = Buffer.from(
+          process.env.PRIVATE_ECDSA,
+          "base64"
+        ).toString();
+      } else {
+        privateECDSA = fs.readFileSync("keys/private-key.pem", "utf-8");
+      }
       const jwtToken = jwt.sign(
         { username: googleUsername, userId: existingUser._id },
         process.env.JWT_SECRET,
