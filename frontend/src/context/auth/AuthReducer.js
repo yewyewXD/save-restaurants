@@ -2,17 +2,18 @@ const AuthReducer = (state, { type, payload }) => {
   switch (type) {
     case "SAVE_USER_AUTH":
       return {
-        userInfo: payload.userData,
+        userInfo: payload.user,
         isLoggedIn: true,
+        expiry: payload.expiry,
       };
 
     case "CLEAR_USER_AUTH":
       return {
         userInfo: {
           username: "",
-          email: "",
         },
         isLoggedIn: false,
+        expiry: 0,
       };
 
     default:
