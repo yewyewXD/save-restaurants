@@ -155,6 +155,7 @@ exports.googleLoginUser = async (req, res, next) => {
     }
 
     const existingUser = await UserModel.findOne({ googleId: sub });
+    let jwtToken = "";
     if (!existingUser) {
       // create user
       const userInfo = {
@@ -164,22 +165,11 @@ exports.googleLoginUser = async (req, res, next) => {
       };
       const addedUser = await UserModel.create(userInfo);
 
-      const jwtToken = jwt.sign(
+      jwtToken = jwt.sign(
         { username: googleUsername, userId: addedUser._id },
         process.env.JWT_SECRET,
         { expiresIn: "12h" }
       );
-
-      return res
-        .status(200)
-        .cookie("authToken", jwtToken, {
-          httpOnly: true,
-          maxAge: HALF_DAY_IN_SEC,
-          sameSite: "Lax",
-        })
-        .json({
-          username: googleUsername,
-        });
     } else {
       // login user
       let privateECDSA = "";
@@ -191,23 +181,28 @@ exports.googleLoginUser = async (req, res, next) => {
       } else {
         privateECDSA = fs.readFileSync("keys/private-key.pem", "utf-8");
       }
-      const jwtToken = jwt.sign(
-        { username: googleUsername, userId: existingUser._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "12h" }
-      );
 
-      return res
-        .status(200)
-        .cookie("authToken", jwtToken, {
-          httpOnly: true,
-          maxAge: HALF_DAY_IN_SEC,
-          sameSite: "Lax",
-        })
-        .json({
-          username: googleUsername,
-        });
+      jwtToken = jwt.sign(
+        { username: googleUsername, userId: existingUser._id },
+        privateECDSA,
+        {
+          expiresIn: "12h",
+          algorithm: "ES256",
+          issuer: process.env.BACKEND_BASE_URL,
+        }
+      );
     }
+
+    return res
+      .status(200)
+      .cookie("authToken", jwtToken, {
+        httpOnly: true,
+        maxAge: HALF_DAY_IN_SEC,
+        sameSite: "Lax",
+      })
+      .json({
+        username: googleUsername,
+      });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
