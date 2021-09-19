@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const fetch = require("isomorphic-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { HALF_DAY_IN_SEC } = require("../utils/day.utils");
+const { SIX_HOURS_IN_SEC } = require("../utils/day.utils");
 const fs = require("fs");
 
 // Get private EC key to sign JWT
@@ -57,7 +57,7 @@ exports.registerUser = async (req, res, next) => {
       { username: addedUser.username, userId: addedUser._id },
       privateECDSA,
       {
-        expiresIn: "12h",
+        expiresIn: "6h",
         algorithm: "ES256",
         issuer: process.env.BACKEND_BASE_URL,
       }
@@ -67,7 +67,7 @@ exports.registerUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: HALF_DAY_IN_SEC,
+        maxAge: SIX_HOURS_IN_SEC,
         sameSite: "Lax",
       })
       .json({
@@ -123,7 +123,7 @@ exports.loginUser = async (req, res, next) => {
       { username: existingUser.username, userId: existingUser._id },
       privateECDSA,
       {
-        expiresIn: "12h",
+        expiresIn: "6h",
         algorithm: "ES256",
         issuer: process.env.BACKEND_BASE_URL,
       }
@@ -133,7 +133,7 @@ exports.loginUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: HALF_DAY_IN_SEC,
+        maxAge: SIX_HOURS_IN_SEC,
         sameSite: "Lax",
       })
       .json({
@@ -185,7 +185,7 @@ exports.googleLoginUser = async (req, res, next) => {
         { username: googleUsername, userId: addedUser._id },
         privateECDSA,
         {
-          expiresIn: "12h",
+          expiresIn: "6h",
           algorithm: "ES256",
           issuer: process.env.BACKEND_BASE_URL,
         }
@@ -196,7 +196,7 @@ exports.googleLoginUser = async (req, res, next) => {
         { username: googleUsername, userId: existingUser._id },
         privateECDSA,
         {
-          expiresIn: "12h",
+          expiresIn: "6h",
           algorithm: "ES256",
           issuer: process.env.BACKEND_BASE_URL,
         }
@@ -207,7 +207,7 @@ exports.googleLoginUser = async (req, res, next) => {
       .status(200)
       .cookie("authToken", jwtToken, {
         httpOnly: true,
-        maxAge: HALF_DAY_IN_SEC,
+        maxAge: SIX_HOURS_IN_SEC,
         sameSite: "Lax",
       })
       .json({
