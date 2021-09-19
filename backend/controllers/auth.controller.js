@@ -7,6 +7,14 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { HALF_DAY_IN_SEC } = require("../utils/day.utils");
 const fs = require("fs");
 
+// Get private EC key to sign JWT
+let privateECDSA = "";
+if (process.env.NODE_ENV === "production") {
+  privateECDSA = Buffer.from(process.env.PRIVATE_ECDSA, "base64").toString();
+} else {
+  privateECDSA = fs.readFileSync("keys/private-key.pem", "utf-8");
+}
+
 // @desc Register user
 // @route POST /api/auth/register
 // @access public
@@ -47,8 +55,12 @@ exports.registerUser = async (req, res, next) => {
 
     const jwtToken = jwt.sign(
       { username: addedUser.username, userId: addedUser._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "12h" }
+      privateECDSA,
+      {
+        expiresIn: "12h",
+        algorithm: "ES256",
+        issuer: process.env.BACKEND_BASE_URL,
+      }
     );
 
     return res
@@ -109,8 +121,12 @@ exports.loginUser = async (req, res, next) => {
 
     const jwtToken = jwt.sign(
       { username: existingUser.username, userId: existingUser._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "12h" }
+      privateECDSA,
+      {
+        expiresIn: "12h",
+        algorithm: "ES256",
+        issuer: process.env.BACKEND_BASE_URL,
+      }
     );
 
     return res
@@ -167,21 +183,15 @@ exports.googleLoginUser = async (req, res, next) => {
 
       jwtToken = jwt.sign(
         { username: googleUsername, userId: addedUser._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "12h" }
+        privateECDSA,
+        {
+          expiresIn: "12h",
+          algorithm: "ES256",
+          issuer: process.env.BACKEND_BASE_URL,
+        }
       );
     } else {
       // login user
-      let privateECDSA = "";
-      if (process.env.NODE_ENV === "production") {
-        privateECDSA = Buffer.from(
-          process.env.PRIVATE_ECDSA,
-          "base64"
-        ).toString();
-      } else {
-        privateECDSA = fs.readFileSync("keys/private-key.pem", "utf-8");
-      }
-
       jwtToken = jwt.sign(
         { username: googleUsername, userId: existingUser._id },
         privateECDSA,
