@@ -6,9 +6,9 @@ import serialize from "serialize-javascript";
 const initialState = {
   userInfo: {
     username: "",
-    email: "",
   },
   isLoggedIn: false,
+  expiry: 0,
 };
 
 export const AuthContext = createContext(initialState);
@@ -31,10 +31,10 @@ export const AuthContextProvider = ({ children }) => {
   }, [state]);
 
   // actions
-  function saveUserAuth(userData) {
+  function saveUserAuth(response) {
     dispatch({
       type: "SAVE_USER_AUTH",
-      payload: { userData },
+      payload: response,
     });
   }
 
