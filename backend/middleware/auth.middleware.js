@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
 
     const verifiedToken = jwt.verify(token, publicECDSA, {
       algorithms: ["ES256"],
-      issuer: BACKEND_BASE_URL,
+      issuer: process.env.BACKEND_BASE_URL,
     });
     if (!verifiedToken) {
       return res.status(401).json({ error: "Token verification failed" });
