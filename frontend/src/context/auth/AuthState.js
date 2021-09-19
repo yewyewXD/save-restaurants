@@ -16,8 +16,19 @@ export const AuthContext = createContext(initialState);
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState, () => {
     if (typeof window !== "undefined") {
-      const storedAuth = localStorage.getItem("AuthState");
-      return storedAuth ? JSON.parse(storedAuth) : initialState;
+      const storedAuthState = localStorage.getItem("AuthState");
+
+      if (!storedAuthState) {
+        return initialState;
+      }
+
+      const parsedAuthState = JSON.parse(storedAuthState);
+      if (new Date().getTime() > parsedAuthState.expiry) {
+        localStorage.removeItem("AuthState");
+        return initialState;
+      } else {
+        return parsedAuthState;
+      }
     } else {
       return initialState;
     }
