@@ -10,7 +10,13 @@ dotenv.config();
 connectDB();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_BASE_URL,
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "PUT"],
+  })
+);
 app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
