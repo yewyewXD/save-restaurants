@@ -14,10 +14,10 @@ interface authContextState {
     username: string;
   };
   isLoggedIn: boolean;
-  expiry?: number;
+  expiry: number;
 
-  saveUserAuth?: Function;
-  clearUserAuth?: Function;
+  saveUserAuth: Function;
+  clearUserAuth: Function;
 }
 
 interface authResponse {
@@ -33,6 +33,9 @@ const initialState: authContextState = {
   },
   isLoggedIn: false,
   expiry: 0,
+
+  saveUserAuth: () => {},
+  clearUserAuth: () => {},
 };
 
 export const AuthContext = createContext<authContextState>(initialState);
@@ -87,6 +90,7 @@ export const AuthContextProvider: FC = ({ children }) => {
       value={{
         userInfo: state.userInfo,
         isLoggedIn: state.isLoggedIn,
+        expiry: state.expiry,
         saveUserAuth,
         clearUserAuth,
       }}

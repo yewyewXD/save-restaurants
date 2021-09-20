@@ -8,10 +8,12 @@ import React, {
 import NotificationBar from "../../globalUI/Notification/NotificationBar";
 
 interface notificationContextState {
-  showNotification?: Function;
+  showNotification: Function;
 }
 
-export const NotificationContext = createContext<notificationContextState>({});
+export const NotificationContext = createContext<notificationContextState>({
+  showNotification: () => {},
+});
 
 export const NotificationProvider: FC = ({ children }) => {
   const [isShowingNotification, setIsShowingNotification] = useState(false);

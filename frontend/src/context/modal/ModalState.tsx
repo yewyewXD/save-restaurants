@@ -9,11 +9,14 @@ import ModalComponent from "../../globalUI/Modal/ModalComponent";
 import { debounce } from "../../utils/modal.utils";
 
 interface modalContextState {
-  handleShowModal?: Function;
-  handleHideModal?: Function;
+  handleShowModal: Function;
+  handleHideModal: Function;
 }
 
-export const ModalContext = createContext<modalContextState>({});
+export const ModalContext = createContext<modalContextState>({
+  handleShowModal: () => {},
+  handleHideModal: () => {},
+});
 
 export const ModalProvider: FC = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
