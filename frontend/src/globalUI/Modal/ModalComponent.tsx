@@ -5,14 +5,10 @@ const { useLocation } = require("react-router-dom");
 interface Props {
   isShowing: boolean;
   content: any;
-  close: () => {};
+  close: Function;
 }
 
-const ModalComponent: FC<Props> = ({
-  isShowing,
-  content,
-  close = () => {},
-}) => {
+const ModalComponent: FC<Props> = ({ isShowing, content, close }) => {
   const location = useLocation();
   const locationRef = useRef(location.pathname);
 

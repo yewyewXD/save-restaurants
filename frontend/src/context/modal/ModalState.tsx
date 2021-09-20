@@ -1,10 +1,21 @@
-import React, { createContext, useState, useCallback, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  FC,
+} from "react";
 import ModalComponent from "../../globalUI/Modal/ModalComponent";
 import { debounce } from "../../utils/modal.utils";
 
-export const ModalContext = createContext({});
+interface modalContextState {
+  handleShowModal?: Function;
+  handleHideModal?: Function;
+}
 
-export function ModalProvider({ children }) {
+export const ModalContext = createContext<modalContextState>({});
+
+export const ModalProvider: FC = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState(null);
   const handleShowModal = useCallback((_content) => {
@@ -19,13 +30,13 @@ export function ModalProvider({ children }) {
     <ModalContext.Provider value={{ handleShowModal, handleHideModal }}>
       <ModalComponent
         content={content}
-        close={handleHideModal ? handleHideModal : () => {}}
+        close={handleHideModal}
         isShowing={showModal}
       />
       {children}
     </ModalContext.Provider>
   );
-}
+};
 
 /**
  * Helper that shows a modal.
