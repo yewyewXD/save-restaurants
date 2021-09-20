@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState, useEffect, useRef } from "react";
+import React, { FC, ChangeEvent, useState, useRef } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
@@ -29,7 +29,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const [validationCount, setValidationCount] = useState(0);
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -104,6 +103,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       return false;
     }
 
+    if (!reCaptchaToken) {
+      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
+      return false;
+    }
+
     if (errMsg) {
       setErrMsg("");
     }
@@ -132,13 +136,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       setIsSubmitting(false);
     }
   }
-
-  useEffect(() => {
-    if (validationCount && reCaptchaToken) {
-      handleLoginOrRegisterUser();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validationCount, reCaptchaToken]);
 
   return (
     <div className="p-3" data-testid="register-modal">
@@ -221,9 +218,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         <button
           data-testid="submit-user-register"
           disabled={isSubmitting}
-          onClick={() => {
-            setValidationCount((prevCount) => prevCount + 1);
-          }}
+          onClick={handleLoginOrRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
