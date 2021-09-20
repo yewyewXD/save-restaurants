@@ -1,9 +1,33 @@
-import React, { createContext, useReducer, useEffect, useContext } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useEffect,
+  useContext,
+  FC,
+} from "react";
 import { logoutUser } from "../../api/auth.api";
 import AuthReducer from "./AuthReducer";
 import serialize from "serialize-javascript";
 
-const initialState = {
+interface authContextState {
+  userInfo: {
+    username: string;
+  };
+  isLoggedIn: boolean;
+  expiry?: number;
+
+  saveUserAuth?: Function;
+  clearUserAuth?: Function;
+}
+
+interface authResponse {
+  user: {
+    username: string;
+  };
+  expiry: number;
+}
+
+const initialState: authContextState = {
   userInfo: {
     username: "",
   },
@@ -11,9 +35,9 @@ const initialState = {
   expiry: 0,
 };
 
-export const AuthContext = createContext(initialState);
+export const AuthContext = createContext<authContextState>(initialState);
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState, () => {
     if (typeof window !== "undefined") {
       const storedAuthState = localStorage.getItem("AuthState");
@@ -42,7 +66,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [state]);
 
   // actions
-  function saveUserAuth(response) {
+  function saveUserAuth(response: authResponse) {
     dispatch({
       type: "SAVE_USER_AUTH",
       payload: response,

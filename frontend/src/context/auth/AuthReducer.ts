@@ -1,10 +1,20 @@
-const AuthReducer = (state, { type, payload }) => {
+interface action {
+  type: "SAVE_USER_AUTH" | "CLEAR_USER_AUTH";
+  payload: {
+    user: {
+      username: string;
+    };
+    expiry: number;
+  } | null;
+}
+
+const AuthReducer = (state: any, { type, payload }: action) => {
   switch (type) {
     case "SAVE_USER_AUTH":
       return {
-        userInfo: payload.user,
+        userInfo: payload?.user,
         isLoggedIn: true,
-        expiry: payload.expiry,
+        expiry: payload?.expiry,
       };
 
     case "CLEAR_USER_AUTH":
