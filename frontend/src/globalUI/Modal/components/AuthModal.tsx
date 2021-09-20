@@ -116,6 +116,11 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   }
 
   async function handleGoogleLogin(response: googleResponse) {
+    if (!reCaptchaToken) {
+      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const res = await googleLoginUser({
@@ -123,7 +128,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       });
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);
-
       handleHideModal();
       setIsSubmitting(false);
     } catch (err: any) {
@@ -228,6 +232,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
       <div className="mt-6">
         <GoogleLogin
+          disabled={isSubmitting}
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Sign in with Google"
           onSuccess={handleGoogleLogin}
