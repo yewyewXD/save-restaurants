@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ redirect: "/login", next: req.get("Referrer") });
+        .json({ success: false, toLogin: true, referrer: req.get("Referrer") });
     }
 
     let publicECDSA = "";
@@ -25,7 +25,7 @@ const auth = async (req, res, next) => {
     if (!verifiedToken) {
       return res
         .status(401)
-        .json({ redirect: "/login", next: req.get("Referrer") });
+        .json({ success: false, toLogin: true, referrer: req.get("Referrer") });
     }
 
     req.userId = verifiedToken.userId;
