@@ -125,6 +125,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     try {
       const res = await googleLoginUser({
         tokenId: response.tokenId,
+        reCaptchaToken,
       });
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);

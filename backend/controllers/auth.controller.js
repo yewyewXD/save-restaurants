@@ -23,6 +23,7 @@ exports.registerUser = async (req, res, next) => {
   try {
     const { username, email, password, reCaptchaToken } = req.body;
 
+    // Validation
     if (!validateReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
@@ -30,7 +31,6 @@ exports.registerUser = async (req, res, next) => {
       });
     }
 
-    // Validation
     if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
@@ -98,6 +98,7 @@ exports.loginUser = async (req, res, next) => {
   try {
     const { email, password, reCaptchaToken } = req.body;
 
+    // Validation
     if (!validateReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
@@ -105,7 +106,6 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
-    // Validation
     const existingUser = await UserModel.findOne({ email });
     if (!existingUser) {
       return res.status(400).json({
