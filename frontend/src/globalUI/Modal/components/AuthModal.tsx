@@ -8,7 +8,10 @@ import {
   registerUser,
 } from "../../../api/auth.api";
 import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
 
 interface Props {
   isLogin: boolean;
@@ -106,7 +109,24 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     return true;
   }
 
-  async function handleGoogleLogin(response: any) {
+  const isGoogleLoginResponse = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ): response is GoogleLoginResponse => {
+    return (
+      !!response &&
+      typeof response === "object" &&
+      !!(response as GoogleLoginResponse).tokenObj
+    );
+  };
+
+  async function handleGoogleLogin(
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) {
+    if (!isGoogleLoginResponse(response)) {
+      setErrMsg(`Login failed, please check your network connection`);
+      return;
+    }
+
     if (!reCaptchaToken) {
       setErrMsg(`Please tick the "I'm not a robot" checkbox`);
       return;
