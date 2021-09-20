@@ -26,7 +26,7 @@ exports.registerUser = async (req, res, next) => {
     if (!validateReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
-        message: "Bot detected by Google",
+        message: "Login interrupted, please refresh the page",
       });
     }
 
@@ -101,7 +101,7 @@ exports.loginUser = async (req, res, next) => {
     if (!validateReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
-        message: "Bot detected by Google",
+        message: "Login interrupted, please refresh the page",
       });
     }
 
@@ -169,7 +169,7 @@ exports.googleLoginUser = async (req, res, next) => {
     if (!validateReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
-        message: "Bot detected by Google",
+        message: "Login interrupted, please refresh the page",
       });
     }
 
