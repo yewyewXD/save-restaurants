@@ -1,11 +1,21 @@
-import React, { createContext, useState, useCallback, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  FC,
+} from "react";
 import NotificationBar from "../../globalUI/Notification/NotificationBar";
 
-export const NotificationContext = createContext({});
+interface notificationContextState {
+  showNotification?: Function;
+}
 
-export function NotificationProvider({ children }) {
+export const NotificationContext = createContext<notificationContextState>({});
+
+export const NotificationProvider: FC = ({ children }) => {
   const [isShowingNotification, setIsShowingNotification] = useState(false);
-  const [notificationStatus, setNotificationStatus] = useState(null);
+  const [notificationStatus, setNotificationStatus] = useState("");
   const showNotification = useCallback(
     (status) => {
       setNotificationStatus(status);
@@ -28,7 +38,7 @@ export function NotificationProvider({ children }) {
       {children}
     </NotificationContext.Provider>
   );
-}
+};
 
 export function useNotification() {
   const { showNotification } = useContext(NotificationContext);
