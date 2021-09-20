@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,MutableRefObject} from "react";
 
-export default function VisibilitySensor(ref) {
+export default function VisibilitySensor(ref:MutableRefObject<any>) {
   const [isIntersecting, setIntersecting] = useState(false);
 
   const observer = new IntersectionObserver(([entry]) =>
@@ -18,6 +18,6 @@ export default function VisibilitySensor(ref) {
   return isIntersecting;
 }
 
-export function useOnVisible(ref) {
+export function useOnVisible(ref:MutableRefObject<any>) {
   return VisibilitySensor(ref);
 }
