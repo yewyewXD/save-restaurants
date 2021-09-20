@@ -3,7 +3,7 @@ import { useOnVisible } from "../../../utils/visibility.utils";
 import CountUp from "react-countup";
 
 const CountUpSection = () => {
-  const sectionRef = useRef<any>();
+  const sectionRef = useRef<HTMLDivElement>(null);
   const isVisible = useOnVisible(sectionRef);
   const progressions = useMemo(() => {
     return [

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 interface Props {
   currentTab: string;
-  setCurrentTab: React.SetStateAction<any>;
+  setCurrentTab: Function;
 }
 
 const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
