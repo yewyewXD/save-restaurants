@@ -1,11 +1,12 @@
 const UserModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fetch = require("isomorphic-fetch");
+const fs = require("fs");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+const { validateReCAPTCHA } = require("../utils/validation.utils");
 const { getFull6HFromNow } = require("../utils/day.utils");
-const fs = require("fs");
 
 // Get private EC key to sign JWT
 let privateECDSA = "";
@@ -20,7 +21,14 @@ if (process.env.NODE_ENV === "production") {
 // @access public
 exports.registerUser = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, reCaptchaToken } = req.body;
+
+    if (!validateReCAPTCHA(reCaptchaToken)) {
+      return res.status(403).json({
+        success: false,
+        message: "Bot detected by Google",
+      });
+    }
 
     // Validation
     if (!username || !email || !password) {
@@ -89,12 +97,9 @@ exports.registerUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
   try {
     const { email, password, reCaptchaToken } = req.body;
-    const reCaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET}&response=${reCaptchaToken}`;
 
-    const reCaptchaRes = await fetch(reCaptchaUrl, { method: "post" });
-    const reCaptchaResJSON = await reCaptchaRes.json();
-    if (!reCaptchaResJSON?.success) {
-      return res.status(400).json({
+    if (!validateReCAPTCHA(reCaptchaToken)) {
+      return res.status(403).json({
         success: false,
         message: "Bot detected by Google",
       });
@@ -159,7 +164,14 @@ exports.loginUser = async (req, res, next) => {
 // @access public
 exports.googleLoginUser = async (req, res, next) => {
   try {
-    const { tokenId } = req.body;
+    const { tokenId, reCaptchaToken } = req.body;
+
+    if (!validateReCAPTCHA(reCaptchaToken)) {
+      return res.status(403).json({
+        success: false,
+        message: "Bot detected by Google",
+      });
+    }
 
     const googleRes = await client.verifyIdToken({
       idToken: tokenId,
