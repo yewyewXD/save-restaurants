@@ -8,18 +8,10 @@ import {
   registerUser,
 } from "../../../api/auth.api";
 import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
-const { GoogleLogin } = require("react-google-login");
+import GoogleLogin from "react-google-login";
 
 interface Props {
   isLogin: boolean;
-}
-
-interface googleResponse {
-  profileObj: {
-    email: string;
-    name: string;
-  };
-  tokenId: string;
 }
 
 const AuthModal: FC<Props> = ({ isLogin }) => {
@@ -115,7 +107,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     return true;
   }
 
-  async function handleGoogleLogin(response: googleResponse) {
+  async function handleGoogleLogin(response: any) {
     if (!reCaptchaToken) {
       setErrMsg(`Please tick the "I'm not a robot" checkbox`);
       return;
@@ -234,7 +226,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       <div className="mt-6">
         <GoogleLogin
           disabled={isSubmitting}
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}
           buttonText="Sign in with Google"
           onSuccess={handleGoogleLogin}
           onFailure={handleGoogleLogin}
