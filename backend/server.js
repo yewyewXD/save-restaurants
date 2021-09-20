@@ -4,11 +4,26 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
+const sessions = require("express-session");
+const { SIX_HOURS_IN_SEC } = require("./utils/day.utils");
 
 // middleware
 dotenv.config();
 connectDB();
 const app = express();
+app.use(
+  sessions({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: SIX_HOURS_IN_SEC,
+      httpOnly: true,
+      sameSite: "strict",
+      domain: process.env.FRONTEND_BASE_URL,
+    },
+    resave: false,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
