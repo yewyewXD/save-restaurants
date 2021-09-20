@@ -50,7 +50,13 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   return (
     <Route
       path={path}
-      render={() => (hasAuth ? <Component /> : <Redirect to="/login" />)}
+      render={() =>
+        hasAuth ? (
+          <Component />
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { referrer: path } }} />
+        )
+      }
       exact={exact}
     />
   );
