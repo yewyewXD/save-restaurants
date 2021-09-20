@@ -37,7 +37,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     const payload = { ...authInfo, reCaptchaToken };
 
     try {
-      let res: any = {};
+      let res;
       if (isLogin) {
         res = await loginUser(payload);
       } else {
@@ -49,7 +49,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       handleHideModal();
       setIsSubmitting(false);
     } catch (err: any) {
-      console.log(err?.response?.data);
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
       } else {
@@ -124,7 +123,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       handleHideModal();
       setIsSubmitting(false);
     } catch (err: any) {
-      console.log(err?.response?.data);
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
       } else {
