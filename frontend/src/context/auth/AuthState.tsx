@@ -8,6 +8,7 @@ import React, {
 import { logoutUser } from "../../api/auth.api";
 import AuthReducer from "./AuthReducer";
 import serialize from "serialize-javascript";
+import { getStorageAuthState } from "../../utils/authState.utils";
 
 interface authContextState {
   userInfo: {
@@ -42,23 +43,7 @@ export const AuthContext = createContext<authContextState>(initialState);
 
 export const AuthContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState, () => {
-    if (typeof window !== "undefined") {
-      const storedAuthState = localStorage.getItem("AuthState");
-
-      if (!storedAuthState) {
-        return initialState;
-      }
-
-      const parsedAuthState = JSON.parse(storedAuthState);
-      if (new Date().getTime() > parsedAuthState.expiry) {
-        localStorage.removeItem("AuthState");
-        return initialState;
-      } else {
-        return parsedAuthState;
-      }
-    } else {
-      return initialState;
-    }
+    getStorageAuthState(initialState);
   });
 
   // save to localStorage
