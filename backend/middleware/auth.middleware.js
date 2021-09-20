@@ -5,10 +5,11 @@ const auth = async (req, res, next) => {
   try {
     const token = req.cookies.authToken;
     if (!token) {
-      return res.status(401).json({ error: "No authentication token" });
+      return res
+        .status(401)
+        .json({ redirect: "/login", next: req.get("Referrer") });
     }
 
-    let certECDSA = "";
     let publicECDSA = "";
 
     if (process.env.NODE_ENV === "production") {
@@ -22,7 +23,9 @@ const auth = async (req, res, next) => {
       issuer: process.env.BACKEND_BASE_URL,
     });
     if (!verifiedToken) {
-      return res.status(401).json({ error: "Token verification failed" });
+      return res
+        .status(401)
+        .json({ redirect: "/login", next: req.get("Referrer") });
     }
 
     req.userId = verifiedToken.userId;
