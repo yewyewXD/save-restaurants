@@ -4,15 +4,11 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
-const sessions = require("express-session");
-const sessionConfig = require("./config/session");
 
 // middleware
 dotenv.config();
 connectDB();
 const app = express();
-
-app.use(sessions(sessionConfig));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
@@ -21,9 +17,9 @@ app.use(
     methods: ["GET", "POST", "DELETE", "PUT"],
   })
 );
-app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
+app.use(compression());
 
 // routes
 const userRoute = require("./routes/user.route");
