@@ -10,3 +10,9 @@ exports.getFull6HFromNow = () => {
     gmt: currentDate,
   };
 };
+
+exports.get30DaysFromNow = () => {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 30);
+  return currentDate.getTime();
+};
