@@ -13,9 +13,9 @@ const verificationCodeSchema = new mongoose.Schema(
       required: true,
     },
     expiry: {
-      type: Number,
-      default: get30DaysFromNow(),
-      expires: 600,
+      type: Date,
+      default: Date.now(),
+      expires: 2592000, // expires after 30 days
     },
   },
   { timestamps: true }
