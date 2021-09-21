@@ -1,20 +1,10 @@
 const UserModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
-const { validateReCAPTCHA } = require("../utils/validation.utils");
+const { validateReCAPTCHA, privateECDSA } = require("../utils/auth.utils");
 const { getFull6HFromNow } = require("../utils/day.utils");
-
-// Get private EC key to sign JWT
-let privateECDSA = "";
-if (process.env.NODE_ENV === "production") {
-  privateECDSA = Buffer.from(process.env.PRIVATE_ECDSA, "base64").toString();
-} else {
-  privateECDSA = fs.readFileSync("keys/private-key.pem", "utf-8");
-}
 
 // @desc Register user
 // @route POST /api/auth/register
