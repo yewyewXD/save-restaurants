@@ -5,6 +5,8 @@
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@octokit/request": "^5.6.1",
+    "@sentry/react": "^6.13.2",
+    "@sentry/tracing": "^6.13.2",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-burger-menu": "^2.8.1",
