@@ -19,6 +19,7 @@ exports.getUserMe = async (req, res, next) => {
       email: existingUser.email,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log(err);
+    return res.status(500);
   }
 };

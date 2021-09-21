@@ -87,7 +87,8 @@ exports.registerUser = async (req, res, next) => {
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log(err);
+    return res.status(500);
   }
 };
 
@@ -155,7 +156,8 @@ exports.loginUser = async (req, res, next) => {
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log(err);
+    return res.status(500);
   }
 };
 
@@ -241,7 +243,8 @@ exports.googleLoginUser = async (req, res, next) => {
         expiry: sixHoursFromNow.ms,
       });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log(err);
+    return res.status(500);
   }
 };
 
@@ -254,6 +257,7 @@ exports.logoutUser = async (req, res, next) => {
       success: true,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log(err);
+    return res.status(500);
   }
 };
