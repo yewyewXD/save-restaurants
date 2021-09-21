@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { get30DaysFromNow } = require("../utils/day.utils");
 
 const verificationCodeSchema = new mongoose.Schema(
   {
@@ -12,8 +13,8 @@ const verificationCodeSchema = new mongoose.Schema(
       required: true,
     },
     expiry: {
-      type: Date,
-      default: Date.now(),
+      type: Number,
+      default: get30DaysFromNow(),
       expires: 600,
     },
   },
