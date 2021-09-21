@@ -31,7 +31,6 @@ exports.registerUser = async (req, res, next) => {
       });
     }
     const userExist = await UserModel.find({ $or: [{ email }, { username }] });
-    console.log({ userExist });
     if (userExist.length) {
       return res.status(400).json({
         success: false,
@@ -240,6 +239,45 @@ exports.logoutUser = async (req, res, next) => {
     return res.status(200).clearCookie("authToken").json({
       success: true,
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+};
+
+// @desc Verify email of user
+// @route POST /api/auth/verify/:code
+// @access public
+exports.verifyUser = async (req, res, next) => {
+  try {
+    const code = req.params.code;
+
+    if (!code) {
+      return res.status(400).json({
+        success: false,
+        message: "No verification code found",
+      });
+    }
+
+    const verification = await VerificationCodeModel.findOne({ code });
+
+    if (!verification) {
+      return res.status(400).json({
+        success: false,
+        message: "No verification code found",
+      });
+    }
+
+    const updatedUser = await UserModel.updateOne(
+      {
+        _id: verification.user,
+      },
+      { $set: { isVerified: true } }
+    );
+
+    await VerificationCodeModel.deleteOne({ code });
+
+    return res.status(200).json({ success: updatedUser.isVerified });
   } catch (err) {
     console.log(err);
     return res.status(500);
