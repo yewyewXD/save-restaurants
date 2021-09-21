@@ -16,7 +16,6 @@ export function registerUser(data: authPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/register`,
-    withCredentials: true,
     data,
   });
 }
@@ -44,5 +43,15 @@ export function logoutUser() {
     method: "post",
     url: `http://localhost:5000/api/auth/logout`,
     withCredentials: true,
+  });
+}
+
+export async function verifyUser(code: string) {
+  return axios({
+    method: "post",
+    url: `http://localhost:5000/api/auth/verify`,
+    data: {
+      code,
+    },
   });
 }
