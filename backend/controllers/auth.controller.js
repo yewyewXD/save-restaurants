@@ -7,6 +7,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { validateReCAPTCHA, privateECDSA } = require("../utils/auth.utils");
 const { getFull6HFromNow } = require("../utils/day.utils");
 const crypto = require("crypto");
+const { sendMail } = require("../utils/mail.utils");
 
 // @desc Register user
 // @route POST /api/auth/register
@@ -53,39 +54,21 @@ exports.registerUser = async (req, res, next) => {
     };
     const addedUser = await UserModel.create(userInfo);
 
-    // create email verification code
+    // create and send email verification code
     const hashCode = crypto.randomBytes(32).toString("hex");
-    const verificationCode = await VerificationCodeModel.create({
+    const verification = await VerificationCodeModel.create({
       user: addedUser._id,
       code: hashCode,
     });
+    sendMail({
+      to: addedUser.email,
+      subject: "Please verify your email",
+      html: `Hello,<br> Please Click on the link to verify your email.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login/verify/${verification.code}">Click here to verify</a>`,
+    });
 
-    const sixHoursFromNow = getFull6HFromNow();
-    const jwtToken = jwt.sign(
-      { username: addedUser.username, userId: addedUser._id },
-      privateECDSA,
-      {
-        expiresIn: sixHoursFromNow.ms,
-        algorithm: "ES256",
-        issuer: process.env.BACKEND_BASE_URL,
-      }
-    );
-
-    return res
-      .status(200)
-      .cookie("authToken", jwtToken, {
-        httpOnly: true,
-        expires: sixHoursFromNow.gmt,
-        sameSite: "Strict",
-        domain: process.env.FRONTEND_BASE_URL,
-      })
-      .json({
-        user: {
-          username: addedUser.username,
-        },
-        expiry: sixHoursFromNow.ms,
-        verificationSent: verificationCode.code === hashCode,
-      });
+    return res.status(200).json({
+      success: hashCode === verification.code,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500);
