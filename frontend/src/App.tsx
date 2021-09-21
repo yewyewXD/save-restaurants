@@ -9,6 +9,7 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
 const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle"));
+const Login = lazy(() => import("./pages/Login/Login"));
 
 function HandleRedirect(path: string) {
   return <Redirect to={path} />;
@@ -34,6 +35,7 @@ function App() {
                 component={SiteSingle}
                 exact
               />
+              <Route path="/login" component={Login} exact />
             </Suspense>
           </Switch>
         </ModalProvider>
