@@ -9,6 +9,7 @@ const verificationCodeSchema = new mongoose.Schema({
   code: {
     type: String,
     required: true,
+    unique: true,
   },
   expiry: { type: Date, index: { unique: true, expires: "30d" } },
 });
