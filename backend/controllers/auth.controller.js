@@ -1,10 +1,12 @@
 const UserModel = require("../models/user.model");
+const VerificationCodeModel = require("../models/verificationCode.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { validateReCAPTCHA, privateECDSA } = require("../utils/auth.utils");
 const { getFull6HFromNow } = require("../utils/day.utils");
+const crypto = require("crypto");
 
 // @desc Register user
 // @route POST /api/auth/register
@@ -51,6 +53,13 @@ exports.registerUser = async (req, res, next) => {
     };
     const addedUser = await UserModel.create(userInfo);
 
+    // create email verification code
+    const hashCode = crypto.randomBytes(32).toString("hex");
+    const verificationCode = await VerificationCodeModel.create({
+      user: addedUser._id,
+      code: hashCode,
+    });
+
     const sixHoursFromNow = getFull6HFromNow();
     const jwtToken = jwt.sign(
       { username: addedUser.username, userId: addedUser._id },
@@ -75,6 +84,7 @@ exports.registerUser = async (req, res, next) => {
           username: addedUser.username,
         },
         expiry: sixHoursFromNow.ms,
+        verificationSent: verificationCode.code === hashCode,
       });
   } catch (err) {
     console.log(err);
@@ -193,6 +203,7 @@ exports.googleLoginUser = async (req, res, next) => {
         email,
         googleId: sub,
         password: "notARealPassword",
+        isVerified: true,
       };
       const addedUser = await UserModel.create(userInfo);
 
