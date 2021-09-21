@@ -13,6 +13,6 @@ router.post("/login", loginUser);
 router.post("/google-login", googleLoginUser);
 router.post("/logout", logoutUser);
 
-router.post("/verify/:code", verifyUser);
+router.post("/verify", verifyUser);
 
 module.exports = router;

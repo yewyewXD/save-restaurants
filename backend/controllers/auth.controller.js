@@ -246,11 +246,11 @@ exports.logoutUser = async (req, res, next) => {
 };
 
 // @desc Verify email of user
-// @route POST /api/auth/verify/:code
+// @route POST /api/auth/verify
 // @access public
 exports.verifyUser = async (req, res, next) => {
   try {
-    const code = req.params.code;
+    const { code } = req.body;
 
     if (!code) {
       return res.status(400).json({
