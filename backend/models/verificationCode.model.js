@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const verificationCodeSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
       required: true,
     },
     code: {
