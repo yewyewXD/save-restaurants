@@ -12,6 +12,11 @@ interface googleLoginPayload {
   reCaptchaToken: string;
 }
 
+interface verifyUserPayload {
+  code: string;
+  userId: string;
+}
+
 export function registerUser(data: authPayload) {
   return axios({
     method: "post",
@@ -46,12 +51,10 @@ export function logoutUser() {
   });
 }
 
-export async function verifyUser(code: string) {
+export async function verifyUser(data: verifyUserPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/verify`,
-    data: {
-      code,
-    },
+    data,
   });
 }
