@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, useState, useRef, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
@@ -18,11 +18,19 @@ interface Props {
   isLogin: boolean;
 }
 
+interface Location {
+  pathname: string;
+  state?: {
+    referrer: string;
+  };
+}
+
 const AuthModal: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
   const { handleHideModal } = useModal();
   const history = useHistory();
+  const location: Location = useLocation();
 
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -38,10 +46,19 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   });
 
   useEffect(() => {
-    if (isLoggedIn && window.location.pathname !== "/dashboard") {
-      history.push("/dashboard");
-      handleHideModal();
+    if (!isLoggedIn) {
+      return;
     }
+
+    const referrer = location.state?.referrer;
+
+    if (referrer && location.pathname !== referrer) {
+      history.push({ pathname: referrer, state: {} });
+    } else if (location.pathname !== "/dashboard") {
+      history.push("/dashboard");
+    }
+
+    handleHideModal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
