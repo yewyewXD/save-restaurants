@@ -27,6 +27,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authInfo, setAuthInfo] = useState({
     username: "",
@@ -40,16 +41,22 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     const payload = { ...authInfo, reCaptchaToken };
 
     try {
-      let res;
       if (isLogin) {
-        res = await loginUser(payload);
+        const loginRes = await loginUser(payload);
+        handleHideModal();
+        saveUserAuth(loginRes.data);
       } else {
-        res = await registerUser(payload);
+        await registerUser(payload);
+        setSuccessMsg(
+          `Successfully signed up. Activate your account by clicking the verification link we sent to ${authInfo.email}`
+        );
+        setAuthInfo({
+          username: "",
+          email: "",
+          password: "",
+        });
       }
-      console.log("User auth:", res.data);
-      saveUserAuth(res.data);
 
-      handleHideModal();
       setIsSubmitting(false);
     } catch (err: any) {
       if (err?.response?.data?.message) {
@@ -154,6 +161,10 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
   return (
     <div className="p-3" data-testid="register-modal">
+      {successMsg && (
+        <div className={`text-white bg-green-600 p-3 mb-6`}>{successMsg}</div>
+      )}
+
       {/* username */}
       {!isLogin && (
         <div className="mb-4">
