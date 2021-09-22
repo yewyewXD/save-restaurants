@@ -1,6 +1,7 @@
-import React, { FC, ChangeEvent, useState, useRef } from "react";
+import React, { FC, ChangeEvent, useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
+import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
 import {
   googleLoginUser,
@@ -19,7 +20,8 @@ interface Props {
 
 const AuthModal: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
-  const { saveUserAuth } = useAuth();
+  const { saveUserAuth, isLoggedIn } = useAuth();
+  const { handleHideModal } = useModal();
   const history = useHistory();
 
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
@@ -35,6 +37,14 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     password: "",
   });
 
+  useEffect(() => {
+    if (isLoggedIn && window.location.pathname !== "/dashboard") {
+      history.push("/dashboard");
+      handleHideModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
+
   async function handleLoginOrRegisterUser() {
     if (!handleValidateForm()) return;
     setIsSubmitting(true);
@@ -45,7 +55,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         // login
         const loginRes = await loginUser(payload);
         saveUserAuth(loginRes.data);
-        history.push("/dashboard");
       } else {
         // register
         await registerUser(payload);
@@ -149,7 +158,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       });
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);
-      history.push("/dashboard");
     } catch (err: any) {
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
