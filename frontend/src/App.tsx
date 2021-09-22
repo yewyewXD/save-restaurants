@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from "react";
+import * as Sentry from "@sentry/react";
 import { AuthContextProvider } from "./context/auth/AuthState";
 import { ModalProvider } from "./context/modal/ModalState";
 import { NotificationProvider } from "./context/notification/NotificationState";
@@ -44,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.withProfiler(App);
