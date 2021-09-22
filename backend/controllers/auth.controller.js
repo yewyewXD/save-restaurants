@@ -54,19 +54,20 @@ exports.registerUser = async (req, res, next) => {
     const addedUser = await UserModel.create(userInfo);
 
     // create and send email verification code
-    const hashCode = crypto.randomBytes(32).toString("hex");
-    const verification = await VerificationCodeModel.create({
+    const verificationCode = crypto.randomBytes(32).toString("hex");
+    const hashedCode = await bcrypt.hash(verificationCode, 12);
+    await VerificationCodeModel.create({
       user: addedUser._id,
-      code: hashCode,
+      code: hashedCode,
     });
     sendMail({
       to: addedUser.email,
       subject: "Please verify your email",
-      html: `Hello,<br> Please Click on the link to verify your email.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verification.code}">Click here to verify</a>`,
+      html: `Hello,<br> Please Click on the link to verify your email.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}">Click here to verify</a>`,
     });
 
     return res.status(200).json({
-      success: hashCode === verification.code,
+      success: true,
     });
   } catch (err) {
     console.log(err);
