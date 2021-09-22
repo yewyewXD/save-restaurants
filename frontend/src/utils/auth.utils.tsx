@@ -1,28 +1,9 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-
-export function getStorageAuthState(initialState = { isLoggedIn: false }) {
-  if (typeof window !== "undefined") {
-    const storedAuthState = localStorage.getItem("AuthState");
-
-    if (!storedAuthState) {
-      return initialState;
-    }
-
-    const parsedAuthState = JSON.parse(storedAuthState);
-    if (new Date().getTime() > parsedAuthState.expiry) {
-      localStorage.removeItem("AuthState");
-      return initialState;
-    } else {
-      return parsedAuthState;
-    }
-  } else {
-    return initialState;
-  }
-}
+import { useAuth } from "../context/auth/AuthState";
 
 interface PrivateRouteProps {
-  component: React.FC;
+  component: React.ComponentType;
   exact: boolean;
   path: string;
 }
@@ -32,7 +13,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   path,
   exact,
 }) => {
-  const { isLoggedIn } = getStorageAuthState();
+  const { isLoggedIn } = useAuth();
 
   return (
     <Route
