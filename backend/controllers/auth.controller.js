@@ -293,7 +293,7 @@ exports.verifyUser = async (req, res, next) => {
 
     await verificationToken.deleteOne();
 
-    return res.status(200).json({ success: updatedUser.isVerified });
+    return res.status(200).json({ success: true });
   } catch (err) {
     console.log(err);
     return res.status(500);
