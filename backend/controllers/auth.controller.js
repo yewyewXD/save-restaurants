@@ -105,6 +105,14 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
+    if (!existingUser.isVerified) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "You are not verified, please check your email for the verification link",
+      });
+    }
+
     const verified = await bcrypt.compare(password, existingUser.password);
     if (!verified) {
       return res.status(400).json({
