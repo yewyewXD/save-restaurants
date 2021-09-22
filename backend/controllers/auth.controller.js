@@ -251,32 +251,47 @@ exports.logoutUser = async (req, res, next) => {
 // @access public
 exports.verifyUser = async (req, res, next) => {
   try {
-    const { code } = req.body;
+    const { code, userId } = req.body;
 
-    if (!code) {
+    if (!code || !userId) {
       return res.status(400).json({
         success: false,
-        message: "No verification code found",
+        message: "Verification link is invalid or expired",
       });
     }
 
-    const verification = await VerificationCodeModel.findOne({ code });
-
-    if (!verification) {
+    const verificationToken = await VerificationCodeModel.findOne({
+      user: userId,
+    });
+    if (!verificationToken) {
       return res.status(400).json({
         success: false,
-        message: "No verification code found",
+        message: "Verification link is invalid or expired",
       });
     }
 
-    const updatedUser = await UserModel.updateOne(
+    const tokenIsValid = await bcrypt.compare(code, verificationToken.code);
+    if (!tokenIsValid) {
+      return res.status(400).json({
+        success: false,
+        message: "Verification link is invalid or expired",
+      });
+    }
+
+    const updatedUser = await UserModel.findOneAndUpdate(
       {
-        _id: verification.user,
+        _id: userId,
       },
-      { $set: { isVerified: true } }
+      { $set: { isVerified: true } },
+      { new: true }
     );
+    sendMail({
+      to: updatedUser.email,
+      subject: "Welcome aboard",
+      html: `Congratulations, you are verified!`,
+    });
 
-    await VerificationCodeModel.deleteOne({ code });
+    await verificationToken.deleteOne();
 
     return res.status(200).json({ success: updatedUser.isVerified });
   } catch (err) {
