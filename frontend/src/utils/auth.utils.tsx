@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, Redirect, Route } from "react-router-dom";
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
 
 export function getStorageAuthState(initialState = { isLoggedIn: false }) {
   if (typeof window !== "undefined") {
@@ -32,26 +32,13 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   path,
   exact,
 }) => {
-  const [hasAuth, setHasAuth] = useState(false);
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const { isLoggedIn } = getStorageAuthState();
-    if (isLoggedIn && !hasAuth) {
-      setHasAuth(true);
-    } else if (!isLoggedIn && hasAuth) {
-      setHasAuth(false);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  const { isLoggedIn } = getStorageAuthState();
 
   return (
     <Route
       path={path}
       render={() =>
-        hasAuth ? (
+        isLoggedIn ? (
           <Component />
         ) : (
           <Redirect to={{ pathname: "/login", state: { referrer: path } }} />

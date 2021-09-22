@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
-import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
 import {
   googleLoginUser,
@@ -20,7 +20,7 @@ interface Props {
 const AuthModal: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
   const { saveUserAuth } = useAuth();
-  const { handleHideModal } = useModal();
+  const history = useHistory();
 
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -42,10 +42,12 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
 
     try {
       if (isLogin) {
+        // login
         const loginRes = await loginUser(payload);
-        handleHideModal();
         saveUserAuth(loginRes.data);
+        history.push("/dashboard");
       } else {
+        // register
         await registerUser(payload);
         setSuccessMsg(
           `Successfully signed up. Activate your account by clicking the verification link we sent to ${authInfo.email}`
@@ -55,9 +57,9 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
           email: "",
           password: "",
         });
-      }
 
-      setIsSubmitting(false);
+        setIsSubmitting(false);
+      }
     } catch (err: any) {
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
@@ -147,8 +149,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       });
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);
-      handleHideModal();
-      setIsSubmitting(false);
+      history.push("/dashboard");
     } catch (err: any) {
       if (err?.response?.data?.message) {
         setErrMsg(err.response.data.message);
