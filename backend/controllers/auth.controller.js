@@ -63,7 +63,7 @@ exports.registerUser = async (req, res, next) => {
     sendMail({
       to: addedUser.email,
       subject: "Please verify your email",
-      html: `Hello,<br> Please Click on the link to verify your email.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}">Click here to verify</a>`,
+      html: `Hello,<br> Please Click on the link to verify your email.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}&id=${addedUser._id}">Click here to verify</a>`,
     });
 
     return res.status(200).json({
