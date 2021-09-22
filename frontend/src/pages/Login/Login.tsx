@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { verifyUser } from "../../api/auth.api";
 import AuthModal from "../../globalUI/Modal/components/AuthModal";
-import { getFirstParamValue } from "../../utils/url.utils";
+import { getParsedQueries } from "../../utils/url.utils";
 
 const Login = () => {
   const [verifyMsg, setVerifyMsg] = useState({ message: "", color: "" });
 
   useEffect(() => {
-    const code = getFirstParamValue();
+    const queries = getParsedQueries();
+    if (!queries?.code || !queries?.id) {
+      return;
+    }
+
+    // clear code and id queries
+    window.history.replaceState(null, "", window.location.pathname);
 
     async function handleVerifyUser() {
       try {
-        const res = await verifyUser(code);
-        if (res.data?.success) {
-          setVerifyMsg({
-            message: "Email verification successful, please login",
-            color: "green",
-          });
-        } else {
-          setVerifyMsg({
-            message: "Email verification failed, please try again",
-            color: "red",
-          });
-        }
-      } catch (err) {
+        await verifyUser({ code: queries.code, userId: queries.id });
         setVerifyMsg({
-          message: "Email verification failed, please try again",
-          color: "red",
+          message: "Email verification successful, please login",
+          color: "green",
         });
-      }
+      } catch {}
     }
 
-    if (code) {
-      handleVerifyUser();
-    }
+    handleVerifyUser();
   }, []);
 
   return (
