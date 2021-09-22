@@ -1,7 +1,9 @@
-export function getFirstParamValue() {
-  if (!window.location.search) {
-    return "";
-  }
-
-  return window.location.search.slice(1).split("&")[0].split("=")[1];
+export function getParsedQueries(): any {
+  return window.location.search
+    .slice(1)
+    .split("&")
+    .reduce((acc, string) => {
+      const [key, value] = string.split("=");
+      return Object.assign(acc, { [key]: value });
+    }, {});
 }
