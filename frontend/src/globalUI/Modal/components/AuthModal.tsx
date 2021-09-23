@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState, useRef, useEffect } from "react";
+import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useModal } from "../../../context/modal/ModalState";
@@ -8,12 +8,12 @@ import {
   loginUser,
   registerUser,
 } from "../../../api/auth.api";
-import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
 import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { isEmailValid } from "../../../utils/form.utils";
+import ReCaptcha from "../../ReCaptcha";
 
 interface Props {
   isLogin: boolean;
@@ -32,8 +32,6 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   const { handleHideModal } = useModal();
   const history = useHistory();
   const location: Location = useLocation();
-
-  const reCaptchaRef = useRef<ReCAPTCHA>(null);
 
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
@@ -288,13 +286,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
         />
       </div>
 
-      <GoogleReCAPTCHA
-        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY || ""}
-        onChange={() => {
-          setReCaptchaToken(reCaptchaRef?.current?.getValue() || "");
-        }}
-        ref={reCaptchaRef}
-      />
+      <ReCaptcha setReCaptchaToken={setReCaptchaToken} />
     </div>
   );
 };
