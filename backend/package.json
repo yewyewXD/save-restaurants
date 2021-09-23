@@ -19,7 +19,8 @@
     "isomorphic-fetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.7",
-    "nodemailer": "^6.6.3"
+    "nodemailer": "^6.6.3",
+    "rate-limiter-flexible": "^2.2.4"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
