@@ -346,7 +346,7 @@ exports.resetPassword = async (req, res, next) => {
     sendMail({
       to: existingUser.email,
       subject: "Password reset link",
-      html: `Hello,<br> Please Click on the link to reset your password.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}&id=${existingUser._id}">Reset my password</a>`,
+      html: `Hello,<br> Please Click on the link to reset your password.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}&id=${existingUser._id}&reset=true">Reset my password</a>`,
     });
 
     return res.status(200).json({
