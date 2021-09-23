@@ -13,6 +13,7 @@ import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
+import { isEmailValid } from "../../../utils/form.utils";
 
 interface Props {
   isLogin: boolean;
@@ -120,9 +121,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
       return false;
     }
 
-    const emailRegex =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailRegex.test(String(authInfo.email).toLowerCase())) {
+    if (!isEmailValid(authInfo.email)) {
       setErrMsg("Please enter a valid email");
       return false;
     }
