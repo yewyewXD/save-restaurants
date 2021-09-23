@@ -1,5 +1,5 @@
 const express = require("express");
-const connectDB = require("./config/database");
+const connectDB = require("./middleware/mongo.middleware");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require("compression");
