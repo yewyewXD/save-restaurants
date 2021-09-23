@@ -307,3 +307,53 @@ exports.verifyUser = async (req, res, next) => {
     return res.status(500);
   }
 };
+
+// @desc Send password reset link
+// @route POST /api/auth/reset
+// @access public
+exports.resetPassword = async (req, res, next) => {
+  try {
+    const { email, reCaptchaToken } = req.body;
+
+    // Validation
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
+    if (!validateReCAPTCHA(reCaptchaToken)) {
+      return res.status(403).json({
+        success: false,
+        message: "Request interrupted, please refresh the page",
+      });
+    }
+
+    const existingUser = await UserModel.findOne({ email });
+    if (!existingUser || !existingUser?.isVerified || existingUser?.googleId) {
+      return res.status(200).json({
+        success: true,
+      });
+    }
+
+    // create and send email verification code
+    const verificationCode = crypto.randomBytes(32).toString("hex");
+    const hashedCode = await bcrypt.hash(verificationCode, 12);
+    await VerificationCodeModel.create({
+      user: existingUser._id,
+      code: hashedCode,
+    });
+    sendMail({
+      to: existingUser.email,
+      subject: "Password reset link",
+      html: `Hello,<br> Please Click on the link to reset your password.<br><a target="_blank" rel="noopener noreferrer" href="${process.env.FRONTEND_BASE_URL}/login?code=${verificationCode}&id=${existingUser._id}">Reset my password</a>`,
+    });
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+};
