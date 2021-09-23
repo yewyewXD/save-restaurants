@@ -11,6 +11,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
 const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle"));
 const Login = lazy(() => import("./pages/Login/Login"));
+const PasswordReset = lazy(() => import("./pages/PasswordReset"));
 
 function HandleRedirect(path: string) {
   return <Redirect to={path} />;
@@ -37,6 +38,7 @@ function App() {
                 exact
               />
               <Route path="/login" component={Login} exact />
+              <Route path="/password-reset" component={PasswordReset} exact />
             </Suspense>
           </Switch>
         </ModalProvider>
