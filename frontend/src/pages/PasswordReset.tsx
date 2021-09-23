@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { resetPassword } from "../api/auth.api";
 import ReCaptcha from "../globalUI/ReCaptcha";
 import { isEmailValid } from "../utils/form.utils";
 
@@ -9,16 +10,32 @@ const PasswordReset = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [reCaptchaToken, setReCaptchaToken] = useState("");
 
-  function handlePasswordReset() {
+  async function handlePasswordReset() {
     if (!isEmailValid(email)) {
       setErrMsg("Please enter a valid email");
       return;
     }
 
+    if (!reCaptchaToken) {
+      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
+      return;
+    }
+
+    setIsSubmitting(true);
     if (errMsg) {
       setErrMsg("");
     }
-    setIsSubmitting(true);
+
+    try {
+      await resetPassword({ email, reCaptchaToken });
+      setIsEmailSent(true);
+      setIsSubmitting(false);
+    } catch (err: any) {
+      if (err?.response?.data?.message) {
+        setErrMsg(err.response.data.message);
+      }
+      setIsSubmitting(false);
+    }
   }
 
   return (
