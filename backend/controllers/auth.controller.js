@@ -309,9 +309,9 @@ exports.verifyUser = async (req, res, next) => {
 };
 
 // @desc Send password reset link
-// @route POST /api/auth/reset
+// @route GET /api/auth/reset
 // @access public
-exports.resetPassword = async (req, res, next) => {
+exports.sendPasswordResetLink = async (req, res, next) => {
   try {
     const { email, reCaptchaToken } = req.body;
 

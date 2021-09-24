@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { resetPassword } from "../api/auth.api";
+import { sendPasswordResetLink } from "../api/auth.api";
 import ReCaptcha from "../globalUI/ReCaptcha";
 import { isEmailValid } from "../utils/form.utils";
 
@@ -27,7 +27,7 @@ const PasswordReset = () => {
     }
 
     try {
-      await resetPassword({ email, reCaptchaToken });
+      await sendPasswordResetLink({ email, reCaptchaToken });
       setIsEmailSent(true);
       setIsSubmitting(false);
     } catch (err: any) {
