@@ -22,6 +22,13 @@ interface sendPasswordResetLinkPayload {
   reCaptchaToken: string;
 }
 
+interface resetPasswordPayload {
+  code: string;
+  userId: string;
+  reCaptchaToken: string;
+  password: string;
+}
+
 export function registerUser(data: authPayload) {
   return axios({
     method: "post",
@@ -69,6 +76,14 @@ export async function sendPasswordResetLink(
 ) {
   return axios({
     method: "get",
+    url: `http://localhost:5000/api/auth/reset`,
+    data,
+  });
+}
+
+export async function resetPassword(data: resetPasswordPayload) {
+  return axios({
+    method: "post",
     url: `http://localhost:5000/api/auth/reset`,
     data,
   });
