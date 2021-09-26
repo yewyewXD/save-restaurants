@@ -12,6 +12,7 @@ const Login = () => {
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [allQueries, setAllQueries] = useState({ code: "", id: "" });
 
   const queries = getParsedQueries();
   const history = useHistory();
@@ -21,8 +22,9 @@ const Login = () => {
       return;
     }
 
-    if (!queries?.reset) {
+    if (queries?.reset) {
       setShowPwReset(true);
+      setAllQueries({ code: queries?.code, id: queries?.id });
     }
 
     // clear code and id queries
@@ -64,8 +66,8 @@ const Login = () => {
 
     try {
       await resetPassword({
-        code: queries?.code,
-        userId: queries?.id,
+        code: allQueries?.code,
+        userId: allQueries?.id,
         password: newPw,
         reCaptchaToken,
       });
