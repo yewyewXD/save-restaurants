@@ -75,8 +75,8 @@ export async function sendPasswordResetLink(
   data: sendPasswordResetLinkPayload
 ) {
   return axios({
-    method: "get",
-    url: `http://localhost:5000/api/auth/reset`,
+    method: "post",
+    url: `http://localhost:5000/api/auth/get-reset`,
     data,
   });
 }

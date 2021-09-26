@@ -309,7 +309,7 @@ exports.verifyUser = async (req, res, next) => {
 };
 
 // @desc Send password reset link
-// @route GET /api/auth/reset
+// @route POST /api/auth/get-reset
 // @access public
 exports.sendPasswordResetLink = async (req, res, next) => {
   try {
