@@ -357,3 +357,74 @@ exports.sendPasswordResetLink = async (req, res, next) => {
     return res.status(500);
   }
 };
+
+// @desc Reset password and login user
+// @route POST /api/auth/reset
+// @access public
+exports.resetPassword = async (req, res, next) => {
+  try {
+    const { userId, reCaptchaToken, code, password } = req.body;
+
+    // Validation
+    if (!userId || !code) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Error occurred, please click the password reset link in your email again",
+      });
+    }
+
+    if (password?.length < 5) {
+      return res.status(400).json({
+        success: false,
+        message: "Password has to be 5 characters or longer",
+      });
+    }
+
+    if (!validateReCAPTCHA(reCaptchaToken)) {
+      return res.status(403).json({
+        success: false,
+        message: "Request interrupted, please refresh the page",
+      });
+    }
+
+    const verificationToken = await VerificationCodeModel.findOne({
+      user: userId,
+    });
+    if (!verificationToken) {
+      return res.status(200).json({
+        success: true,
+      });
+    }
+
+    const tokenIsValid = await bcrypt.compare(code, verificationToken.code);
+    if (!tokenIsValid) {
+      return res.status(200).json({
+        success: true,
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const updatedUser = await UserModel.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      { $set: { password: hashedPassword } },
+      { new: true }
+    );
+    sendMail({
+      to: updatedUser.email,
+      subject: "Password reset confirmation",
+      html: `Your password is successfully reset`,
+    });
+
+    await verificationToken.deleteOne();
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+};

@@ -7,6 +7,7 @@ const {
   logoutUser,
   verifyUser,
   sendPasswordResetLink,
+  resetPassword,
 } = require("../controllers/auth.controller");
 
 router.post("/register", registerUser);
@@ -16,5 +17,6 @@ router.post("/logout", logoutUser);
 
 router.post("/verify", verifyUser);
 router.get("/reset", sendPasswordResetLink);
+router.post("/reset", resetPassword);
 
 module.exports = router;
