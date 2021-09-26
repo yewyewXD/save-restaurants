@@ -392,15 +392,17 @@ exports.resetPassword = async (req, res, next) => {
       user: userId,
     });
     if (!verificationToken) {
-      return res.status(200).json({
-        success: true,
+      return res.status(403).json({
+        success: false,
+        message: "Verification link is invalid or expired",
       });
     }
 
     const tokenIsValid = await bcrypt.compare(code, verificationToken.code);
     if (!tokenIsValid) {
-      return res.status(200).json({
-        success: true,
+      return res.status(403).json({
+        success: false,
+        message: "Verification link is invalid or expired",
       });
     }
 
