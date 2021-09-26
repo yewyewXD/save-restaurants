@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
-const limiter = require("./middleware/rateLimiter.middleware");
 
 // middleware
 dotenv.config();
@@ -20,8 +19,11 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-app.use(limiter);
 app.use(compression());
+
+// rate limiter
+const limiter = require("./middleware/rateLimiter.middleware");
+app.use(limiter);
 
 // routes
 const userRoute = require("./routes/user.route");
