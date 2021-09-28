@@ -185,10 +185,29 @@ exports.googleLoginUser = async (req, res, next) => {
       });
     }
 
-    const existingUser = await UserModel.findOne({ googleId: sub });
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser && !existingUser?.googleId) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is registered, please login with email or username",
+      });
+    }
+
     let jwtToken = "";
     const sixHoursFromNow = getFull6HFromNow();
-    if (!existingUser) {
+    if (existingUser && existingUser?.googleId === sub) {
+      // login user
+      jwtToken = jwt.sign(
+        { username: googleUsername, userId: existingUser._id },
+        privateECDSA,
+        {
+          expiresIn: sixHoursFromNow.ms,
+          algorithm: "ES256",
+          issuer: process.env.BACKEND_BASE_URL,
+        }
+      );
+    } else {
       // create user
       const userInfo = {
         email,
@@ -200,17 +219,6 @@ exports.googleLoginUser = async (req, res, next) => {
 
       jwtToken = jwt.sign(
         { username: googleUsername, userId: addedUser._id },
-        privateECDSA,
-        {
-          expiresIn: sixHoursFromNow.ms,
-          algorithm: "ES256",
-          issuer: process.env.BACKEND_BASE_URL,
-        }
-      );
-    } else {
-      // login user
-      jwtToken = jwt.sign(
-        { username: googleUsername, userId: existingUser._id },
         privateECDSA,
         {
           expiresIn: sixHoursFromNow.ms,
