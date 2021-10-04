@@ -1,15 +1,14 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
 import SideMenu from "./components/SideMenu";
 import Scrollspy from "react-scrollspy";
 
 const Template1: FC = () => {
   const navItems = [
-    { name: "ABOUT US", link: "about" },
-    { name: "MENU", link: "menu" },
-    { name: "logo", link: "home", isLogo: true },
-    { name: "RESERVATION", link: "reservation" },
-    { name: "CONTACT", link: "contact" },
+    { name: "ABOUT US", link: "about-section" },
+    { name: "MENU", link: "menu-section" },
+    { name: "logo", link: "home-section", isLogo: true },
+    { name: "RESERVATION", link: "reservation-section" },
+    { name: "CONTACT", link: "contact-section" },
   ];
 
   const menuCategories = [
@@ -52,14 +51,14 @@ const Template1: FC = () => {
           <Scrollspy
             className="w-full grid grid-cols-5 text-center justify-center"
             offset={-30}
-            items={["about", "menu", "home", "reservation", "contact"]}
+            items={navItems.map((navItem) => navItem.link)}
             currentClassName="bg-primary"
           >
             {navItems.map((navItem) => (
               <li key={`navItem-${navItem.link}`}>
-                <Link className="py-6" to={`#${navItem.link}`}>
+                <a className="py-6" href={`#${navItem.link}`}>
                   {navItem.isLogo ? "image" : navItem.name}
-                </Link>
+                </a>
               </li>
             ))}
           </Scrollspy>
@@ -69,7 +68,7 @@ const Template1: FC = () => {
       {/* Hero */}
       <section
         className="h-screen w-full flex justify-center items-center border-t border-b border-red-700"
-        id="home"
+        id="home-section"
       >
         <div className="container flex justify-center items-center flex-col">
           <h1 className="text-5xl leading-none">Main home section text</h1>
@@ -85,7 +84,7 @@ const Template1: FC = () => {
       {/* About Me  */}
       <section
         className="h-screen w-full grid grid-cols-2 border-t border-b border-red-700"
-        id="about"
+        id="about-section"
       >
         <div className="p-10 flex flex-col justify-center items-start h-full border border-red-600">
           <h1 className="text-4xl leading-none">About</h1>
@@ -103,7 +102,7 @@ const Template1: FC = () => {
       {/* Menu */}
       <section
         className="w-full border-t border-b border-red-700 py-16"
-        id="menu"
+        id="menu-section"
       >
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
         <div className="grid grid-cols-3 gap-6 auto-rows-auto w-full text-center">
@@ -125,7 +124,7 @@ const Template1: FC = () => {
       {/* Contact */}
       <section
         className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16"
-        id="contact"
+        id="contact-section"
       >
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pr-5 ">
