@@ -1,13 +1,15 @@
-import React, { Fragment, FC } from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import SideMenu from "./components/SideMenu";
+import Scrollspy from "react-scrollspy";
 
 const Template1: FC = () => {
   const navItems = [
-    { name: "ABOUT US", link: "#about" },
-    { name: "MENU", link: "#menu" },
-    { name: "RESERVATION", link: "#reservation" },
-    { name: "CONTACT", link: "#contact" },
+    { name: "ABOUT US", link: "about" },
+    { name: "MENU", link: "menu" },
+    { name: "logo", link: "home", isLogo: true },
+    { name: "RESERVATION", link: "reservation" },
+    { name: "CONTACT", link: "contact" },
   ];
 
   const menuCategories = [
@@ -47,32 +49,28 @@ const Template1: FC = () => {
       {/* Navbar */}
       <div className="relative h-20 w-full">
         <header className="fixed flex justify-center items-center h-20 w-full top-0">
-          <nav className="w-full grid grid-cols-6 text-center">
-            {navItems.map((navItem, index) => {
-              return (
-                <Fragment key={`navItem-${index}`}>
-                  <Link to={navItem.link} className="py-6">
-                    {navItem.name}
-                  </Link>
-                  {((navItems.length <= 2 && index === navItems.length - 1) ||
-                    (navItems.length > 2 && index === 1)) && (
-                    <div
-                      className={`${
-                        navItems.length < 2 ? "col-start-3" : ""
-                      } col-span-2 py-6`}
-                    >
-                      LOGO
-                    </div>
-                  )}
-                </Fragment>
-              );
-            })}
-          </nav>
+          <Scrollspy
+            className="w-full grid grid-cols-5 text-center justify-center"
+            offset={-30}
+            items={["about", "menu", "home", "reservation", "contact"]}
+            currentClassName="bg-primary"
+          >
+            {navItems.map((navItem) => (
+              <li key={`navItem-${navItem.link}`}>
+                <Link className="py-6" to={`#${navItem.link}`}>
+                  {navItem.isLogo ? "image" : navItem.name}
+                </Link>
+              </li>
+            ))}
+          </Scrollspy>
         </header>
       </div>
 
       {/* Hero */}
-      <section className="h-screen w-full flex justify-center items-center border-t border-b border-red-700">
+      <section
+        className="h-screen w-full flex justify-center items-center border-t border-b border-red-700"
+        id="home"
+      >
         <div className="container flex justify-center items-center flex-col">
           <h1 className="text-5xl leading-none">Main home section text</h1>
           <p className="text-gray-700 my-6 leading-none">
@@ -85,7 +83,10 @@ const Template1: FC = () => {
       </section>
 
       {/* About Me  */}
-      <section className="h-screen w-full grid grid-cols-2 border-t border-b border-red-700">
+      <section
+        className="h-screen w-full grid grid-cols-2 border-t border-b border-red-700"
+        id="about"
+      >
         <div className="p-10 flex flex-col justify-center items-start h-full border border-red-600">
           <h1 className="text-4xl leading-none">About</h1>
           <p className="text-gray-700 mt-6">
@@ -100,7 +101,10 @@ const Template1: FC = () => {
       </section>
 
       {/* Menu */}
-      <section className="w-full border-t border-b border-red-700 py-16">
+      <section
+        className="w-full border-t border-b border-red-700 py-16"
+        id="menu"
+      >
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
         <div className="grid grid-cols-3 gap-6 auto-rows-auto w-full text-center">
           {menuCategories.map((menu, index) => (
@@ -119,7 +123,10 @@ const Template1: FC = () => {
       </section>
 
       {/* Contact */}
-      <section className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16">
+      <section
+        className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16"
+        id="contact"
+      >
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pr-5 ">
             <h2 className="text-4xl leading-none text-center">Location</h2>
