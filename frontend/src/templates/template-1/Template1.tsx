@@ -82,15 +82,20 @@ const Template1: FC = () => {
 
       {/* Hero */}
       <section
-        className="h-screen w-full flex justify-center items-center border-t border-b border-red-700"
+        style={{
+          backgroundImage:
+            "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/06/slide1.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="h-screen text-white w-full flex justify-center items-center border-t border-b border-red-700"
         id="home-section"
       >
         <div className="container flex justify-center items-center flex-col">
           <h1 className="text-5xl leading-none">Main home section text</h1>
-          <p className="text-gray-700 my-6 leading-none">
-            Subtitle of home section
-          </p>
-          <button className="px-9 py-3 rounded border border-black">
+          <p className="my-6 leading-none">Subtitle of home section</p>
+          <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
             Button to Menu
           </button>
         </div>
