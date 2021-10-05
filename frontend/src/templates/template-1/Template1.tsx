@@ -1,8 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import SideMenu from "./components/SideMenu";
 import Scrollspy from "react-scrollspy";
 
 const Template1: FC = () => {
+  const [navBg, setNavBg] = useState("");
+  useEffect(() => {
+    function scrollListener() {
+      const navBgClass = window.scrollY < 400 ? "" : "bg-primary";
+      setNavBg(navBgClass);
+    }
+
+    document.addEventListener("scroll", scrollListener);
+    return () => {
+      document.removeEventListener("scroll", scrollListener);
+    };
+  }, [navBg]);
+
   const navItems = [
     { name: "ABOUT US", link: "about-section" },
     { name: "MENU", link: "menu-section" },
@@ -47,7 +60,9 @@ const Template1: FC = () => {
 
       {/* Navbar */}
       <div className="relative h-20 w-full">
-        <header className="fixed flex justify-center items-center h-20 w-full top-0">
+        <header
+          className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
+        >
           <Scrollspy
             className="w-full grid grid-cols-5 text-center justify-center"
             offset={-30}
