@@ -3,10 +3,10 @@ import SideMenu from "./components/SideMenu";
 import Scrollspy from "react-scrollspy";
 
 const Template1: FC = () => {
-  const [navBg, setNavBg] = useState("");
+  const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
-      const navBgClass = window.scrollY < 400 ? "" : "bg-primary";
+      const navBgClass = window.scrollY < 100 ? "bg-white" : "bg-primary";
       setNavBg(navBgClass);
     }
 
@@ -59,37 +59,32 @@ const Template1: FC = () => {
       <SideMenu />
 
       {/* Navbar */}
-      <div className="relative h-20 w-full">
-        <header
-          className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
+      <header
+        className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
+      >
+        <Scrollspy
+          className="w-full grid grid-cols-5 text-center justify-center"
+          offset={-30}
+          items={navItems.map((navItem) => navItem.link)}
+          currentClassName="bg-primary"
         >
-          <Scrollspy
-            className="w-full grid grid-cols-5 text-center justify-center"
-            offset={-30}
-            items={navItems.map((navItem) => navItem.link)}
-            currentClassName="bg-primary"
-          >
-            {navItems.map((navItem) => (
-              <li key={`navItem-${navItem.link}`}>
-                <a className="py-6" href={`#${navItem.link}`}>
-                  {navItem.isLogo ? "image" : navItem.name}
-                </a>
-              </li>
-            ))}
-          </Scrollspy>
-        </header>
-      </div>
+          {navItems.map((navItem) => (
+            <li key={`navItem-${navItem.link}`}>
+              <a className="py-6" href={`#${navItem.link}`}>
+                {navItem.isLogo ? "image" : navItem.name}
+              </a>
+            </li>
+          ))}
+        </Scrollspy>
+      </header>
 
       {/* Hero */}
       <section
         style={{
           backgroundImage:
             "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/06/slide1.jpg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
         }}
-        className="h-screen text-white w-full flex justify-center items-center border-t border-b border-red-700"
+        className="h-screen text-white w-full flex justify-center items-center border-t border-b border-red-700 bg-cover bg-no-repeat bg-center"
         id="home-section"
       >
         <div className="container flex justify-center items-center flex-col">
@@ -116,7 +111,13 @@ const Template1: FC = () => {
           </p>
         </div>
 
-        <div className="flex justify-center items-center">image</div>
+        <div
+          className="w-full h-full flex justify-center items-center bg-cover bg-no-repeat bg-center"
+          style={{
+            backgroundImage:
+              "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/07/about-chefs.jpg)",
+          }}
+        ></div>
       </section>
 
       {/* Menu */}
