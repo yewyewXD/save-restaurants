@@ -96,7 +96,7 @@ const Template1: FC = () => {
           backgroundImage:
             "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/06/slide1.jpg)",
         }}
-        className="h-screen text-white w-full flex justify-center items-center  bg-cover bg-no-repeat bg-center"
+        className="h-screen text-white w-full flex justify-center items-center bg-cover bg-no-repeat bg-center border-green-400 border-dashed cursor-pointer borderOnHover"
         id="home-section"
       >
         <div className="container flex justify-center items-center flex-col">

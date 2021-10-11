@@ -35,3 +35,8 @@ h6 {
 .text-primary {
   color: $primary-color;
 }
+.borderOnHover {
+  &:hover {
+    border-width: 4px;
+  }
+}
