@@ -123,15 +123,22 @@ const Template1: FC = () => {
       {/* Menu */}
       <section className="w-full  py-16 min-h-screen" id="menu-section">
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
-        <div className="grid grid-cols-3 gap-6 auto-rows-auto w-full text-center">
+        <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
           {menuCategories.map((menu, index) => (
-            <div key={`menu-${index}`} className="">
+            <div key={`menu-${index}`}>
               <h5 className="mb-6">{menu.title}</h5>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
-                  <span key={`menuItem-${item.name}-${item.price}`}>
-                    {item.name} - {item.price}
-                  </span>
+                  <div
+                    key={`menuItem-${item.name}-${item.price}`}
+                    className="flex align-baseline mt-3"
+                  >
+                    <b>{item.name}</b>
+                    <span className="flex-1 overflow-hidden">
+                      .........................................................................................................................
+                    </span>
+                    <b>{item.price}</b>
+                  </div>
                 ))}
               </div>
             </div>
