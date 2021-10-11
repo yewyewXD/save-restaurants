@@ -98,7 +98,7 @@ const Template1: FC = () => {
 
       {/* About Me  */}
       <section
-        className="h-screen w-full grid grid-cols-2 border-t border-b border-red-700"
+        className="min-h-screen w-full grid grid-cols-2 border-t border-b border-red-700"
         id="about-section"
       >
         <div className="p-10 flex flex-col justify-center items-start h-full border border-red-600">
@@ -122,7 +122,7 @@ const Template1: FC = () => {
 
       {/* Menu */}
       <section
-        className="w-full border-t border-b border-red-700 py-16"
+        className="w-full border-t border-b border-red-700 py-16 min-h-screen"
         id="menu-section"
       >
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
@@ -144,7 +144,7 @@ const Template1: FC = () => {
 
       {/* Contact */}
       <section
-        className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16"
+        className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16 min-h-screen"
         id="contact-section"
       >
         <div className="flex justify-center">
