@@ -84,7 +84,7 @@ const Template1: FC = () => {
           backgroundImage:
             "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/06/slide1.jpg)",
         }}
-        className="h-screen text-white w-full flex justify-center items-center border-t border-b border-red-700 bg-cover bg-no-repeat bg-center"
+        className="h-screen text-white w-full flex justify-center items-center  bg-cover bg-no-repeat bg-center"
         id="home-section"
       >
         <div className="container flex justify-center items-center flex-col">
@@ -98,10 +98,10 @@ const Template1: FC = () => {
 
       {/* About Me  */}
       <section
-        className="min-h-screen w-full grid grid-cols-2 border-t border-b border-red-700"
+        className="min-h-screen w-full grid grid-cols-2 "
         id="about-section"
       >
-        <div className="p-10 flex flex-col justify-center items-start h-full border border-red-600">
+        <div className="p-10 flex flex-col justify-center items-start h-full ">
           <h1 className="text-4xl leading-none">About</h1>
           <p className="text-gray-700 mt-6">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
@@ -121,14 +121,11 @@ const Template1: FC = () => {
       </section>
 
       {/* Menu */}
-      <section
-        className="w-full border-t border-b border-red-700 py-16 min-h-screen"
-        id="menu-section"
-      >
+      <section className="w-full  py-16 min-h-screen" id="menu-section">
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
         <div className="grid grid-cols-3 gap-6 auto-rows-auto w-full text-center">
           {menuCategories.map((menu, index) => (
-            <div key={`menu-${index}`} className="border border-red-600">
+            <div key={`menu-${index}`} className="">
               <h5 className="mb-6">{menu.title}</h5>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
@@ -144,7 +141,7 @@ const Template1: FC = () => {
 
       {/* Contact */}
       <section
-        className="w-full border-t border-b grid grid-cols-3 border-red-700 py-16 min-h-screen"
+        className="w-full  grid grid-cols-3  py-16 min-h-screen"
         id="contact-section"
       >
         <div className="flex justify-center">
