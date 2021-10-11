@@ -121,7 +121,10 @@ const Template1: FC = () => {
       </section>
 
       {/* Menu */}
-      <section className="w-full  py-16 min-h-screen" id="menu-section">
+      <section
+        className="w-full flex justify-center items-center flex-col py-16 min-h-screen"
+        id="menu-section"
+      >
         <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
         <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
           {menuCategories.map((menu, index) => (
