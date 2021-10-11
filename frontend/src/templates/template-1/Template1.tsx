@@ -68,9 +68,20 @@ const Template1: FC = () => {
           currentClassName="underline"
         >
           {navItems.map((navItem) => (
-            <li key={`navItem-${navItem.link}`}>
+            <li
+              key={`navItem-${navItem.link}`}
+              className="flex justify-center items-center"
+            >
               <a className="py-6" href={`#${navItem.link}`}>
-                {navItem.isLogo ? "image" : navItem.name}
+                {navItem.isLogo ? (
+                  <img
+                    src="/images/netlify.png"
+                    alt=""
+                    style={{ maxWidth: "70px" }}
+                  />
+                ) : (
+                  navItem.name
+                )}
               </a>
             </li>
           ))}
