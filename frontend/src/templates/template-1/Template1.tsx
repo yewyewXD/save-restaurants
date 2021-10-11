@@ -59,34 +59,36 @@ const Template1: FC = () => {
       <SideMenu />
 
       {/* Navbar */}
-      <header
-        className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
-      >
-        <Scrollspy
-          className="w-full grid grid-cols-5 text-center justify-center"
-          items={navItems.map((navItem) => navItem.link)}
-          currentClassName="underline"
+      <div className="relative h-20">
+        <header
+          className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
         >
-          {navItems.map((navItem) => (
-            <li
-              key={`navItem-${navItem.link}`}
-              className="flex justify-center items-center"
-            >
-              <a className="py-6" href={`#${navItem.link}`}>
-                {navItem.isLogo ? (
-                  <img
-                    src="/images/netlify.png"
-                    alt=""
-                    style={{ maxWidth: "70px" }}
-                  />
-                ) : (
-                  navItem.name
-                )}
-              </a>
-            </li>
-          ))}
-        </Scrollspy>
-      </header>
+          <Scrollspy
+            className="w-full grid grid-cols-5 text-center justify-center"
+            items={navItems.map((navItem) => navItem.link)}
+            currentClassName="underline"
+          >
+            {navItems.map((navItem) => (
+              <li
+                key={`navItem-${navItem.link}`}
+                className="flex justify-center items-center"
+              >
+                <a className="py-6" href={`#${navItem.link}`}>
+                  {navItem.isLogo ? (
+                    <img
+                      src="/images/netlify.png"
+                      alt=""
+                      style={{ maxWidth: "50px" }}
+                    />
+                  ) : (
+                    navItem.name
+                  )}
+                </a>
+              </li>
+            ))}
+          </Scrollspy>
+        </header>
+      </div>
 
       {/* Hero */}
       <section
