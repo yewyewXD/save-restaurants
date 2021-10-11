@@ -213,17 +213,21 @@ const Template1: FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={socialMedia.link}
-              className={index === socialMedias.length - 1 ? "" : "mr-6"}
+              className={"mx-6"}
               key={`social-${index}`}
             >
               {socialMedia.name}
             </a>
           ))}
         </div>
-        <div className="grid grid-cols-4 gap-6 text-center">
-          {navItems.map((navItem, index) => (
-            <span key={`footerNav-${index}`}>{navItem.name}</span>
-          ))}
+        <div className="text-center">
+          {navItems
+            .filter((navItem) => !navItem.isLogo)
+            .map((navItem, index) => (
+              <span key={`footerNav-${index}`} className="mx-4">
+                {navItem.name}
+              </span>
+            ))}
         </div>
       </footer>
     </main>
