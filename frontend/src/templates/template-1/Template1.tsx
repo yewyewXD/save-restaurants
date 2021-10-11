@@ -151,7 +151,7 @@ const Template1: FC = () => {
 
       {/* Contact */}
       <section
-        className="w-full  grid grid-cols-3  py-16 min-h-screen"
+        className="w-full grid grid-cols-3 py-16 min-h-screen border border-red-600 justify-center items-center"
         id="contact-section"
       >
         <div className="flex justify-center">
@@ -192,6 +192,13 @@ const Template1: FC = () => {
               repellat tempora assumenda, ipsam aliquid esse suscipit porro
               soluta dolores, voluptates deleniti rerum perspic
             </p>
+            <a
+              href="tel:0123456789"
+              className="flex justify-center items-center"
+            >
+              <i className="icon-inno icon-inno_phone mr-2" />
+              <span>call 012-3456789</span>
+            </a>
           </div>
         </div>
       </section>
