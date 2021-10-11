@@ -26,17 +26,18 @@ function App() {
             <Suspense fallback="Loading...">
               <Route path="/" component={Home} exact />
               <Route path="/home" render={() => HandleRedirect("/")} exact />
-              <PrivateRoute path="/dashboard" component={Dashboard} exact />
-              <PrivateRoute
-                path="/dashboard/sites/new"
-                component={SiteNew}
-                exact
-              />
               <PrivateRoute
                 path="/dashboard/sites/:id"
                 component={SiteSingle}
                 exact
               />
+              <PrivateRoute
+                path="/dashboard/sites/new"
+                component={SiteNew}
+                exact
+              />
+              <PrivateRoute path="/dashboard" component={Dashboard} exact />
+
               <Route path="/login" component={Login} exact />
               <Route path="/password-reset" component={PasswordReset} exact />
             </Suspense>
