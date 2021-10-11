@@ -59,9 +59,9 @@ const Template1: FC = () => {
       <SideMenu />
 
       {/* Navbar */}
-      <div className="relative h-20">
+      <div className="relative h-16">
         <header
-          className={`fixed flex justify-center items-center h-20 w-full top-0 ${navBg}`}
+          className={`fixed flex justify-center items-center h-16 w-full top-0 ${navBg}`}
         >
           <Scrollspy
             className="w-full grid grid-cols-5 text-center justify-center"
@@ -78,7 +78,7 @@ const Template1: FC = () => {
                     <img
                       src="/images/netlify.png"
                       alt=""
-                      style={{ maxWidth: "50px" }}
+                      style={{ maxWidth: "40px" }}
                     />
                   ) : (
                     navItem.name
