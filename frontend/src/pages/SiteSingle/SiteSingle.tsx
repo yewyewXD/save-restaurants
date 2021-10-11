@@ -7,6 +7,7 @@ interface Params {
 
 const SiteSingle = () => {
   const { id }: Params = useParams();
+  if (id === "new") return null;
   return <div>my site {id}</div>;
 };
 
