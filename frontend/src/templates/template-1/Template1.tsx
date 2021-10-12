@@ -18,11 +18,10 @@ const Template1: FC = () => {
   }, [navBg]);
 
   const navItems = [
+    { name: "logo", link: "home-section", isLogo: true },
     { name: "ABOUT US", link: "about-section" },
     { name: "MENU", link: "menu-section" },
-    { name: "logo", link: "home-section", isLogo: true },
     { name: "CONTACT", link: "contact-section" },
-    { name: "LOCATION", link: "location-section" },
   ];
 
   const socialMedias = [
@@ -190,26 +189,6 @@ const Template1: FC = () => {
               <i className="icon-inno icon-inno_phone mr-2" />
               <span>call 012-3456789</span>
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Location */}
-      <section
-        className="w-full flex py-16 min-h-screen border border-red-600 justify-center items-center"
-        id="location-section"
-      >
-        <div className="flex justify-center">
-          <div className="h-full flex flex-col justify-start items-start p-10 pr-5 ">
-            <h2 className="text-4xl leading-none text-center">Location</h2>
-            <p className="my-6">
-              1533, Jalan Sri Hijau 11, Taman Sri Hijau, 48000 Rawang, Selangor,
-              Malaysia
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <span>google map</span>
-              <span>waze</span>
-            </div>
           </div>
         </div>
       </section>
