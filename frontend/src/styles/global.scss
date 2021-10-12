@@ -35,18 +35,16 @@ h6 {
 .text-primary {
   color: $primary-color;
 }
-.borderOnHover div:first-child {
-  &:hover {
-    border-width: 4px;
-    background: rgba(0, 255, 0, 0.2);
 
-    &:before {
-      background: black;
-      position: absolute;
-      padding: 0 20px;
-      color: #fff;
-      left: 0;
-      top: 0;
+.borderOnHover {
+  & div:first-child {
+    display: none;
+    background: rgba(0, 255, 0, 0.2);
+  }
+
+  &:hover {
+    div:first-child {
+      display: flex !important;
     }
   }
 }
