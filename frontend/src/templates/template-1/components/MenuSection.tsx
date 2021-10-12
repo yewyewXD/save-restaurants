@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import HoverEffect from "../../HoverEffect";
 
 const MenuSection = () => {
-  const menuCategories = [
+  const [menuCategories, setMenuCategories] = useState([
     {
+      id: "menu-category-1",
       title: "Menu 1",
       items: [
         { name: "food 1", price: "$1.00" },
@@ -11,13 +12,28 @@ const MenuSection = () => {
       ],
     },
     {
+      id: "menu-category-2",
       title: "Menu 2",
       items: [
         { name: "food 1", price: "$1.00" },
         { name: "food 2", price: "$1.00" },
       ],
     },
-  ];
+  ]);
+
+  function handleAddMenu() {
+    setMenuCategories((prevMenus) => [
+      ...prevMenus,
+      {
+        id: `menu-category-${prevMenus.length + 2}`,
+        title: `New Menu`,
+        items: [
+          { name: "food 1", price: "$1.00" },
+          { name: "food 2", price: "$1.00" },
+        ],
+      },
+    ]);
+  }
 
   return (
     <section
@@ -31,7 +47,7 @@ const MenuSection = () => {
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
         {menuCategories.map((menu, index) => {
           return (
-            <div key={`menu-${index}`}>
+            <div key={menu.id}>
               <div className="flex justify-center items-center">
                 <h5 className="mb-6 borderOnHover w-max">
                   <HoverEffect elementName={`Title ${index + 1} `} />
@@ -41,7 +57,7 @@ const MenuSection = () => {
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
                   <div
-                    key={`menuItem-${item.name}-${item.price}`}
+                    key={`${menu.id}-${item.name}`}
                     className="flex align-baseline mt-3"
                   >
                     <b>{item.name}</b>
@@ -61,7 +77,10 @@ const MenuSection = () => {
         })}
 
         <div className="flex items-center">
-          <div className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer h-36 w-full transition duration-200 hover:bg-gray-200">
+          <div
+            className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer h-36 w-full transition duration-200 hover:bg-gray-200"
+            onClick={handleAddMenu}
+          >
             <i className="icon-inno icon-inno_plus" />
           </div>
         </div>
