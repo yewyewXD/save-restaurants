@@ -38,14 +38,13 @@ h6 {
 
 .borderOnHover {
   position: relative !important;
-  & div:first-child {
-    display: none;
+  cursor: pointer;
+  & .HoverEffect:first-child {
+    opacity: 0;
     background: rgba(0, 255, 0, 0.2);
-  }
 
-  &:hover {
-    div:first-child {
-      display: flex !important;
+    &:hover {
+      opacity: 1;
     }
   }
 }
