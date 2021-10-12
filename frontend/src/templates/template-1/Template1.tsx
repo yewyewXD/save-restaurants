@@ -7,7 +7,7 @@ const Template1: FC = () => {
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
-      const navBgClass = window.scrollY < 100 ? "bg-white" : "bg-primary";
+      const navBgClass = window.scrollY < 1 ? "bg-white" : "bg-primary z-10";
       setNavBg(navBgClass);
     }
 
@@ -100,13 +100,23 @@ const Template1: FC = () => {
         className="h-screen text-white w-full flex justify-center items-center bg-cover bg-no-repeat bg-center borderOnHover cursor-pointer"
         id="home-section"
       >
-        <HoverEffect elementName="Hero background" />
+        <HoverEffect elementName="Background" />
         <div className="container flex justify-center items-center flex-col">
-          <h1 className="text-5xl leading-none">Main home section text</h1>
-          <p className="my-6 leading-none">Subtitle of home section</p>
-          <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
-            Button to Menu
-          </button>
+          <h1 className="text-5xl leading-none borderOnHover">
+            <HoverEffect elementName="Title" />
+            Main home section text
+          </h1>
+          <p className="my-6 leading-none borderOnHover">
+            <HoverEffect elementName="Description" />
+            Subtitle of home section
+          </p>
+
+          <div className="borderOnHover">
+            <HoverEffect elementName="Button" />
+            <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
+              Button to Menu
+            </button>
+          </div>
         </div>
       </section>
 
@@ -126,12 +136,14 @@ const Template1: FC = () => {
         </div>
 
         <div
-          className="w-full h-full flex justify-center items-center bg-cover bg-no-repeat bg-center"
+          className="w-full h-full flex justify-center items-center bg-cover bg-no-repeat bg-center borderOnHover"
           style={{
             backgroundImage:
               "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/07/about-chefs.jpg)",
           }}
-        ></div>
+        >
+          <HoverEffect elementName="Image" />
+        </div>
       </section>
 
       {/* Menu */}
