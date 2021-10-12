@@ -71,7 +71,8 @@ const MenuSection = () => {
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
         {menuCategories.map((menu, index) => {
           return (
-            <div key={menu.id} className="relative">
+            <div key={menu.id} className="relative borderOnHover">
+              <HoverEffect elementName={`Menu ${index + 1}`} />
               <span
                 className="absolute top-0 right-0 cursor-pointer text-xl h-5 w-5 flex justify-center items-center hover:text-red-600 transition duration-200"
                 title="remove"
