@@ -25,7 +25,7 @@ const MenuSection = () => {
     setMenuCategories((prevMenus) => [
       ...prevMenus,
       {
-        id: `menu-category-${prevMenus.length + 2}`,
+        id: `menu-category-${prevMenus.length + 1}`,
         title: `New Menu`,
         items: [
           { name: "food 1", price: "$1.00" },
@@ -35,10 +35,28 @@ const MenuSection = () => {
     ]);
   }
 
-  function handleRemoveMenu(id: string) {
+  function handleRemoveMenu(menuId: string) {
     setMenuCategories((prevMenus) =>
-      prevMenus.filter((menu) => menu.id !== id)
+      prevMenus.filter((menu) => menu.id !== menuId)
     );
+  }
+
+  function handleAddMenuItem(menuId: string) {
+    setMenuCategories((prevMenus) => {
+      return prevMenus.map((menu) => {
+        if (menu.id === menuId) {
+          return {
+            ...menu,
+            items: [
+              ...menu.items,
+              { name: `food ${menu.items.length + 1}`, price: "$ 1.00" },
+            ],
+          };
+        } else {
+          return menu;
+        }
+      });
+    });
   }
 
   return (
@@ -53,7 +71,7 @@ const MenuSection = () => {
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
         {menuCategories.map((menu, index) => {
           return (
-            <div key={menu.id} className="relative hover:bg-gray-200">
+            <div key={menu.id} className="relative">
               <span
                 className="absolute top-0 right-0 cursor-pointer text-xl h-5 w-5 flex justify-center items-center hover:text-red-600 transition duration-200"
                 title="remove"
@@ -84,7 +102,12 @@ const MenuSection = () => {
                   </div>
                 ))}
 
-                <div className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer transition duration-200 hover:bg-gray-200">
+                <div
+                  className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer transition duration-200 hover:bg-gray-200"
+                  onClick={() => {
+                    handleAddMenuItem(menu.id);
+                  }}
+                >
                   <i className="icon-inno icon-inno_plus" />
                 </div>
               </div>
