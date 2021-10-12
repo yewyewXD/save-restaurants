@@ -127,7 +127,7 @@ const Template1: FC = () => {
       >
         <div className="p-10 flex flex-col justify-center items-start h-full ">
           <h1 className="text-4xl leading-none borderOnHover">
-            <HoverEffect elementName="Headline" />
+            <HoverEffect elementName="Title" />
             About
           </h1>
           <p className="text-gray-700 mt-6 borderOnHover">
@@ -155,11 +155,19 @@ const Template1: FC = () => {
         className="w-full flex justify-center items-center flex-col py-16 min-h-screen"
         id="menu-section"
       >
-        <h1 className="text-4xl leading-none text-center mb-14">Menu</h1>
+        <h1 className="text-4xl leading-none text-center mb-14 borderOnHover">
+          <HoverEffect elementName="Title" />
+          Menu
+        </h1>
         <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
           {menuCategories.map((menu, index) => (
             <div key={`menu-${index}`}>
-              <h5 className="mb-6">{menu.title}</h5>
+              <div className="flex justify-center items-center">
+                <h5 className="mb-6 borderOnHover w-max">
+                  <HoverEffect elementName={`Title ${index + 1} `} />
+                  {menu.title}
+                </h5>
+              </div>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
                   <div
@@ -173,6 +181,15 @@ const Template1: FC = () => {
                     <b>{item.price}</b>
                   </div>
                 ))}
+
+                {/* <div className="flex justify-center items-center mt-3">
+                  <div className="rounded-full w-3 h-3 flex justify-center items-center border border-black p-4 cursor-pointer ">
+                    <i className="icon-inno icon-inno_plus" />
+                  </div>
+                </div> */}
+                <div className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer">
+                  <i className="icon-inno icon-inno_plus" />
+                </div>
               </div>
             </div>
           ))}
