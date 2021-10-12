@@ -37,6 +37,7 @@ h6 {
 }
 
 .borderOnHover {
+  position: relative !important;
   & div:first-child {
     display: none;
     background: rgba(0, 255, 0, 0.2);
