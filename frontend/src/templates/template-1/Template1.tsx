@@ -134,8 +134,12 @@ const Template1: FC = () => {
       >
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pr-5 ">
-            <h2 className="text-4xl leading-none text-center">Location</h2>
-            <p className="my-6">
+            <h2 className="text-4xl leading-none text-center borderOnHover">
+              <HoverEffect elementName="Title" />
+              Location
+            </h2>
+            <p className="my-6 borderOnHover">
+              <HoverEffect elementName="Description" />
               1533, Jalan Sri Hijau 11, Taman Sri Hijau, 48000 Rawang, Selangor,
               Malaysia
             </p>
@@ -148,8 +152,13 @@ const Template1: FC = () => {
 
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 px-5">
-            <h2 className="text-4xl leading-none">Opening Hours</h2>
-            <div className="mt-6 grid grid-cols-1 gap-3">
+            <h2 className="text-4xl leading-none borderOnHover">
+              <HoverEffect elementName="Title" />
+              Opening Hours
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-3 borderOnHover">
+              <HoverEffect elementName="Active hours" />
+
               <div>
                 <div className="font-bold">Monday - Friday</div>
                 <div>8am - 8pm</div>
@@ -164,8 +173,12 @@ const Template1: FC = () => {
 
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pl-5">
-            <h2 className="text-4xl leading-none text-center">Find a table</h2>
-            <p className="my-6">
+            <h2 className="text-4xl leading-none text-center borderOnHover">
+              <HoverEffect elementName="Title" />
+              Find a table
+            </h2>
+            <p className="my-6 borderOnHover">
+              <HoverEffect elementName="Description" />
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad quae
               repellat tempora assumenda, ipsam aliquid esse suscipit porro
               soluta dolores, voluptates deleniti rerum perspic
