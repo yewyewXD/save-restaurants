@@ -84,10 +84,7 @@ const MenuSection = () => {
               </span>
 
               <div className="flex justify-center items-center">
-                <h5 className="mb-6 borderOnHover w-max">
-                  <HoverEffect elementName={`Title ${index + 1} `} />
-                  {menu.title}
-                </h5>
+                <h5 className="mb-6 w-max">{menu.title}</h5>
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
