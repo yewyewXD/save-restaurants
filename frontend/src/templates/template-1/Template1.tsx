@@ -107,7 +107,7 @@ const Template1: FC = () => {
             Main home section text
           </h1>
           <p className="my-6 leading-none borderOnHover">
-            <HoverEffect elementName="Description" />
+            <HoverEffect elementName="Subtitle" />
             Subtitle of home section
           </p>
 
@@ -126,8 +126,12 @@ const Template1: FC = () => {
         id="about-section"
       >
         <div className="p-10 flex flex-col justify-center items-start h-full ">
-          <h1 className="text-4xl leading-none">About</h1>
-          <p className="text-gray-700 mt-6">
+          <h1 className="text-4xl leading-none borderOnHover">
+            <HoverEffect elementName="Headline" />
+            About
+          </h1>
+          <p className="text-gray-700 mt-6 borderOnHover">
+            <HoverEffect elementName="Description" />
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
             perferendis deleniti eum alias unde et minus laborum perspiciatis
             accusantium voluptatibus. Lorem ipsum, dolor sit amet consectetur
