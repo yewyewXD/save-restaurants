@@ -73,15 +73,6 @@ const MenuSection = () => {
           return (
             <div key={menu.id} className="relative borderOnHover">
               <HoverEffect elementName={`Menu ${index + 1}`} />
-              <span
-                className="absolute top-0 right-0 cursor-pointer text-xl h-5 w-5 flex justify-center items-center hover:text-red-600 transition duration-200"
-                title="remove"
-                onClick={() => {
-                  handleRemoveMenu(menu.id);
-                }}
-              >
-                <b>&#10005;</b>
-              </span>
 
               <div className="flex justify-center items-center">
                 <h5 className="mb-6 w-max">{menu.title}</h5>
@@ -99,15 +90,6 @@ const MenuSection = () => {
                     <b>{item.price}</b>
                   </div>
                 ))}
-
-                <div
-                  className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer transition duration-200 hover:bg-gray-200"
-                  onClick={() => {
-                    handleAddMenuItem(menu.id);
-                  }}
-                >
-                  <i className="icon-inno icon-inno_plus" />
-                </div>
               </div>
             </div>
           );
