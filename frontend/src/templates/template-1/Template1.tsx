@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import Scrollspy from "react-scrollspy";
 import HoverEffect from "../../globalUI/Site/HoverEffect";
+import SideMenu from "../../globalUI/Site/SideMenu";
 import MenuSection from "./components/MenuSection";
 
 const Template1: FC = () => {
+  const [menuIsOpened, setMenuIsOpened] = useState(false);
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
@@ -30,15 +32,30 @@ const Template1: FC = () => {
     { name: "Facebook", link: "www.facebook.com" },
   ];
 
+  function handleOpenMenu() {
+    setMenuIsOpened(true);
+  }
+
   return (
     <main>
+      <SideMenu
+        isOpened={menuIsOpened}
+        onCloseMenu={() => {
+          setMenuIsOpened(false);
+        }}
+      />
+
       {/* Navbar */}
       <div className="relative h-16">
         <header
           className={`fixed flex justify-center items-center h-16 w-full top-0 ${navBg}`}
         >
           <div className="borderOnHover w-full">
-            <HoverEffect elementName={"Navigation bar"} showTextInner={true} />
+            <HoverEffect
+              onClick={handleOpenMenu}
+              elementName={"Navigation bar"}
+              showTextInner={true}
+            />
             <Scrollspy
               className="w-full grid grid-cols-5 text-center justify-center  h-16"
               items={navItems.map((navItem) => navItem.link)}
@@ -76,19 +93,19 @@ const Template1: FC = () => {
         className="h-screen text-white w-full flex justify-center items-center bg-cover bg-no-repeat bg-center borderOnHover cursor-pointer"
         id="home-section"
       >
-        <HoverEffect elementName="Background" />
+        <HoverEffect onClick={handleOpenMenu} elementName="Background" />
         <div className="container flex justify-center items-center flex-col">
           <h1 className="text-5xl leading-none borderOnHover">
-            <HoverEffect elementName="Title" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Title" />
             Main home section text
           </h1>
           <p className="my-6 leading-none borderOnHover">
-            <HoverEffect elementName="Subtitle" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Subtitle" />
             Subtitle of home section
           </p>
 
           <div className="borderOnHover">
-            <HoverEffect elementName="Button" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Button" />
             <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
               Button to Menu
             </button>
@@ -103,11 +120,11 @@ const Template1: FC = () => {
       >
         <div className="p-10 flex flex-col justify-center items-start h-full ">
           <h1 className="text-4xl leading-none borderOnHover">
-            <HoverEffect elementName="Title" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Title" />
             About
           </h1>
           <p className="text-gray-700 mt-6 borderOnHover">
-            <HoverEffect elementName="Description" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Description" />
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
             perferendis deleniti eum alias unde et minus laborum perspiciatis
             accusantium voluptatibus. Lorem ipsum, dolor sit amet consectetur
@@ -122,12 +139,12 @@ const Template1: FC = () => {
               "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/07/about-chefs.jpg)",
           }}
         >
-          <HoverEffect elementName="Image" />
+          <HoverEffect onClick={handleOpenMenu} elementName="Image" />
         </div>
       </section>
 
       {/* Menu */}
-      <MenuSection />
+      <MenuSection handleOpenMenu={handleOpenMenu} />
 
       {/* Contact */}
       <section
@@ -137,11 +154,11 @@ const Template1: FC = () => {
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pr-5 ">
             <h2 className="text-4xl leading-none text-center borderOnHover">
-              <HoverEffect elementName="Title" />
+              <HoverEffect onClick={handleOpenMenu} elementName="Title" />
               Location
             </h2>
             <p className="my-6 borderOnHover">
-              <HoverEffect elementName="Description" />
+              <HoverEffect onClick={handleOpenMenu} elementName="Description" />
               1533, Jalan Sri Hijau 11, Taman Sri Hijau, 48000 Rawang, Selangor,
               Malaysia
             </p>
@@ -155,11 +172,14 @@ const Template1: FC = () => {
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 px-5">
             <h2 className="text-4xl leading-none borderOnHover">
-              <HoverEffect elementName="Title" />
+              <HoverEffect onClick={handleOpenMenu} elementName="Title" />
               Opening Hours
             </h2>
             <div className="mt-6 grid grid-cols-1 gap-3 borderOnHover">
-              <HoverEffect elementName="Active hours" />
+              <HoverEffect
+                onClick={handleOpenMenu}
+                elementName="Active hours"
+              />
 
               <div>
                 <div className="font-bold">Monday - Friday</div>
@@ -176,11 +196,11 @@ const Template1: FC = () => {
         <div className="flex justify-center">
           <div className="h-full flex flex-col justify-start items-start p-10 pl-5">
             <h2 className="text-4xl leading-none text-center borderOnHover">
-              <HoverEffect elementName="Title" />
+              <HoverEffect onClick={handleOpenMenu} elementName="Title" />
               Find a table
             </h2>
             <p className="my-6 borderOnHover">
-              <HoverEffect elementName="Description" />
+              <HoverEffect onClick={handleOpenMenu} elementName="Description" />
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad quae
               repellat tempora assumenda, ipsam aliquid esse suscipit porro
               soluta dolores, voluptates deleniti rerum perspic
@@ -202,7 +222,7 @@ const Template1: FC = () => {
           className={`flex justify-center items-center text-center mb-12 w-full`}
         >
           <div className="w-max borderOnHover">
-            <HoverEffect elementName="Social medias" />
+            <HoverEffect onClick={handleOpenMenu} elementName="Social medias" />
             {socialMedias.map((socialMedia, index) => (
               <a
                 target="_blank"
@@ -219,7 +239,10 @@ const Template1: FC = () => {
 
         <div className={`flex justify-center items-center text-center w-full`}>
           <div className="borderOnHover w-max">
-            <HoverEffect elementName="Navigation bar" />
+            <HoverEffect
+              onClick={handleOpenMenu}
+              elementName="Navigation bar"
+            />
             {navItems
               .filter((navItem) => !navItem.isLogo)
               .map((navItem, index) => (

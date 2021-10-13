@@ -3,11 +3,19 @@ import React from "react";
 interface Props {
   elementName: string;
   showTextInner?: boolean;
+  onClick: () => void;
 }
 
-const HoverEffect: React.FC<Props> = ({ elementName, showTextInner }) => {
+const HoverEffect: React.FC<Props> = ({
+  elementName,
+  showTextInner,
+  onClick,
+}) => {
   return (
-    <div className="HoverEffect flex justify-start items-start absolute h-full w-full border-green-400 border-dashed border-4">
+    <div
+      className="HoverEffect flex justify-start items-start absolute h-full w-full border-green-400 border-dashed border-4"
+      onClick={onClick}
+    >
       <span
         className={`text-xs px-5 py-1 bg-green-800 text-white absolute w-max z-20 ${
           showTextInner ? "top-0 left-0" : "-top-7 -left-1"

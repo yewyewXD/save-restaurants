@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 
-const MenuSection = () => {
+interface IProps {
+  handleOpenMenu: () => void;
+}
+
+const MenuSection: React.FC<IProps> = ({ handleOpenMenu }) => {
   const [menuCategories, setMenuCategories] = useState([
     {
       id: "menu-category-1",
@@ -65,14 +69,17 @@ const MenuSection = () => {
       id="menu-section"
     >
       <h1 className="text-4xl leading-none text-center mb-14 borderOnHover">
-        <HoverEffect elementName="Title" />
+        <HoverEffect onClick={handleOpenMenu} elementName="Title" />
         Menu
       </h1>
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
         {menuCategories.map((menu, index) => {
           return (
             <div key={menu.id} className="relative borderOnHover">
-              <HoverEffect elementName={`Menu ${index + 1}`} />
+              <HoverEffect
+                onClick={handleOpenMenu}
+                elementName={`Menu ${index + 1}`}
+              />
 
               <div className="flex justify-center items-center">
                 <h5 className="mb-6 w-max">{menu.title}</h5>
