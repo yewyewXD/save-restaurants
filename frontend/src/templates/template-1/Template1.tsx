@@ -197,8 +197,9 @@ const Template1: FC = () => {
       {/* Footer */}
       <footer className="pt-32 pb-24 w-100 justify-center items-center flex-col bg-black text-white">
         <div
-          className={`w-full flex justify-center items-center text-center mb-12`}
+          className={`w-full flex justify-center items-center text-center mb-12 borderOnHover`}
         >
+          <HoverEffect elementName="Social medias" />
           {socialMedias.map((socialMedia, index) => (
             <a
               target="_blank"
@@ -211,7 +212,8 @@ const Template1: FC = () => {
             </a>
           ))}
         </div>
-        <div className="text-center">
+        <div className="text-center borderOnHover">
+          <HoverEffect elementName="Navigation bar" />
           {navItems
             .filter((navItem) => !navItem.isLogo)
             .map((navItem, index) => (
