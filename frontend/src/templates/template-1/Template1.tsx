@@ -19,9 +19,9 @@ const Template1: FC = () => {
 
   const navItems = [
     { name: "logo", link: "home-section", isLogo: true },
-    { name: "ABOUT US", link: "about-section" },
-    { name: "MENU", link: "menu-section" },
-    { name: "CONTACT", link: "contact-section" },
+    { name: "About Us", link: "about-section" },
+    { name: "Menu", link: "menu-section" },
+    { name: "Contact", link: "contact-section" },
   ];
 
   const socialMedias = [
@@ -35,17 +35,18 @@ const Template1: FC = () => {
       {/* Navbar */}
       <div className="relative h-16">
         <header
-          className={`fixed flex justify-center items-center h-16 w-full top-0 ${navBg}`}
+          className={`fixed flex justify-center items-center h-16 w-full top-0  ${navBg}`}
         >
           <Scrollspy
-            className="w-full grid grid-cols-5 text-center justify-center"
+            className="w-full grid grid-cols-5 text-center justify-center borderOnHover h-16"
             items={navItems.map((navItem) => navItem.link)}
             currentClassName="underline"
           >
+            <HoverEffect elementName={"Navigation bar"} showTextInner={true} />
             {navItems.map((navItem) => (
               <li
                 key={`navItem-${navItem.link}`}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center h-16"
               >
                 <a className="py-6" href={`#${navItem.link}`}>
                   {navItem.isLogo ? (
