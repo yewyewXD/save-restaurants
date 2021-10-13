@@ -1,12 +1,15 @@
-import React from "react";
+import React, { PropsWithChildren, FC } from "react";
 
 interface IProps {
   isOpened: boolean;
   onCloseMenu: () => void;
-  children?: React.ReactNode;
 }
 
-const SideMenu: React.FC<IProps> = ({ isOpened, onCloseMenu, children }) => {
+const SideMenu: FC<PropsWithChildren<IProps>> = ({
+  isOpened,
+  onCloseMenu,
+  children,
+}) => {
   return (
     <>
       {isOpened && (
