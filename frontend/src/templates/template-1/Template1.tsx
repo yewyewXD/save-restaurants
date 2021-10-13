@@ -197,30 +197,35 @@ const Template1: FC = () => {
       {/* Footer */}
       <footer className="pt-32 pb-24 w-100 justify-center items-center flex-col bg-black text-white">
         <div
-          className={`w-full flex justify-center items-center text-center mb-12 borderOnHover`}
+          className={`flex justify-center items-center text-center mb-12 w-full`}
         >
-          <HoverEffect elementName="Social medias" />
-          {socialMedias.map((socialMedia, index) => (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={socialMedia.link}
-              className={"mx-6"}
-              key={`social-${index}`}
-            >
-              {socialMedia.name}
-            </a>
-          ))}
-        </div>
-        <div className="text-center borderOnHover">
-          <HoverEffect elementName="Navigation bar" />
-          {navItems
-            .filter((navItem) => !navItem.isLogo)
-            .map((navItem, index) => (
-              <span key={`footerNav-${index}`} className="mx-4">
-                {navItem.name}
-              </span>
+          <div className="w-max borderOnHover">
+            <HoverEffect elementName="Social medias" />
+            {socialMedias.map((socialMedia, index) => (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={socialMedia.link}
+                className={"mx-6"}
+                key={`social-${index}`}
+              >
+                {socialMedia.name}
+              </a>
             ))}
+          </div>
+        </div>
+
+        <div className={`flex justify-center items-center text-center w-full`}>
+          <div className="borderOnHover w-max">
+            <HoverEffect elementName="Navigation bar" />
+            {navItems
+              .filter((navItem) => !navItem.isLogo)
+              .map((navItem, index) => (
+                <span key={`footerNav-${index}`} className="mx-4">
+                  {navItem.name}
+                </span>
+              ))}
+          </div>
         </div>
       </footer>
     </main>
