@@ -7,7 +7,7 @@ const Template1: FC = () => {
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
-      const navBgClass = window.scrollY < 1 ? "bg-white" : "bg-primary z-10";
+      const navBgClass = window.scrollY < 1 ? "bg-white" : "bg-primary z-30";
       setNavBg(navBgClass);
     }
 
