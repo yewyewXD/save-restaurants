@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HoverEffect from "../../HoverEffect";
+import HoverEffect from "../../../globalUI/Site/HoverEffect";
 
 const MenuSection = () => {
   const [menuCategories, setMenuCategories] = useState([

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import Scrollspy from "react-scrollspy";
-import HoverEffect from "../HoverEffect";
+import HoverEffect from "../../globalUI/Site/HoverEffect";
 import MenuSection from "./components/MenuSection";
 
 const Template1: FC = () => {
