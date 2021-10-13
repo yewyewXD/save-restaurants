@@ -35,33 +35,35 @@ const Template1: FC = () => {
       {/* Navbar */}
       <div className="relative h-16">
         <header
-          className={`fixed flex justify-center items-center h-16 w-full top-0  ${navBg}`}
+          className={`fixed flex justify-center items-center h-16 w-full top-0 ${navBg}`}
         >
-          <Scrollspy
-            className="w-full grid grid-cols-5 text-center justify-center borderOnHover h-16"
-            items={navItems.map((navItem) => navItem.link)}
-            currentClassName="underline"
-          >
+          <div className="borderOnHover w-full">
             <HoverEffect elementName={"Navigation bar"} showTextInner={true} />
-            {navItems.map((navItem) => (
-              <li
-                key={`navItem-${navItem.link}`}
-                className="flex justify-center items-center h-16"
-              >
-                <a className="py-6" href={`#${navItem.link}`}>
-                  {navItem.isLogo ? (
-                    <img
-                      src="/images/netlify.png"
-                      alt=""
-                      style={{ maxWidth: "40px" }}
-                    />
-                  ) : (
-                    navItem.name
-                  )}
-                </a>
-              </li>
-            ))}
-          </Scrollspy>
+            <Scrollspy
+              className="w-full grid grid-cols-5 text-center justify-center  h-16"
+              items={navItems.map((navItem) => navItem.link)}
+              currentClassName="underline"
+            >
+              {navItems.map((navItem) => (
+                <li
+                  key={`navItem-${navItem.link}`}
+                  className="flex justify-center items-center h-16"
+                >
+                  <a className="py-6" href={`#${navItem.link}`}>
+                    {navItem.isLogo ? (
+                      <img
+                        src="/images/netlify.png"
+                        alt=""
+                        style={{ maxWidth: "40px" }}
+                      />
+                    ) : (
+                      navItem.name
+                    )}
+                  </a>
+                </li>
+              ))}
+            </Scrollspy>
+          </div>
         </header>
       </div>
 
