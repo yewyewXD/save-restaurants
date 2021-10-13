@@ -13,7 +13,10 @@ const SideMenu: FC<PropsWithChildren<IProps>> = ({
   return (
     <>
       {isOpened && (
-        <div className="pointer-events-none bg-black w-full fixed h-full z-40 bg-opacity-30"></div>
+        <div
+          onClick={onCloseMenu}
+          className="bg-black w-full fixed h-full z-40 bg-opacity-30"
+        ></div>
       )}
 
       <div
