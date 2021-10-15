@@ -1,15 +1,12 @@
-import React, { PropsWithChildren, FC } from "react";
+import React, { FC } from "react";
 
 interface IProps {
   isOpened: boolean;
   onCloseMenu: () => void;
+  content: HTMLElement;
 }
 
-const SideMenu: FC<PropsWithChildren<IProps>> = ({
-  isOpened,
-  onCloseMenu,
-  children,
-}) => {
+const SideMenu: FC<IProps> = ({ isOpened, onCloseMenu, content }) => {
   return (
     <>
       {isOpened && (
@@ -31,7 +28,7 @@ const SideMenu: FC<PropsWithChildren<IProps>> = ({
           >
             &#10005;
           </span>
-          testing
+          {content}
         </div>
       </div>
     </>
