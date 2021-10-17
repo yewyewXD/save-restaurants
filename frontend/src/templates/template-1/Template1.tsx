@@ -44,7 +44,6 @@ const Template1: FC = () => {
 
       <AboutSection handleOpenMenu={handleOpenMenu} />
 
-      {/* Menu */}
       <MenuSection handleOpenMenu={handleOpenMenu} />
 
       {/* Contact */}

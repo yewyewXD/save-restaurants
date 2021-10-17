@@ -1,11 +1,8 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
+import { ISectionProps } from "../template1.types";
 
-interface IProps {
-  handleOpenMenu: () => void;
-}
-
-const MenuSection: React.FC<IProps> = ({ handleOpenMenu }) => {
+const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
   const [menuCategories, setMenuCategories] = useState([
     {
       id: "menu-category-1",
@@ -69,7 +66,12 @@ const MenuSection: React.FC<IProps> = ({ handleOpenMenu }) => {
       id="menu-section"
     >
       <h1 className="text-4xl leading-none text-center mb-14 borderOnHover">
-        <HoverEffect onClick={handleOpenMenu} elementName="Title" />
+        <HoverEffect
+          onClick={() => {
+            handleOpenMenu(<div>menu section title</div>);
+          }}
+          elementName="Title"
+        />
         Menu
       </h1>
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
@@ -77,7 +79,9 @@ const MenuSection: React.FC<IProps> = ({ handleOpenMenu }) => {
           return (
             <div key={menu.id} className="relative borderOnHover">
               <HoverEffect
-                onClick={handleOpenMenu}
+                onClick={() => {
+                  handleOpenMenu(<div>edit whole menu {index + 1}</div>);
+                }}
                 elementName={`Menu ${index + 1}`}
               />
 
