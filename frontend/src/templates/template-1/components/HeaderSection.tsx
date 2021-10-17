@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import Scrollspy from "react-scrollspy";
 
 interface IProps {
-  handleOpenMenu: () => void;
+  handleOpenMenu: (content: ReactElement) => void;
 }
 
 const HeaderSection: React.FC<IProps> = ({ handleOpenMenu }) => {
@@ -34,7 +34,9 @@ const HeaderSection: React.FC<IProps> = ({ handleOpenMenu }) => {
       >
         <nav className="borderOnHover w-full">
           <HoverEffect
-            onClick={handleOpenMenu}
+            onClick={() => {
+              handleOpenMenu(<div>navbar content</div>);
+            }}
             elementName={"Navigation bar"}
             showTextInner={true}
           />
