@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, ReactElement, useState } from "react";
 import HoverEffect from "../../globalUI/Site/HoverEffect";
 import SideMenu from "../../globalUI/Site/SideMenu";
 import HeaderSection from "./components/HeaderSection";
@@ -6,6 +6,7 @@ import MenuSection from "./components/MenuSection";
 
 const Template1: FC = () => {
   const [menuIsOpened, setMenuIsOpened] = useState(false);
+  const [menuContent, setMenuContent] = useState(<div></div>);
 
   const navItems = [
     { name: "logo", link: "home-section", isLogo: true },
@@ -20,13 +21,15 @@ const Template1: FC = () => {
     { name: "Facebook", link: "www.facebook.com" },
   ];
 
-  function handleOpenMenu() {
+  function handleOpenMenu(content: ReactElement) {
     setMenuIsOpened(true);
+    setMenuContent(content);
   }
 
   return (
     <main>
       <SideMenu
+        content={menuContent}
         isOpened={menuIsOpened}
         onCloseMenu={() => {
           setMenuIsOpened(false);

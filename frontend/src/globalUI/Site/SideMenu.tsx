@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, ReactElement } from "react";
 
 interface IProps {
   isOpened: boolean;
   onCloseMenu: () => void;
-  content: HTMLElement;
+  content: ReactElement;
 }
 
 const SideMenu: FC<IProps> = ({ isOpened, onCloseMenu, content }) => {
