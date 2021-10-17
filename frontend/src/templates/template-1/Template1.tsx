@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState } from "react";
 import HoverEffect from "../../globalUI/Site/HoverEffect";
 import SideMenu from "../../globalUI/Site/SideMenu";
+import AboutSection from "./components/AboutSection";
 import HeaderSection from "./components/HeaderSection";
 import HeroSection from "./components/HeroSection";
 import MenuSection from "./components/MenuSection";
@@ -37,41 +38,11 @@ const Template1: FC = () => {
         }}
       />
 
-      {/* Navbar */}
       <HeaderSection handleOpenMenu={handleOpenMenu} />
 
-      {/* Hero */}
       <HeroSection handleOpenMenu={handleOpenMenu} />
 
-      {/* About Me  */}
-      <section
-        className="min-h-screen w-full grid grid-cols-2 "
-        id="about-section"
-      >
-        <div className="p-10 flex flex-col justify-center items-start h-full ">
-          <h1 className="text-4xl leading-none borderOnHover">
-            <HoverEffect onClick={handleOpenMenu} elementName="Title" />
-            About
-          </h1>
-          <p className="text-gray-700 mt-6 borderOnHover">
-            <HoverEffect onClick={handleOpenMenu} elementName="Description" />
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-            perferendis deleniti eum alias unde et minus laborum perspiciatis
-            accusantium voluptatibus. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Excepturi, vitae.
-          </p>
-        </div>
-
-        <div
-          className="w-full h-full flex justify-center items-center bg-cover bg-no-repeat bg-center borderOnHover"
-          style={{
-            backgroundImage:
-              "url(https://demo.kallyas.net/phaeton-restaurant-bar-pub/wp-content/uploads/sites/7/2016/07/about-chefs.jpg)",
-          }}
-        >
-          <HoverEffect onClick={handleOpenMenu} elementName="Image" />
-        </div>
-      </section>
+      <AboutSection handleOpenMenu={handleOpenMenu} />
 
       {/* Menu */}
       <MenuSection handleOpenMenu={handleOpenMenu} />
