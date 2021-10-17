@@ -1,12 +1,9 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import Scrollspy from "react-scrollspy";
+import { ISectionProps } from "../template1.types";
 
-interface IProps {
-  handleOpenMenu: (content: ReactElement) => void;
-}
-
-const HeaderSection: React.FC<IProps> = ({ handleOpenMenu }) => {
+const HeaderSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
