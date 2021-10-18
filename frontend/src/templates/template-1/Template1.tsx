@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useCallback } from "react";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import FooterSection from "./components/FooterSection";
@@ -10,9 +10,10 @@ import { useModal } from "../../context/modal/ModalState";
 const Template1: FC = () => {
   const { handleShowModal } = useModal();
 
-  function handleOpenMenu(content: ReactElement) {
+  const handleOpenMenu = useCallback((content: ReactElement) => {
     handleShowModal(content);
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main>
