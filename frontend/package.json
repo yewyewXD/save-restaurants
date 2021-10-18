@@ -18,6 +18,7 @@
     "@types/serialize-javascript": "^5.0.1",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
+    "idb-keyval": "^6.0.3",
     "postcss": "^7",
     "pure-react-carousel": "^1.27.6",
     "react": "^17.0.2",
