@@ -4,9 +4,11 @@ import React, {
   // useEffect,
   useContext,
   FC,
+  useEffect,
 } from "react";
 import SiteReducer from "./SiteReducer";
 import { ISiteContextState } from "./types";
+import { set, createStore } from "idb-keyval";
 
 const initialState: ISiteContextState = {
   header: {},
@@ -31,12 +33,20 @@ export const SiteContextProvider: FC = ({ children }) => {
     // }
   });
 
+  async function testIndexedDB() {
+    const myStore = createStore("siteStore", "template1");
+    await set("header", "header value", myStore);
+  }
+
   // save to localStorage
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
   //     localStorage.setItem("SiteState", serialize(state, { isJSON: true }));
   //   }
   // }, [state]);
+  useEffect(() => {
+    testIndexedDB();
+  }, []);
 
   // actions
   function updateSection(name: string, data: object) {
