@@ -1,9 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import Scrollspy from "react-scrollspy";
 import { ISectionProps } from "../template1.types";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useModal } from "../../../context/modal/ModalState";
 
-const HeaderSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
+// Edit component - start
+const HeaderEdit: FC = () => {
+  const [stateQuotes, setStateQuotes] = useState<any>([
+    { content: "About Us", id: "nav-about-section" },
+    { content: "Menu", id: "nav-menu-section" },
+    { content: "Contact", id: "nav-contact-section" },
+  ]);
+
+  const QuoteList = ({ quotes }: any) => {
+    return quotes.map((quote: any, index: any) => (
+      <Draggable draggableId={quote.id} index={index} key={quote.id}>
+        {(provided) => (
+          <div
+            style={{
+              width: "200px",
+              border: "1px solid grey",
+              marginBottom: "8px",
+              backgroundColor: "lightblue",
+              padding: "8px",
+            }}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            {quote.content}
+          </div>
+        )}
+      </Draggable>
+    ));
+  };
+
+  const reorder = (list: any, startIndex: any, endIndex: any) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  function onDragEnd(result: any) {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const quotes = reorder(
+      stateQuotes,
+      result.source.index,
+      result.destination.index
+    );
+
+    setStateQuotes(quotes);
+  }
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="list">
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <QuoteList quotes={stateQuotes} />
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
+};
+// Edit component - end
+
+const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
+  const { handleShowModal } = useModal();
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
@@ -32,7 +107,7 @@ const HeaderSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
         <nav className="borderOnHover w-full">
           <HoverEffect
             onClick={() => {
-              handleOpenMenu(<div>navbar content</div>);
+              handleShowModal(<HeaderEdit />);
             }}
             elementName={"Navigation bar"}
             showTextInner={true}
