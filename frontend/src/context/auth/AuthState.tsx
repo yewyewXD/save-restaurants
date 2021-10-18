@@ -34,8 +34,8 @@ const initialState: authContextState = {
   isLoggedIn: false,
   expiry: 0,
 
-  saveUserAuth: () => {},
-  clearUserAuth: () => {},
+  saveUserAuth: Function,
+  clearUserAuth: Function,
 };
 
 export const AuthContext = createContext<authContextState>(initialState);
