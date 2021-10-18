@@ -1,31 +1,21 @@
-import React, { FC, ReactElement, useState } from "react";
-import SideMenu from "../../globalUI/Site/SideMenu";
+import React, { FC, ReactElement } from "react";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import FooterSection from "./components/FooterSection";
 import HeaderSection from "./components/HeaderSection";
 import HeroSection from "./components/HeroSection";
 import MenuSection from "./components/MenuSection";
+import { useModal } from "../../context/modal/ModalState";
 
 const Template1: FC = () => {
-  const [menuIsOpened, setMenuIsOpened] = useState(false);
-  const [menuContent, setMenuContent] = useState(<div></div>);
+  const { handleShowModal } = useModal();
 
   function handleOpenMenu(content: ReactElement) {
-    setMenuIsOpened(true);
-    setMenuContent(content);
+    handleShowModal(content);
   }
 
   return (
     <main>
-      <SideMenu
-        content={menuContent}
-        isOpened={menuIsOpened}
-        onCloseMenu={() => {
-          setMenuIsOpened(false);
-        }}
-      />
-
       <HeaderSection handleOpenMenu={handleOpenMenu} />
 
       <HeroSection handleOpenMenu={handleOpenMenu} />
