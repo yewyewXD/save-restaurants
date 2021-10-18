@@ -3,7 +3,6 @@ import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import Scrollspy from "react-scrollspy";
 import { ISectionProps } from "../template1.types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useModal } from "../../../context/modal/ModalState";
 
 // Edit component - start
 const HeaderEdit: FC = () => {
@@ -78,7 +77,6 @@ const HeaderEdit: FC = () => {
 // Edit component - end
 
 const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
-  const { handleShowModal } = useModal();
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
     function scrollListener() {
@@ -107,7 +105,7 @@ const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
         <nav className="borderOnHover w-full">
           <HoverEffect
             onClick={() => {
-              handleShowModal(<HeaderEdit />);
+              handleOpenMenu(<HeaderEdit />);
             }}
             elementName={"Navigation bar"}
             showTextInner={true}
