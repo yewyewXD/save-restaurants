@@ -8,12 +8,12 @@ import React, {
 import ModalComponent from "../../globalUI/Modal/ModalComponent";
 import { debounce } from "../../utils/modal.utils";
 
-interface modalContextState {
+interface IModalContextState {
   handleShowModal: Function;
   handleHideModal: Function;
 }
 
-export const ModalContext = createContext<modalContextState>({
+export const ModalContext = createContext<IModalContextState>({
   handleShowModal: () => {},
   handleHideModal: () => {},
 });
@@ -21,11 +21,11 @@ export const ModalContext = createContext<modalContextState>({
 export const ModalProvider: FC = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState(null);
-  const handleShowModal = useCallback((_content) => {
+  const handleShowModal = useCallback((_content): void => {
     setContent(_content);
     setShowModal(true);
   }, []);
-  const handleHideModal = useCallback(() => {
+  const handleHideModal = useCallback((): void => {
     setShowModal(false);
     debounce(() => setContent(null), 250)();
   }, []);
@@ -41,12 +41,7 @@ export const ModalProvider: FC = ({ children }) => {
   );
 };
 
-/**
- * Helper that shows a modal.
- * const { show, hide } = useModal()
- * show<Component>(ReactComponent)
- */
-export function useModal() {
+export function useModal(): IModalContextState {
   const { handleShowModal, handleHideModal } = useContext(ModalContext);
 
   return { handleShowModal, handleHideModal };
