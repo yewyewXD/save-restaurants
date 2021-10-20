@@ -1,4 +1,4 @@
-export function getParsedQueries(): any {
+export function getParsedQueries(): object {
   return window.location.search
     .slice(1)
     .split("&")
