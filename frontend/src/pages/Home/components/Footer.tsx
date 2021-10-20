@@ -1,7 +1,13 @@
 import React, { useMemo } from "react";
 
 const Footer = () => {
-  const socialMedia = useMemo(() => {
+  interface ISocialMedia {
+    id: number;
+    name: string;
+    link: string;
+  }
+
+  const socialMedia = useMemo((): ISocialMedia[] => {
     return [
       //   {
       //     id: 1,
