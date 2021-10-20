@@ -3,7 +3,7 @@ import React from "react";
 interface Props {
   elementName: string;
   showTextInner?: boolean;
-  onClick: () => void;
+  onClick(): void;
 }
 
 const HoverEffect: React.FC<Props> = ({

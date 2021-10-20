@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
 
 export interface ISectionProps {
-  handleOpenMenu: (content: ReactElement) => void;
+  handleOpenMenu(content: ReactElement): void;
 }

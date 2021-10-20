@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from "react";
 
 interface IProps {
   isOpened: boolean;
-  onCloseMenu: () => void;
+  onCloseMenu(): void;
   content: ReactElement;
 }
 
