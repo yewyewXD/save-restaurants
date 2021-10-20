@@ -7,11 +7,11 @@ import React, {
 } from "react";
 import NotificationBar from "../../globalUI/Notification/NotificationBar";
 
-interface notificationContextState {
+interface INotificationContextState {
   showNotification: Function;
 }
 
-export const NotificationContext = createContext<notificationContextState>({
+export const NotificationContext = createContext<INotificationContextState>({
   showNotification: () => {},
 });
 
@@ -42,7 +42,7 @@ export const NotificationProvider: FC = ({ children }) => {
   );
 };
 
-export function useNotification() {
+export function useNotification(): INotificationContextState {
   const { showNotification } = useContext(NotificationContext);
 
   return { showNotification };
