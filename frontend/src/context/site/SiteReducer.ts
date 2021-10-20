@@ -1,8 +1,8 @@
-import { IReducerAction } from "./types";
+import { IReducerAction, IActionTypes } from "./types";
 
 const SiteReducer = (state: any, { type, payload }: IReducerAction) => {
   switch (type) {
-    case "UPDATE_SECTION":
+    case IActionTypes.UPDATE:
       return {
         ...state,
         [payload.name]: payload.data,

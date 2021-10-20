@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import SiteReducer from "./SiteReducer";
-import { ISiteContextState } from "./types";
+import { ISiteContextState, IActionTypes } from "./types";
 import { set, createStore } from "idb-keyval";
 
 const initialState: ISiteContextState = {
@@ -51,7 +51,7 @@ export const SiteContextProvider: FC = ({ children }) => {
   // actions
   function updateSection(name: string, data: object) {
     dispatch({
-      type: "UPDATE_SECTION",
+      type: IActionTypes.UPDATE,
       payload: {
         name,
         data,

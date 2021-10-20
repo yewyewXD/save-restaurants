@@ -9,8 +9,12 @@ export interface ISiteContextState {
   updateSection: Function;
 }
 
+export enum IActionTypes {
+  UPDATE = "UPDATE_SECTION",
+}
+
 export interface IReducerAction {
-  type: "UPDATE_SECTION";
+  type: IActionTypes.UPDATE;
   payload: {
     name: string;
     data: object;
