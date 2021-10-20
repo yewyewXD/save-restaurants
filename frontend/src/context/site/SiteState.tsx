@@ -49,7 +49,7 @@ export const SiteContextProvider: FC = ({ children }) => {
   }, []);
 
   // actions
-  function updateSection(name: string, data: object) {
+  function updateSection(name: string, data: object): void {
     dispatch({
       type: IActionTypes.UPDATE,
       payload: {
@@ -76,7 +76,7 @@ export const SiteContextProvider: FC = ({ children }) => {
   );
 };
 
-export function useSite() {
+export function useSite(): ISiteContextState {
   const { header, hero, about, menu, contact, footer, updateSection } =
     useContext(SiteContext);
 
