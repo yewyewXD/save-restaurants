@@ -1,35 +1,35 @@
 import axios from "axios";
 
-interface authPayload {
+interface IAuthPayload {
   username: string;
   email: string;
   password: string;
   reCaptchaToken: string;
 }
 
-interface googleLoginPayload {
+interface IGoogleLoginPayload {
   tokenId: string;
   reCaptchaToken: string;
 }
 
-interface verifyUserPayload {
+interface IVerifyUserPayload {
   code: string;
   userId: string;
 }
 
-interface sendPasswordResetLinkPayload {
+interface ISendPasswordResetLinkPayload {
   email: string;
   reCaptchaToken: string;
 }
 
-interface resetPasswordPayload {
+interface IResetPasswordPayload {
   code: string;
   userId: string;
   reCaptchaToken: string;
   password: string;
 }
 
-export function registerUser(data: authPayload) {
+export function registerUser(data: IAuthPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/register`,
@@ -37,7 +37,7 @@ export function registerUser(data: authPayload) {
   });
 }
 
-export function loginUser(data: authPayload) {
+export function loginUser(data: IAuthPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/login`,
@@ -46,7 +46,7 @@ export function loginUser(data: authPayload) {
   });
 }
 
-export function googleLoginUser(data: googleLoginPayload) {
+export function googleLoginUser(data: IGoogleLoginPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/google-login`,
@@ -63,7 +63,7 @@ export function logoutUser() {
   });
 }
 
-export async function verifyUser(data: verifyUserPayload) {
+export async function verifyUser(data: IVerifyUserPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/verify`,
@@ -72,7 +72,7 @@ export async function verifyUser(data: verifyUserPayload) {
 }
 
 export async function sendPasswordResetLink(
-  data: sendPasswordResetLinkPayload
+  data: ISendPasswordResetLinkPayload
 ) {
   return axios({
     method: "post",
@@ -81,7 +81,7 @@ export async function sendPasswordResetLink(
   });
 }
 
-export async function resetPassword(data: resetPasswordPayload) {
+export async function resetPassword(data: IResetPasswordPayload) {
   return axios({
     method: "post",
     url: `http://localhost:5000/api/auth/reset`,
