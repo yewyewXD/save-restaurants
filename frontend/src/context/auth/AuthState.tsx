@@ -8,26 +8,9 @@ import React, {
 import { logoutUser } from "../../api/auth.api";
 import AuthReducer from "./AuthReducer";
 import serialize from "serialize-javascript";
+import { IAuthContextState, IAuthResponse } from "./types";
 
-interface authContextState {
-  userInfo: {
-    username: string;
-  };
-  isLoggedIn: boolean;
-  expiry: number;
-
-  saveUserAuth: Function;
-  clearUserAuth: Function;
-}
-
-interface authResponse {
-  user: {
-    username: string;
-  };
-  expiry: number;
-}
-
-const initialState: authContextState = {
+const initialState: IAuthContextState = {
   userInfo: {
     username: "",
   },
@@ -38,7 +21,7 @@ const initialState: authContextState = {
   clearUserAuth: Function,
 };
 
-export const AuthContext = createContext<authContextState>(initialState);
+export const AuthContext = createContext<IAuthContextState>(initialState);
 
 export const AuthContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState, () => {
@@ -69,7 +52,7 @@ export const AuthContextProvider: FC = ({ children }) => {
   }, [state]);
 
   // actions
-  function saveUserAuth(response: authResponse) {
+  function saveUserAuth(response: IAuthResponse): void {
     dispatch({
       type: "SAVE_USER_AUTH",
       payload: response,
@@ -100,9 +83,9 @@ export const AuthContextProvider: FC = ({ children }) => {
   );
 };
 
-export function useAuth() {
-  const { userInfo, isLoggedIn, saveUserAuth, clearUserAuth } =
+export function useAuth(): IAuthContextState {
+  const { userInfo, expiry, isLoggedIn, saveUserAuth, clearUserAuth } =
     useContext(AuthContext);
 
-  return { userInfo, isLoggedIn, saveUserAuth, clearUserAuth };
+  return { userInfo, isLoggedIn, expiry, saveUserAuth, clearUserAuth };
 }
