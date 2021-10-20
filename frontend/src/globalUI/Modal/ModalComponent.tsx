@@ -2,13 +2,13 @@ import React, { useRef, useEffect, FC, cloneElement } from "react";
 const Modal = require("react-modal");
 const { useLocation } = require("react-router-dom");
 
-interface Props {
+interface IProps {
   isShowing: boolean;
   content: any;
   close: Function;
 }
 
-const ModalComponent: FC<Props> = ({ isShowing, content, close }) => {
+const ModalComponent: FC<IProps> = ({ isShowing, content, close }) => {
   const location = useLocation();
   const locationRef = useRef(location.pathname);
 
