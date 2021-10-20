@@ -49,7 +49,7 @@ const HeaderEdit: FC = () => {
     return result;
   };
 
-  function onDragEnd(result: any) {
+  function onDragEnd(result: any): void {
     if (!result.destination) {
       return;
     }
@@ -96,7 +96,7 @@ const HeaderEdit: FC = () => {
 const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
   const [navBg, setNavBg] = useState("bg-white");
   useEffect(() => {
-    function scrollListener() {
+    function scrollListener(): void {
       const navBgClass = window.scrollY < 1 ? "bg-white" : "bg-primary z-30";
       setNavBg(navBgClass);
     }

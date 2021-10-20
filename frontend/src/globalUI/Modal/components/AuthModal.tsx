@@ -95,7 +95,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     }
   }
 
-  function handleShowPassword() {
+  function handleShowPassword(): void {
     setIsShowingPw((prevIsShowing) => !prevIsShowing);
   }
 
@@ -109,7 +109,7 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
     });
   }
 
-  function handleValidateForm() {
+  function handleValidateForm(): boolean {
     if (
       (isLogin ? false : !authInfo.username) ||
       !authInfo.email ||

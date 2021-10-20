@@ -11,15 +11,15 @@ const Navbar = () => {
 
   const [showNavbar, setShowNavbar] = useState(false);
 
-  function toggleShowNavbar() {
+  function toggleShowNavbar(): void {
     setShowNavbar((prevShow) => !prevShow);
   }
 
-  function redirectToDashboard() {
+  function redirectToDashboard(): void {
     history.push("/dashboard");
   }
 
-  function openAuthModal() {
+  function openAuthModal(): void {
     handleShowModal(<AuthModal isLogin={true} />);
   }
 
