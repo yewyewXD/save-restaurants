@@ -8,7 +8,7 @@ import React, {
 import { logoutUser } from "../../api/auth.api";
 import AuthReducer from "./AuthReducer";
 import serialize from "serialize-javascript";
-import { IAuthContextState, IAuthResponse } from "./types";
+import { IAuthContextState, IAuthResponse, IActionTypes } from "./types";
 
 const initialState: IAuthContextState = {
   userInfo: {
@@ -54,7 +54,7 @@ export const AuthContextProvider: FC = ({ children }) => {
   // actions
   function saveUserAuth(response: IAuthResponse): void {
     dispatch({
-      type: "SAVE_USER_AUTH",
+      type: IActionTypes.SAVE,
       payload: response,
     });
   }
@@ -63,7 +63,7 @@ export const AuthContextProvider: FC = ({ children }) => {
     await logoutUser();
 
     dispatch({
-      type: "CLEAR_USER_AUTH",
+      type: IActionTypes.CLEAR,
       payload: null,
     });
   }

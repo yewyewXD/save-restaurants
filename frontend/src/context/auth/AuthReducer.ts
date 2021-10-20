@@ -1,23 +1,15 @@
-interface action {
-  type: "SAVE_USER_AUTH" | "CLEAR_USER_AUTH";
-  payload: {
-    user: {
-      username: string;
-    };
-    expiry: number;
-  } | null;
-}
+import { IReducerAction, IActionTypes } from "./types";
 
-const AuthReducer = (state: any, { type, payload }: action) => {
+const AuthReducer = (state: any, { type, payload }: IReducerAction) => {
   switch (type) {
-    case "SAVE_USER_AUTH":
+    case IActionTypes.SAVE:
       return {
         userInfo: payload?.user,
         isLoggedIn: true,
         expiry: payload?.expiry,
       };
 
-    case "CLEAR_USER_AUTH":
+    case IActionTypes.CLEAR:
       return {
         userInfo: {
           username: "",

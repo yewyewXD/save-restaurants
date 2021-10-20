@@ -15,3 +15,18 @@ export interface IAuthResponse {
   };
   expiry: number;
 }
+
+export enum IActionTypes {
+  SAVE = "SAVE_USER_AUTH",
+  CLEAR = "CLEAR_USER_AUTH",
+}
+
+export interface IReducerAction {
+  type: IActionTypes.SAVE | IActionTypes.CLEAR;
+  payload: {
+    user: {
+      username: string;
+    };
+    expiry: number;
+  } | null;
+}
