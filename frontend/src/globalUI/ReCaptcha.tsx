@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
 
-interface Props {
+interface IProps {
   setReCaptchaToken: Function;
 }
 
-const ReCaptcha: React.FC<Props> = ({ setReCaptchaToken }) => {
+const ReCaptcha: React.FC<IProps> = ({ setReCaptchaToken }) => {
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
   return (
     <GoogleReCAPTCHA
