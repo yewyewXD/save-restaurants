@@ -1,20 +1,24 @@
-# Instantfly
+# Eatery Malaysia
 
-## Description
+## Motivation
 
-Online restaurant in one click. We are here to rescue restaurant businesses!
+During the COVID pandemic, food businesses are not doing well in my home country, Malaysia, and they are forced to go online. Many of them use third-party food delivery software like GrabFood and FoodPanda, but they can't bear the mandatory commission fee charge by those softwares.
+
+As a passionate developer and problem solver, I can't stand seeing my people struggling. Therefore, I teamed up with a good friend from Malaysia, Azib (who is in charge of the marketing and content creation) to start building this software that helps digitalize restaurant businesses <b>for 100% FREE</b>.
 
 ## Status
 
 <!-- **Success:** [See Live](https://yewkangwei.com/) -->
 
-**In progress**
+**In progress...**
 
 Started on: 3 Jul 2021 <br>
 
 <!-- Completed on: 7 Oct 2020 <br> -->
 
 Last modified on: 21 Oct 2021 <br>
+
+_Disclaimer: Code is not clean, because we are doing our best to deliver the MVP_<br>
 
 ## Screenshots
 
