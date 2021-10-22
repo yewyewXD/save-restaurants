@@ -5,10 +5,10 @@ const HeroSection = () => {
   return (
     <section
       className="flex w-full justify-center items-center"
-      style={{ height: "80vh" }}
+      style={{ minHeight: "80vh" }}
     >
       <div className="grid md:grid-cols-5 grid-cols-1 container">
-        <div className="flex md:col-span-2 col-span-full flex-col md:items-start items-center md:text-left text-center">
+        <div className="flex md:col-span-2 col-span-full flex-col md:items-start items-center md:text-left text-center justify-center">
           <h1 className="leading-none md:text-6xl text-5xl font-bold">
             Your Restaurant
           </h1>
@@ -25,6 +25,10 @@ const HeroSection = () => {
           >
             Get Free Forever
           </Link>
+        </div>
+
+        <div className="col-span-3 flex justify-end items-center">
+          <img src="/images/hero-img.svg" className="w-96" alt="" />
         </div>
       </div>
     </section>
