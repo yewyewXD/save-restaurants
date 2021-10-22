@@ -15,7 +15,7 @@ const HeroSection = () => {
           <h1 className="leading-none md:text-6xl text-5xl font-bold">
             Our Care
           </h1>
-          <div className="text-gray-500 my-4">
+          <div className="text-gray-700 my-4">
             We've programmed our very own IT system for restaurant businesses to
             go online effortlessly
           </div>

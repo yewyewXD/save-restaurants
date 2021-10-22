@@ -12,7 +12,7 @@ const IntegrationSection = () => {
         link: "",
       },
       {
-        id: 5,
+        id: 4,
         name: "My Business",
         image:
           "https://www.gstatic.com/bfe/images/favicon/logo_google_my_business_512dp.svg",
@@ -28,17 +28,10 @@ const IntegrationSection = () => {
         link: "",
       },
       {
-        id: 4,
+        id: 3,
         name: "Netlify",
         image: "/images/netlify.png",
         title: "Netlify website",
-        link: "",
-      },
-      {
-        id: 3,
-        name: "Bungkusit",
-        image: "/images/bungkusit.png",
-        title: "Bungkusit website",
         link: "",
       },
     ];
@@ -47,12 +40,12 @@ const IntegrationSection = () => {
   return (
     <section className="flex w-full justify-center items-center flex-col py-16">
       <h1 className="leading-none text-4xl font-bold">Integrations</h1>
-      <div className="text-gray-500 mt-6 mb-8">
+      <div className="text-gray-700 mt-6 mb-8">
         Synchronize your applications with all social networks for better
         management.
       </div>
 
-      <div className="grid grid-cols-5 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         {integrations
           .sort((a, b) => a.id - b.id)
           .map((integration) => (
