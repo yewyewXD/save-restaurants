@@ -33,9 +33,11 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex items-center justify-between bg-white flex-wrap p-6">
+    <nav className="flex items-center justify-between flex-wrap p-6">
       <div className="flex items-center flex-shrink-0 mr-10">
-        <span className="font-semibold text-xl tracking-tight">Eatery</span>
+        <span className="font-bold text-4xl tracking-tight leading-none">
+          <span className="text-primary">e</span>atery
+        </span>
       </div>
       {/* <div className="block md:hidden"> */}
       <div className="hidden">
@@ -57,7 +59,7 @@ const Navbar = () => {
       <div className="ml-auto flex justify-center items-center md:hidden">
         <button
           onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
-          className="transition duration-200 block text-sm px-7 font-bold py-2 leading-none rounded bg-yellow-400 hover:text-white hover:bg-black"
+          className="transition duration-200 block text-sm px-7 font-bold py-2 leading-none rounded bg-primary hover:text-white hover:bg-black"
         >
           {isLoggedIn ? "Dashboard" : "Login"}
         </button>
@@ -82,7 +84,7 @@ const Navbar = () => {
         <div className="ml-auto">
           <button
             onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
-            className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-yellow-400 hover:text-white hover:bg-black"
+            className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-primary hover:text-white hover:bg-black"
           >
             {isLoggedIn ? "Dashboard" : "Login"}
           </button>
