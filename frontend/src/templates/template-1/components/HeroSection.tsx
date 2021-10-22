@@ -45,7 +45,7 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             }}
             elementName="Button"
           />
-          <button className="bg-yellow-400 px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
+          <button className="bg-primary px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
             Button to Menu
           </button>
         </div>

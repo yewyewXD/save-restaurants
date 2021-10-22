@@ -6,7 +6,7 @@ const GetStartedSection = () => {
   const { handleShowModal } = useModal();
 
   return (
-    <section className="text-center w-full py-16 bg-yellow-400">
+    <section className="text-center w-full py-16 bg-primary">
       <h1 className="leading-none text-6xl font-bold mb-8">
         Ready to get started?
       </h1>

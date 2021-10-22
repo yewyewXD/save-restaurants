@@ -10,7 +10,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 const TestimonialSection = () => {
   return (
-    <section className="text-center w-full py-16 bg-yellow-400">
+    <section className="text-center w-full py-16 bg-primary">
       <CarouselProvider
         naturalSlideWidth={100}
         naturalSlideHeight={25}
