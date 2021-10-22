@@ -35,6 +35,12 @@ h6 {
 .text-primary {
   color: $primary-color;
 }
+.bg-primary-light {
+  background: $primary-color-light;
+}
+.text-primary-light {
+  color: $primary-color-light;
+}
 
 .borderOnHover {
   position: relative !important;
