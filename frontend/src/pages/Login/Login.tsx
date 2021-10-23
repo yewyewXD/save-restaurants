@@ -68,7 +68,7 @@ const Login = () => {
       <Navbar />
 
       <div className="container mx-auto">
-        <div className="p-20">
+        <div className="px-20 py-16">
           <h1 className="leading-none text-4xl font-bold mb-4 text-center">
             Login to Your Account
           </h1>

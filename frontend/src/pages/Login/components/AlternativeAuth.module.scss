@@ -1,0 +1,24 @@
+.GoogleLoginButton {
+  padding: 4px 12px !important;
+  color: black !important;
+  display: flex;
+  box-shadow: none !important;
+  width: 100%;
+  border: 1px solid black !important;
+  background: transparent !important;
+  border-radius: 0.25rem !important;
+  transition: 0.2s;
+  font-family: "Lato", sans-serif !important;
+
+  &:hover {
+    background: rgba(128, 128, 128, 0.05) !important;
+  }
+
+  &:disabled {
+    cursor: not-allowed !important;
+  }
+
+  div {
+    background: transparent !important;
+  }
+}
