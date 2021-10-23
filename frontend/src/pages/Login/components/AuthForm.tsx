@@ -31,8 +31,7 @@ const AuthForm: FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [formMessage, setFormMessage] = useState({ text: "", color: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authInfo, setAuthInfo] = useState({
     username: "",
@@ -40,6 +39,7 @@ const AuthForm: FC = () => {
     password: "",
   });
 
+  // redirect to "referrer" page after login
   useEffect(() => {
     if (!isLoggedIn) {
       return;
@@ -70,9 +70,10 @@ const AuthForm: FC = () => {
       } else {
         // register
         await registerUser(payload);
-        setSuccessMsg(
-          `Successfully signed up. Activate your account by clicking the verification link we sent to ${authInfo.email}`
-        );
+        setFormMessage({
+          text: `Successfully signed up. Activate your account by clicking the verification link we sent to ${authInfo.email}`,
+          color: "green",
+        });
         setAuthInfo({
           username: "",
           email: "",
@@ -83,7 +84,7 @@ const AuthForm: FC = () => {
       }
     } catch (err: any) {
       if (err?.response?.data?.message) {
-        setErrMsg(err.response.data.message);
+        setFormMessage({ text: err.response.data.message, color: "red" });
       } else {
         showNotification("error");
       }
@@ -111,27 +112,33 @@ const AuthForm: FC = () => {
       !authInfo.email ||
       !authInfo.password
     ) {
-      setErrMsg("Please complete all fields");
+      setFormMessage({ text: "Please complete all fields", color: "red" });
       return false;
     }
 
     if (!isEmailValid(authInfo.email)) {
-      setErrMsg("Please enter a valid email");
+      setFormMessage({ text: "Please enter a valid email", color: "red" });
       return false;
     }
 
     if (authInfo.password.length < 5) {
-      setErrMsg("Password needs to have at least 5 characters");
+      setFormMessage({
+        text: "Password needs to have at least 5 characters",
+        color: "red",
+      });
       return false;
     }
 
     if (!reCaptchaToken) {
-      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
+      setFormMessage({
+        text: `Please tick the "I'm not a robot" checkbox`,
+        color: "red",
+      });
       return false;
     }
 
-    if (errMsg) {
-      setErrMsg("");
+    if (formMessage.color === "red") {
+      setFormMessage({ text: "", color: "" });
     }
 
     return true;
@@ -151,12 +158,18 @@ const AuthForm: FC = () => {
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) {
     if (!isGoogleLoginResponse(response)) {
-      setErrMsg(`Login failed, please check your network connection`);
+      setFormMessage({
+        text: `Login failed, please check your network connection`,
+        color: "red",
+      });
       return;
     }
 
     if (!reCaptchaToken) {
-      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
+      setFormMessage({
+        text: `Please tick the "I'm not a robot" checkbox`,
+        color: "red",
+      });
       return;
     }
 
@@ -170,7 +183,7 @@ const AuthForm: FC = () => {
       saveUserAuth(res.data);
     } catch (err: any) {
       if (err?.response?.data?.message) {
-        setErrMsg(err.response.data.message);
+        setFormMessage({ text: err.response.data.message, color: "red" });
       } else {
         showNotification("error");
       }
@@ -184,8 +197,10 @@ const AuthForm: FC = () => {
       data-testid="register-modal"
       onSubmit={handleLoginOrRegisterUser}
     >
-      {successMsg && (
-        <div className={`text-white bg-green-600 p-3 mb-6`}>{successMsg}</div>
+      {formMessage.text && (
+        <div className={`text-white bg-${formMessage.color}-600 p-3 mb-6`}>
+          {formMessage.text}
+        </div>
       )}
 
       {/* username */}
@@ -252,15 +267,6 @@ const AuthForm: FC = () => {
             {isShowingPw ? "hide" : "show"}
           </div>
         </div>
-
-        {(errMsg ? true : false) && (
-          <p
-            data-testid="register-err-msg"
-            className="text-red-500 text-xs italic"
-          >
-            {errMsg}
-          </p>
-        )}
       </div>
 
       <div className="flex items-center">
