@@ -26,7 +26,7 @@ interface Location {
   };
 }
 
-const LoginForm: FC<Props> = ({ isLogin }) => {
+const AuthForm: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
   const { handleHideModal } = useModal();
@@ -291,4 +291,4 @@ const LoginForm: FC<Props> = ({ isLogin }) => {
   );
 };
 
-export default LoginForm;
+export default AuthForm;

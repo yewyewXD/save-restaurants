@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { verifyUser } from "../../api/auth.api";
-import LoginForm from "./components/LoginForm";
+import AuthForm from "./components/AuthForm";
 import { getParsedQueries } from "../../utils/url.utils";
 import Navbar from "../Home/components/Navbar";
+import AlternativeAuth from "./components/AlternativeAuth";
 
 const Login = () => {
   const [verifyMsg, setVerifyMsg] = useState({ message: "", color: "" });
@@ -59,15 +60,15 @@ const Login = () => {
                 </div>
               )}
 
-              <div>
-                <LoginForm isLogin={true} />
-              </div>
+              <AuthForm isLogin={true} />
             </div>
+
             <div className="col-span-1 flex justify-center items-center text-4xl">
               /
             </div>
+
             <div className="col-span-2 flex justify-center items-center">
-              alternative login
+              <AlternativeAuth />
             </div>
           </div>
 
