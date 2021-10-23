@@ -54,7 +54,9 @@ const AuthForm: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
-  async function handleLoginOrRegisterUser() {
+  async function handleLoginOrRegisterUser(e: React.SyntheticEvent) {
+    e.preventDefault();
+
     if (!handleValidateForm()) return;
     setIsSubmitting(true);
     const payload = { ...authInfo, reCaptchaToken };
@@ -195,7 +197,9 @@ const AuthForm: FC = () => {
       onSubmit={handleLoginOrRegisterUser}
     >
       {formMessage.text && (
-        <div className={`text-white bg-${formMessage.color}-600 p-3 mb-6`}>
+        <div
+          className={`text-white bg-${formMessage.color}-600 p-3 mb-4 text-sm`}
+        >
           {formMessage.text}
         </div>
       )}
@@ -266,16 +270,30 @@ const AuthForm: FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex flex-col">
         <button
           data-testid="submit-user-register"
           disabled={isSubmitting}
           onClick={handleLoginOrRegisterUser}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-primary hover:bg-black hover:border-black border hover:text-white text-black transition duration-200 font-bold py-2 rounded focus:outline-none focus:shadow-outline w-full"
           type="submit"
         >
           {isLogin ? "Login" : "Register"}
         </button>
+
+        <div className="mt-6 text-sm">
+          {isLogin ? "Don't have an account?" : "Already have an account?"}
+
+          <span
+            className="ml-2 underline cursor-pointer"
+            onClick={() => {
+              setIsLogin((prevIsLogin) => !prevIsLogin);
+              if (formMessage.text) setFormMessage({ text: "", color: "" });
+            }}
+          >
+            {isLogin ? "Sign up" : "Login"}
+          </span>
+        </div>
       </div>
 
       <div className="mt-6">
