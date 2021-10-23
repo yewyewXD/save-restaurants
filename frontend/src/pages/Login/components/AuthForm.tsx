@@ -1,7 +1,6 @@
 import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
-import { useModal } from "../../../context/modal/ModalState";
 import { useNotification } from "../../../context/notification/NotificationState";
 import {
   googleLoginUser,
@@ -24,7 +23,6 @@ interface Location {
 const AuthForm: FC = () => {
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
-  const { handleHideModal } = useModal();
   const history = useHistory();
   const location: Location = useLocation();
 
@@ -53,7 +51,6 @@ const AuthForm: FC = () => {
       history.push("/dashboard");
     }
 
-    handleHideModal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
