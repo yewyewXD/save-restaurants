@@ -1,31 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
-import { resetPassword, verifyUser } from "../../api/auth.api";
+import { Link } from "react-router-dom";
+import { verifyUser } from "../../api/auth.api";
 import LoginForm from "./components/LoginForm";
-import ReCaptcha from "../../globalUI/ReCaptcha";
 import { getParsedQueries } from "../../utils/url.utils";
 import Navbar from "../Home/components/Navbar";
 
 const Login = () => {
   const [verifyMsg, setVerifyMsg] = useState({ message: "", color: "" });
-  const [showPwReset, setShowPwReset] = useState(false);
-  const [newPw, setNewPw] = useState("");
-  const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [allQueries, setAllQueries] = useState({ code: "", id: "" });
 
   const queries = getParsedQueries();
-  const history = useHistory();
 
   useEffect(() => {
     if (!queries?.code || !queries?.id) {
       return;
-    }
-
-    if (queries?.reset) {
-      setShowPwReset(true);
-      setAllQueries({ code: queries?.code, id: queries?.id });
     }
 
     // clear code and id queries
@@ -41,54 +29,10 @@ const Login = () => {
       } catch {}
     }
 
-    if (!queries?.reset) {
-      handleVerifyUser();
-    }
+    handleVerifyUser();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function handleConfirmNewPw() {
-    if (newPw?.length < 5) {
-      setErrMsg("Password needs to be at least 5 characters long");
-      return;
-    }
-
-    if (!reCaptchaToken) {
-      setErrMsg(`Please tick the "I'm not a robot" checkbox`);
-      return;
-    }
-
-    if (errMsg) {
-      setErrMsg("");
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      await resetPassword({
-        code: allQueries?.code,
-        userId: allQueries?.id,
-        password: newPw,
-        reCaptchaToken,
-      });
-
-      setVerifyMsg({
-        message: "Password is successfully reset",
-        color: "green",
-      });
-
-      setTimeout(() => {
-        history.push("/dashboard");
-      }, 2000);
-    } catch (err: any) {
-      if (err?.response?.data?.message) {
-        setErrMsg(err?.response?.data?.message);
-      }
-
-      setIsSubmitting(false);
-    }
-  }
 
   return (
     <main>
@@ -115,26 +59,9 @@ const Login = () => {
                 </div>
               )}
 
-              {showPwReset ? (
-                <div>
-                  <div>Please enter your new password</div>
-                  <input
-                    type="password"
-                    value={newPw}
-                    onChange={(e) => {
-                      setNewPw(e.target.value);
-                    }}
-                  />
-                  <ReCaptcha setReCaptchaToken={setReCaptchaToken} />
-                  <button disabled={isSubmitting} onClick={handleConfirmNewPw}>
-                    Confirm
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <LoginForm isLogin={true} />
-                </div>
-              )}
+              <div>
+                <LoginForm isLogin={true} />
+              </div>
             </div>
             <div className="col-span-1 flex justify-center items-center text-4xl">
               /
