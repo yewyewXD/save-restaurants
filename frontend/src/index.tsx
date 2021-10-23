@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import "./styles/global.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -19,6 +21,8 @@ async function setupSentry() {
 if (process.env.NODE_ENV === "production") {
   setupSentry();
 }
+
+Aos.init({ duration: 1000 });
 
 ReactDOM.render(
   <React.StrictMode>
