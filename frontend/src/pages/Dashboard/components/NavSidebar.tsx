@@ -12,7 +12,7 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
     //  w-52 xl:w-64 2xl:w-80
     <div className="relative min-h-screen h-full w-64">
       <div className="h-screen fixed left-0 top-0 bg-black text-white w-64">
-        <div className="h-14"></div>
+        <div className="h-12"></div>
 
         <div className="p-4">
           {sidebarTabs.map((tab, index) => (
