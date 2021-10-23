@@ -13,11 +13,6 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { isEmailValid } from "../../../utils/form.utils";
-import ReCaptcha from "../../../globalUI/ReCaptcha";
-
-interface Props {
-  isLogin: boolean;
-}
 
 interface Location {
   pathname: string;
@@ -26,13 +21,14 @@ interface Location {
   };
 }
 
-const AuthForm: FC<Props> = ({ isLogin }) => {
+const AuthForm: FC = () => {
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
   const { handleHideModal } = useModal();
   const history = useHistory();
   const location: Location = useLocation();
 
+  const [isLogin, setIsLogin] = useState(true);
   const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -183,7 +179,11 @@ const AuthForm: FC<Props> = ({ isLogin }) => {
   }
 
   return (
-    <div className="p-3" data-testid="register-modal">
+    <form
+      className="w-full"
+      data-testid="register-modal"
+      onSubmit={handleLoginOrRegisterUser}
+    >
       {successMsg && (
         <div className={`text-white bg-green-600 p-3 mb-6`}>{successMsg}</div>
       )}
@@ -269,7 +269,7 @@ const AuthForm: FC<Props> = ({ isLogin }) => {
           disabled={isSubmitting}
           onClick={handleLoginOrRegisterUser}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="button"
+          type="submit"
         >
           {isLogin ? "Login" : "Register"}
         </button>
@@ -285,9 +285,7 @@ const AuthForm: FC<Props> = ({ isLogin }) => {
           cookiePolicy={"single_host_origin"}
         />
       </div>
-
-      <ReCaptcha setReCaptchaToken={setReCaptchaToken} />
-    </div>
+    </form>
   );
 };
 
