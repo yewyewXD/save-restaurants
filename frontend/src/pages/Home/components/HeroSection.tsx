@@ -21,7 +21,7 @@ const HeroSection = () => {
           </div>
           <Link
             to="/dashboard"
-            className="bg-primary px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold"
+            className="bg-blue-600 text-white px-9 py-3 rounded hover:text-white hover:bg-black transition duration-200 font-bold"
           >
             Get Free Forever
           </Link>
