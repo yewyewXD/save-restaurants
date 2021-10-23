@@ -38,12 +38,12 @@ const HowItWorksSection = () => {
   return (
     <section className="w-full py-16" style={{ minHeight: "90vh" }}>
       <div className="container mx-auto">
-        <h1 className="leading-none text-4xl font-bold mb-20 text-center">
+        <h1 className="leading-none text-4xl font-bold mb-8 text-center">
           How it works
         </h1>
 
         {walkthrough.map((step) => (
-          <div className="grid grid-cols-2 w-full mb-10" key={step.id}>
+          <div className="grid grid-cols-2 w-full" key={step.id}>
             <div
               className={`${
                 step.reversed ? "order-last justify-end" : "justify-start"
@@ -52,13 +52,13 @@ const HowItWorksSection = () => {
               <img src={step.image} alt="" />
             </div>
             <div className="flex items-center">
-              <div className="flex justify-center items-center font-bold pr-12 text-3xl">
+              <div className="flex justify-center items-center font-bold pr-12 text-4xl text-primary">
                 {step.id}
               </div>
 
               <div>
                 <div className="text-2xl mb-3 font-bold">{step.title}</div>
-                <div>{step.description}</div>
+                <div className="text-gray-700">{step.description}</div>
               </div>
             </div>
           </div>
