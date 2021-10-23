@@ -9,6 +9,14 @@ exports.validateReCAPTCHA = async (reCaptchaToken) => {
   return reCaptchaResJSON?.success;
 };
 
+exports.validateAuthReCAPTCHA = async (reCaptchaToken) => {
+  const reCaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.AUTH_RECAPTCHA_SECRET}&response=${reCaptchaToken}`;
+
+  const reCaptchaRes = await fetch(reCaptchaUrl, { method: "post" });
+  const reCaptchaResJSON = await reCaptchaRes.json();
+  return reCaptchaResJSON?.success;
+};
+
 exports.privateECDSA =
   process.env.NODE_ENV === "production"
     ? Buffer.from(process.env.PRIVATE_ECDSA, "base64").toString()

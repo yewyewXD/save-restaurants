@@ -4,7 +4,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { validateReCAPTCHA, privateECDSA } = require("../utils/auth.utils");
+const {
+  validateReCAPTCHA,
+  privateECDSA,
+  validateAuthReCAPTCHA,
+} = require("../utils/auth.utils");
 const { getFull6HFromNow } = require("../utils/day.utils");
 const crypto = require("crypto");
 const { sendMail } = require("../utils/mail.utils");
@@ -17,7 +21,7 @@ exports.registerUser = async (req, res, next) => {
     const { username, email, password, reCaptchaToken } = req.body;
 
     // Validation
-    if (!validateReCAPTCHA(reCaptchaToken)) {
+    if (!validateAuthReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
         message: "Login interrupted, please refresh the page",
@@ -83,7 +87,7 @@ exports.loginUser = async (req, res, next) => {
     const { email, password, reCaptchaToken } = req.body;
 
     // Validation
-    if (!validateReCAPTCHA(reCaptchaToken)) {
+    if (!validateAuthReCAPTCHA(reCaptchaToken)) {
       return res.status(403).json({
         success: false,
         message: "Login interrupted, please refresh the page",
@@ -157,14 +161,7 @@ exports.loginUser = async (req, res, next) => {
 // @access public
 exports.googleLoginUser = async (req, res, next) => {
   try {
-    const { tokenId, reCaptchaToken } = req.body;
-
-    if (!validateReCAPTCHA(reCaptchaToken)) {
-      return res.status(403).json({
-        success: false,
-        message: "Login interrupted, please refresh the page",
-      });
-    }
+    const { tokenId } = req.body;
 
     const googleRes = await client.verifyIdToken({
       idToken: tokenId,
