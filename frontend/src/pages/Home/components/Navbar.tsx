@@ -23,9 +23,9 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between flex-wrap p-6">
       <div className="flex items-center flex-shrink-0 mr-10">
-        <span className="font-bold text-4xl tracking-tight leading-none">
+        <Link to="/" className="font-bold text-4xl tracking-tight leading-none">
           <span className="text-primary">e</span>atery
-        </span>
+        </Link>
       </div>
       {/* <div className="block md:hidden"> */}
       <div className="hidden">
