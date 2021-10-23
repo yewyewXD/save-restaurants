@@ -39,7 +39,7 @@ const Footer = () => {
       <div>
         {socialMedia.map((social) => (
           <a
-            key={social.id}
+            key={`footerSocial-${social.id}`}
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"

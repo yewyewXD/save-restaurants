@@ -54,7 +54,7 @@ const IntegrationSection = () => {
           .map((integration) => (
             <div
               title={integration.title}
-              key={integration.id}
+              key={`integration-${integration.id}`}
               style={{ width: "180px", height: "180px" }}
               className={`cursor-pointer bg-white transition duration-200 hover:shadow-2xl shadow-md rounded flex justify-center items-center flex-col font-bold p-3 text-center transform hover:-translate-y-1.5 ${
                 integration.id % 2 === 0 ? "" : "mt-8"

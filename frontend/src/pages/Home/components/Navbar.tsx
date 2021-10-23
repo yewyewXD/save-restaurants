@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="text-sm md:flex-grow hidden">
           {navLinks.map((navLink) => (
             <Link
-              key={navLink.id}
+              key={`navLink-${navLink.id}`}
               to={navLink.link}
               className="block mt-4 md:inline-block md:mt-0 text-teal-200  mr-4"
             >

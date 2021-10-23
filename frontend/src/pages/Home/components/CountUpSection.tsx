@@ -46,7 +46,7 @@ const CountUpSection = () => {
           .map((progression) => (
             <div
               className="flex justify-center items-center flex-col text-center"
-              key={progression.id}
+              key={`countUp-${progression.id}`}
             >
               {progression?.image && (
                 <img src={progression.image} alt="" className="w-12 mb-3" />
