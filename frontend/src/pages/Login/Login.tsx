@@ -5,11 +5,22 @@ import AuthForm from "./components/AuthForm";
 import { getParsedQueries } from "../../utils/url.utils";
 import Navbar from "../Home/components/Navbar";
 import AlternativeAuth from "./components/AlternativeAuth";
+import { useHistory, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/auth/AuthState";
 
 const Login = () => {
-  const [verifyMsg, setVerifyMsg] = useState({ message: "", color: "" });
-  const [errMsg, setErrMsg] = useState("");
+  interface Location {
+    pathname: string;
+    state?: {
+      referrer: string;
+    };
+  }
 
+  const { isLoggedIn } = useAuth();
+  const history = useHistory();
+  const location: Location = useLocation();
+
+  const [verifyMsg, setVerifyMsg] = useState({ message: "", color: "" });
   const queries = getParsedQueries();
 
   useEffect(() => {
@@ -34,6 +45,23 @@ const Login = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // redirect to "referrer" page after login
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+
+    const referrer = location.state?.referrer;
+
+    if (referrer && location.pathname !== referrer) {
+      history.push({ pathname: referrer, state: {} });
+    } else if (location.pathname !== "/dashboard") {
+      history.push("/dashboard");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return (
     <main>
