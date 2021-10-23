@@ -6,6 +6,7 @@ import GoogleLogin, {
 import { googleLoginUser } from "../../../api/auth.api";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useNotification } from "../../../context/notification/NotificationState";
+import styles from "./AlternativeAuth.module.scss";
 
 const AlternativeAuth = () => {
   const { showNotification } = useNotification();
@@ -23,9 +24,9 @@ const AlternativeAuth = () => {
     );
   };
 
-  async function handleGoogleLogin(
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) {
+  async function handleGoogleLogin(response: any) {
+    if (response?.error === "popup_closed_by_user") return;
+
     if (!isGoogleLoginResponse(response)) {
       // setFormMessage({
       //   text: `Login failed, please check your network connection`,
@@ -43,15 +44,16 @@ const AlternativeAuth = () => {
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);
     } catch (err: any) {
-      // if (err?.response?.data?.message) {
+      // err?.response?.data?.message
       showNotification("error");
       setIsSubmitting(false);
     }
   }
 
   return (
-    <div>
+    <div className="w-full">
       <GoogleLogin
+        className={styles.GoogleLoginButton}
         disabled={isSubmitting}
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}
         buttonText="Sign in with Google"
