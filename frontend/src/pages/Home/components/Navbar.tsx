@@ -1,12 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
-import { useModal } from "../../../context/modal/ModalState";
-import AuthModal from "../../../globalUI/Modal/components/AuthModal";
 const { useHistory, Link } = require("react-router-dom");
 
 const Navbar = () => {
   const { isLoggedIn } = useAuth();
-  const { handleShowModal } = useModal();
   const history = useHistory();
 
   const [showNavbar, setShowNavbar] = useState(false);
@@ -15,12 +12,8 @@ const Navbar = () => {
     setShowNavbar((prevShow) => !prevShow);
   }
 
-  function redirectToDashboard(): void {
-    history.push("/dashboard");
-  }
-
-  function openAuthModal(): void {
-    handleShowModal(<AuthModal isLogin={true} />);
+  function handleAuthRedirect(): void {
+    history.push(isLoggedIn ? "/dashboard" : "/login");
   }
 
   const navLinks = useMemo(() => {
@@ -58,7 +51,7 @@ const Navbar = () => {
 
       <div className="ml-auto flex justify-center items-center md:hidden">
         <button
-          onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
+          onClick={handleAuthRedirect}
           className="transition duration-200 block text-sm px-7 font-bold py-2 leading-none rounded bg-primary hover:text-white hover:bg-black"
         >
           {isLoggedIn ? "Dashboard" : "Login"}
@@ -83,8 +76,8 @@ const Navbar = () => {
         </div>
         <div className="ml-auto">
           <button
-            onClick={isLoggedIn ? redirectToDashboard : openAuthModal}
-            className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 bg-primary hover:text-white hover:bg-black"
+            onClick={handleAuthRedirect}
+            className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 border border-black hover:text-white hover:bg-black"
           >
             {isLoggedIn ? "Dashboard" : "Login"}
           </button>
