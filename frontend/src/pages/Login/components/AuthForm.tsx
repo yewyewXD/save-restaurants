@@ -1,32 +1,15 @@
-import React, { FC, ChangeEvent, useState, useEffect, useRef } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { FC, ChangeEvent, useState, useRef } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useNotification } from "../../../context/notification/NotificationState";
-import {
-  googleLoginUser,
-  loginUser,
-  registerUser,
-} from "../../../api/auth.api";
-import GoogleLogin, {
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
-} from "react-google-login";
+import { loginUser, registerUser } from "../../../api/auth.api";
+
 import { isEmailValid } from "../../../utils/form.utils";
 import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
-
-interface Location {
-  pathname: string;
-  state?: {
-    referrer: string;
-  };
-}
 
 const AuthForm: FC = () => {
   const reCaptchaRef = useRef<ReCAPTCHA>(null);
   const { showNotification } = useNotification();
-  const { saveUserAuth, isLoggedIn } = useAuth();
-  const history = useHistory();
-  const location: Location = useLocation();
+  const { saveUserAuth } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isShowingPw, setIsShowingPw] = useState(false);
@@ -37,23 +20,6 @@ const AuthForm: FC = () => {
     email: "",
     password: "",
   });
-
-  // redirect to "referrer" page after login
-  useEffect(() => {
-    if (!isLoggedIn) {
-      return;
-    }
-
-    const referrer = location.state?.referrer;
-
-    if (referrer && location.pathname !== referrer) {
-      history.push({ pathname: referrer, state: {} });
-    } else if (location.pathname !== "/dashboard") {
-      history.push("/dashboard");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
 
   async function handleLoginOrRegisterUser(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -147,44 +113,6 @@ const AuthForm: FC = () => {
     return true;
   }
 
-  const isGoogleLoginResponse = (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ): response is GoogleLoginResponse => {
-    return (
-      !!response &&
-      typeof response === "object" &&
-      !!(response as GoogleLoginResponse).tokenObj
-    );
-  };
-
-  async function handleGoogleLogin(
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) {
-    if (!isGoogleLoginResponse(response)) {
-      setFormMessage({
-        text: `Login failed, please check your network connection`,
-        color: "red",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const res = await googleLoginUser({
-        tokenId: response.tokenId,
-      });
-      console.log("Google auth:", res.data);
-      saveUserAuth(res.data);
-    } catch (err: any) {
-      if (err?.response?.data?.message) {
-        setFormMessage({ text: err.response.data.message, color: "red" });
-      } else {
-        showNotification("error");
-      }
-      setIsSubmitting(false);
-    }
-  }
-
   return (
     <form className="w-full" onSubmit={handleLoginOrRegisterUser}>
       {formMessage.text && (
@@ -234,7 +162,7 @@ const AuthForm: FC = () => {
       </div>
 
       {/* password */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="password"
@@ -262,7 +190,7 @@ const AuthForm: FC = () => {
       </div>
 
       <GoogleReCAPTCHA
-        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY || ""}
+        sitekey={process.env.REACT_APP_AUTH_RECAPTCHA_SITE_KEY || ""}
         size="invisible"
         ref={reCaptchaRef}
       />
@@ -270,7 +198,7 @@ const AuthForm: FC = () => {
       <button
         disabled={isSubmitting}
         onClick={handleLoginOrRegisterUser}
-        className="mt-6 bg-primary hover:bg-black hover:border-black border hover:text-white text-black transition duration-200 font-bold py-2 rounded focus:outline-none focus:shadow-outline w-full"
+        className="bg-primary hover:bg-black hover:border-black border hover:text-white text-black transition duration-200 font-bold py-2 rounded focus:outline-none focus:shadow-outline w-full"
         type="submit"
       >
         {isLogin ? "Login" : "Register"}
@@ -289,17 +217,6 @@ const AuthForm: FC = () => {
         >
           {isLogin ? "Sign up" : "Login"}
         </span>
-      </div>
-
-      <div className="mt-6">
-        <GoogleLogin
-          disabled={isSubmitting}
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}
-          buttonText="Sign in with Google"
-          onSuccess={handleGoogleLogin}
-          onFailure={handleGoogleLogin}
-          cookiePolicy={"single_host_origin"}
-        />
       </div>
     </form>
   );
