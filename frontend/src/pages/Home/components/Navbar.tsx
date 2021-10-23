@@ -1,19 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { useAuth } from "../../../context/auth/AuthState";
-const { useHistory, Link } = require("react-router-dom");
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { isLoggedIn } = useAuth();
-  const history = useHistory();
 
   const [showNavbar, setShowNavbar] = useState(false);
 
   function toggleShowNavbar(): void {
     setShowNavbar((prevShow) => !prevShow);
-  }
-
-  function handleAuthRedirect(): void {
-    history.push(isLoggedIn ? "/dashboard" : "/login");
   }
 
   const navLinks = useMemo(() => {
@@ -50,12 +45,10 @@ const Navbar = () => {
       </div>
 
       <div className="ml-auto flex justify-center items-center md:hidden">
-        <button
-          onClick={handleAuthRedirect}
-          className="transition duration-200 block text-sm px-7 font-bold py-2 leading-none rounded bg-primary hover:text-white hover:bg-black"
-        >
-          {isLoggedIn ? "Dashboard" : "Login"}
-        </button>
+        <Link
+          to={isLoggedIn ? "/dashboard" : "/login"}
+          className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 border border-black hover:text-white hover:bg-black"
+        ></Link>
       </div>
 
       <div
@@ -75,12 +68,12 @@ const Navbar = () => {
           ))}
         </div>
         <div className="ml-auto">
-          <button
-            onClick={handleAuthRedirect}
+          <Link
+            to={isLoggedIn ? "/dashboard" : "/login"}
             className="transition duration-200 inline-block text-sm px-7 font-bold py-2 leading-none rounded mt-4 md:mt-0 border border-black hover:text-white hover:bg-black"
           >
             {isLoggedIn ? "Dashboard" : "Login"}
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
