@@ -9,7 +9,6 @@ interface IAuthPayload {
 
 interface IGoogleLoginPayload {
   tokenId: string;
-  reCaptchaToken: string;
 }
 
 interface IVerifyUserPayload {

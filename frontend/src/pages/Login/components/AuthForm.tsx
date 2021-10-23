@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState, useEffect } from "react";
+import React, { FC, ChangeEvent, useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth/AuthState";
 import { useNotification } from "../../../context/notification/NotificationState";
@@ -12,6 +12,7 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { isEmailValid } from "../../../utils/form.utils";
+import GoogleReCAPTCHA, { ReCAPTCHA } from "react-google-recaptcha";
 
 interface Location {
   pathname: string;
@@ -21,13 +22,13 @@ interface Location {
 }
 
 const AuthForm: FC = () => {
+  const reCaptchaRef = useRef<ReCAPTCHA>(null);
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
   const history = useHistory();
   const location: Location = useLocation();
 
   const [isLogin, setIsLogin] = useState(true);
-  const [reCaptchaToken, setReCaptchaToken] = useState("");
   const [isShowingPw, setIsShowingPw] = useState(false);
   const [formMessage, setFormMessage] = useState({ text: "", color: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +58,18 @@ const AuthForm: FC = () => {
   async function handleLoginOrRegisterUser(e: React.SyntheticEvent) {
     e.preventDefault();
 
+    // validation
     if (!handleValidateForm()) return;
+    const reCaptchaToken = await reCaptchaRef.current?.executeAsync();
+    if (!reCaptchaToken) {
+      setFormMessage({
+        text: "Something went wrong, please refresh the page",
+        color: "red",
+      });
+      return;
+    }
+    reCaptchaRef.current?.reset();
+
     setIsSubmitting(true);
     const payload = { ...authInfo, reCaptchaToken };
 
@@ -128,14 +140,6 @@ const AuthForm: FC = () => {
       return false;
     }
 
-    if (!reCaptchaToken) {
-      setFormMessage({
-        text: `Please tick the "I'm not a robot" checkbox`,
-        color: "red",
-      });
-      return false;
-    }
-
     if (formMessage.color === "red") {
       setFormMessage({ text: "", color: "" });
     }
@@ -164,19 +168,10 @@ const AuthForm: FC = () => {
       return;
     }
 
-    if (!reCaptchaToken) {
-      setFormMessage({
-        text: `Please tick the "I'm not a robot" checkbox`,
-        color: "red",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
     try {
       const res = await googleLoginUser({
         tokenId: response.tokenId,
-        reCaptchaToken,
       });
       console.log("Google auth:", res.data);
       saveUserAuth(res.data);
@@ -191,11 +186,7 @@ const AuthForm: FC = () => {
   }
 
   return (
-    <form
-      className="w-full"
-      data-testid="register-modal"
-      onSubmit={handleLoginOrRegisterUser}
-    >
+    <form className="w-full" onSubmit={handleLoginOrRegisterUser}>
       {formMessage.text && (
         <div
           className={`text-white bg-${formMessage.color}-600 p-3 mb-4 text-sm`}
@@ -243,7 +234,7 @@ const AuthForm: FC = () => {
       </div>
 
       {/* password */}
-      <div className="mb-6">
+      <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="password"
@@ -270,30 +261,34 @@ const AuthForm: FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <button
-          data-testid="submit-user-register"
-          disabled={isSubmitting}
-          onClick={handleLoginOrRegisterUser}
-          className="bg-primary hover:bg-black hover:border-black border hover:text-white text-black transition duration-200 font-bold py-2 rounded focus:outline-none focus:shadow-outline w-full"
-          type="submit"
+      <GoogleReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY || ""}
+        size="invisible"
+        ref={reCaptchaRef}
+      />
+
+      <button
+        disabled={isSubmitting}
+        onClick={handleLoginOrRegisterUser}
+        className="mt-6 bg-primary hover:bg-black hover:border-black border hover:text-white text-black transition duration-200 font-bold py-2 rounded focus:outline-none focus:shadow-outline w-full"
+        type="submit"
+      >
+        {isLogin ? "Login" : "Register"}
+      </button>
+
+      {/* toggle sign up & login */}
+      <div className="mt-6 text-sm">
+        {isLogin ? "Don't have an account?" : "Already have an account?"}
+
+        <span
+          className="ml-2 underline cursor-pointer"
+          onClick={() => {
+            setIsLogin((prevIsLogin) => !prevIsLogin);
+            if (formMessage.text) setFormMessage({ text: "", color: "" });
+          }}
         >
-          {isLogin ? "Login" : "Register"}
-        </button>
-
-        <div className="mt-6 text-sm">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
-
-          <span
-            className="ml-2 underline cursor-pointer"
-            onClick={() => {
-              setIsLogin((prevIsLogin) => !prevIsLogin);
-              if (formMessage.text) setFormMessage({ text: "", color: "" });
-            }}
-          >
-            {isLogin ? "Sign up" : "Login"}
-          </span>
-        </div>
+          {isLogin ? "Sign up" : "Login"}
+        </span>
       </div>
 
       <div className="mt-6">

@@ -60,7 +60,7 @@ const Login = () => {
                 </div>
               )}
 
-              <AuthForm isLogin={true} />
+              <AuthForm />
             </div>
 
             <div className="col-span-1 flex justify-center items-center text-4xl">
