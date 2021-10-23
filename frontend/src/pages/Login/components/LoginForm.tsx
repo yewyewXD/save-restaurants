@@ -13,7 +13,7 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { isEmailValid } from "../../../utils/form.utils";
-import ReCaptcha from "../../ReCaptcha";
+import ReCaptcha from "../../../globalUI/ReCaptcha";
 
 interface Props {
   isLogin: boolean;
@@ -26,7 +26,7 @@ interface Location {
   };
 }
 
-const AuthModal: FC<Props> = ({ isLogin }) => {
+const LoginForm: FC<Props> = ({ isLogin }) => {
   const { showNotification } = useNotification();
   const { saveUserAuth, isLoggedIn } = useAuth();
   const { handleHideModal } = useModal();
@@ -291,4 +291,4 @@ const AuthModal: FC<Props> = ({ isLogin }) => {
   );
 };
 
-export default AuthModal;
+export default LoginForm;

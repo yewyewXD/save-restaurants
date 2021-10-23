@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { resetPassword, verifyUser } from "../../api/auth.api";
-import AuthModal from "../../globalUI/Modal/components/AuthModal";
+import LoginForm from "./components/LoginForm";
 import ReCaptcha from "../../globalUI/ReCaptcha";
 import { getParsedQueries } from "../../utils/url.utils";
 import Navbar from "../Home/components/Navbar";
@@ -132,7 +132,7 @@ const Login = () => {
                 </div>
               ) : (
                 <div>
-                  <AuthModal isLogin={true} />
+                  <LoginForm isLogin={true} />
                 </div>
               )}
             </div>
