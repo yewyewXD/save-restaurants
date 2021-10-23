@@ -45,13 +45,18 @@ const HowItWorksSection = () => {
         {walkthrough.map((step) => (
           <div className="grid grid-cols-2 w-full" key={step.id}>
             <div
+              data-aos={step.reversed ? "fade-left" : "fade-right"}
               className={`${
                 step.reversed ? "order-last justify-end" : "justify-start"
               } flex items-center`}
             >
               <img src={step.image} alt="" />
             </div>
-            <div className="flex items-center">
+
+            <div
+              data-aos={step.reversed ? "fade-right" : "fade-left"}
+              className="flex items-center"
+            >
               <div className="flex justify-center items-center font-bold pr-12 text-4xl text-primary">
                 {step.id}
               </div>
