@@ -29,5 +29,8 @@ cypress/videos
 cypress/screenshots
 .nyc_output
 
+# Serverless directories
+.serverless
+
 # code scan
 .dccache
