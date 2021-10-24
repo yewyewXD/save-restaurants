@@ -13,7 +13,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   path,
   exact,
 }) => {
-  const { isLoggedIn } = useAuth();
+  const isLoggedIn = true;
 
   return (
     <Route
