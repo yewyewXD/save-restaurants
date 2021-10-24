@@ -11,10 +11,9 @@
 #
 # Happy Coding!
 
-service: serverless
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+org: yewyewxd
+app: eaterymalaysia
+service: user-auth
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -24,10 +23,8 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
-
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  state: ${opt:stage, "dev"}
+  region: eu-west-3
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -59,7 +56,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/serverless/functions/handler.hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -111,6 +108,3 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-
-plugins:
-  - serverless-mocha-plugin
