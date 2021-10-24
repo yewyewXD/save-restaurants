@@ -11,8 +11,8 @@
 #
 # Happy Coding!
 
-org: yewyewxd
-app: eaterymalaysia
+# org: yewyewxd
+# app: eaterymalaysia
 service: user-auth
 
 # You can pin your service to only deploy with a specific Serverless version
@@ -113,3 +113,7 @@ functions:
 
 plugins:
   - serverless-mocha
+custom:
+  serverless-mocha-plugin:
+    testTemplate: src/serverless/templates/test-template.ejs
+    functionTemplate: src/serverless/templates/function-template.ejs
