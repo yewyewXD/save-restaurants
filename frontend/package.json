@@ -73,6 +73,7 @@
     "@cypress/instrument-cra": "^1.4.0",
     "cross-env": "^7.0.3",
     "cypress": "^8.2.0",
+    "serverless-mocha": "^1.12.0",
     "serverless-mocha-plugin": "^1.12.0",
     "start-server-and-test": "^1.13.1"
   }

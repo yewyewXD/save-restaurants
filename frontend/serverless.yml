@@ -55,6 +55,8 @@ provider:
 #    - include-me-dir/**
 
 functions:
+  testFunction:
+    handler: src/serverless/functions/testFunction.testFunction
   hello:
     handler: src/serverless/functions/handler.hello
 #    The following are a few example events you can configure
@@ -108,3 +110,6 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+plugins:
+  - serverless-mocha
