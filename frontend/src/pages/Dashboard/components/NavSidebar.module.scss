@@ -1,7 +1,7 @@
 @import "../../../styles/01-variables";
 
 .Tab {
-  padding: 10px 15px;
+  padding: 10px 16px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
@@ -12,7 +12,7 @@
   }
 
   &--activated {
-    padding-left: 10px;
+    padding-left: 11px;
     background: $primary-color-xlight;
     border-left-width: 5px;
     border-color: $primary-color;
