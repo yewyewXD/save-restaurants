@@ -12,8 +12,9 @@ const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew.page"));
 const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle.page"));
 const Login = lazy(() => import("./pages/Login/Login.page"));
 const PasswordReset = lazy(() => import("./pages/PasswordReset.page"));
+const SiteAll = lazy(() => import("./pages/Dashboard/SiteAll.page"));
 
-function HandleRedirect(path: string) {
+function handleRedirect(path: string) {
   return <Redirect to={path} />;
 }
 
@@ -26,17 +27,17 @@ function App() {
             <Switch>
               <Suspense fallback="Loading...">
                 <Route path="/" component={Home} exact />
-                <Route path="/home" render={() => HandleRedirect("/")} exact />
+                <Route path="/home" render={() => handleRedirect("/")} exact />
                 <Route
                   path="/dashboard"
-                  render={() => HandleRedirect("/dashboard/sites")}
+                  render={() => handleRedirect("/dashboard/sites")}
                   exact
                 />
-                {/* <PrivateRoute
+                <PrivateRoute
                   path="/dashboard/sites"
-                  component={Dashboard}
+                  component={SiteAll}
                   exact
-                /> */}
+                />
                 <PrivateRoute
                   path="/dashboard/sites/:id"
                   component={SiteSingle}
