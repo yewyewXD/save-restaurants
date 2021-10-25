@@ -1,12 +1,15 @@
 import React, { FC } from "react";
-
+import styles from "./NavSidebar.module.scss";
 interface Props {
   currentTab: string;
   setCurrentTab: Function;
 }
 
 const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
-  const sidebarTabs = [{ name: "Profile" }, { name: "Sites" }];
+  const sidebarTabs = [
+    { name: "Profile", iconName: "person" },
+    { name: "Sites", iconName: "form" },
+  ];
 
   return (
     //  w-52 xl:w-64 2xl:w-80
@@ -20,12 +23,12 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
               onClick={() => {
                 setCurrentTab(tab.name);
               }}
-              className={`mb-3 border rounded-xl p-4 flex items-center ${
-                currentTab === tab.name ? "border-red-600" : ""
+              className={`${styles.Tab} ${
+                currentTab === tab.name && styles["Tab--activated"]
               }`}
               key={`sidebar-${index}`}
             >
-              <i className="icon-inno icon-inno_clock mr-3" />
+              <i className={`icon-inno icon-inno_${tab.iconName} mr-3`} />
               {tab.name}
             </div>
           ))}

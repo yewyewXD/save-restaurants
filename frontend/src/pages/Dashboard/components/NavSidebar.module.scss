@@ -1,0 +1,21 @@
+@import "../../../styles/01-variables";
+
+.Tab {
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  margin-bottom: 12px;
+
+  &:hover {
+    background: $primary-color-xlight;
+  }
+
+  &--activated {
+    padding-left: 10px;
+    background: $primary-color-xlight;
+    border-left-width: 5px;
+    border-color: $primary-color;
+    color: white;
+  }
+}
