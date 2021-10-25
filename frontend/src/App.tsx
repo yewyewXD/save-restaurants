@@ -13,6 +13,7 @@ const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle.page"));
 const Login = lazy(() => import("./pages/Login/Login.page"));
 const PasswordReset = lazy(() => import("./pages/PasswordReset.page"));
 const SiteAll = lazy(() => import("./pages/Dashboard/SiteAll.page"));
+const Profile = lazy(() => import("./pages/Dashboard/Profile.page"));
 
 function handleRedirect(path: string) {
   return <Redirect to={path} />;
@@ -36,6 +37,11 @@ function App() {
                 <PrivateRoute
                   path="/dashboard/sites"
                   component={SiteAll}
+                  exact
+                />
+                <PrivateRoute
+                  path="/dashboard/profile"
+                  component={Profile}
                   exact
                 />
                 <PrivateRoute
