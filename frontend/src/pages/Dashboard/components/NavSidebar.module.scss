@@ -1,10 +1,10 @@
 @import "../../../styles/01-variables";
 
 .Tab {
+  display: block;
   padding: 10px 16px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
   margin-bottom: 12px;
 
   &:hover {

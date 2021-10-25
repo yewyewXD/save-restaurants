@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import NavSidebar from "./components/NavSidebar";
-import SiteAll from "./components/SiteAll";
+import SiteAll from "./tabs/SiteAll";
 
 const Dashboard: FC = () => {
   const [currentTab, setCurrentTab] = useState("Sites");

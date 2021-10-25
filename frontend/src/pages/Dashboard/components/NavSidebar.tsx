@@ -8,8 +8,8 @@ interface Props {
 
 const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
   const sidebarTabs = [
-    { name: "Profile", iconName: "person" },
-    { name: "Sites", iconName: "form" },
+    { name: "Profile", iconName: "person", link: "/dashboard/profile" },
+    { name: "Sites", iconName: "form", link: "/dashboard/sites" },
   ];
 
   return (
@@ -27,7 +27,8 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
 
         <div className="p-4">
           {sidebarTabs.map((tab, index) => (
-            <div
+            <Link
+              to={tab.link}
               onClick={() => {
                 setCurrentTab(tab.name);
               }}
@@ -38,7 +39,7 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
             >
               <i className={`icon-inno icon-inno_${tab.iconName} mr-3`} />
               {tab.name}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
