@@ -7,11 +7,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { PrivateRoute } from "./utils/auth.utils";
 import { SiteContextProvider } from "./context/site/SiteState";
 
-const Home = lazy(() => import("./pages/Home/Home"));
-const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
-const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle"));
-const Login = lazy(() => import("./pages/Login/Login"));
-const PasswordReset = lazy(() => import("./pages/PasswordReset"));
+const Home = lazy(() => import("./pages/Home/Home.page"));
+const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew.page"));
+const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle.page"));
+const Login = lazy(() => import("./pages/Login/Login.page"));
+const PasswordReset = lazy(() => import("./pages/PasswordReset.page"));
 
 function HandleRedirect(path: string) {
   return <Redirect to={path} />;
