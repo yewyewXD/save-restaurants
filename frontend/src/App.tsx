@@ -8,7 +8,6 @@ import { PrivateRoute } from "./utils/auth.utils";
 import { SiteContextProvider } from "./context/site/SiteState";
 
 const Home = lazy(() => import("./pages/Home/Home"));
-const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const SiteNew = lazy(() => import("./pages/SiteNew/SiteNew"));
 const SiteSingle = lazy(() => import("./pages/SiteSingle/SiteSingle"));
 const Login = lazy(() => import("./pages/Login/Login"));
@@ -28,6 +27,16 @@ function App() {
               <Suspense fallback="Loading...">
                 <Route path="/" component={Home} exact />
                 <Route path="/home" render={() => HandleRedirect("/")} exact />
+                <Route
+                  path="/dashboard"
+                  render={() => HandleRedirect("/dashboard/sites")}
+                  exact
+                />
+                {/* <PrivateRoute
+                  path="/dashboard/sites"
+                  component={Dashboard}
+                  exact
+                /> */}
                 <PrivateRoute
                   path="/dashboard/sites/:id"
                   component={SiteSingle}
@@ -38,7 +47,6 @@ function App() {
                   component={SiteNew}
                   exact
                 />
-                <PrivateRoute path="/dashboard" component={Dashboard} exact />
 
                 <Route path="/login" component={Login} exact />
                 <Route path="/password-reset" component={PasswordReset} exact />
