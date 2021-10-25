@@ -55,10 +55,13 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  testFunction:
-    handler: src/serverless/functions/testFunction.testFunction
-  hello:
-    handler: src/serverless/functions/handler.hello
+  createUser:
+    handler: src/serverless/functions/createUser.createUser
+    events:
+      - http:
+          method: post
+          cors: true
+          path: /auth/users
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
