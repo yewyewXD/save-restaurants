@@ -1,23 +1,18 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import NavSidebar from "./components/NavSidebar";
-import SiteAll from "./SiteAll.page";
 
-const Dashboard: FC = () => {
-  const [currentTab, setCurrentTab] = useState("Sites");
-
+const DashboardLayout: FC = ({ children }) => {
   return (
-    <div className="flex">
-      <NavSidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+    <main className="flex">
+      <NavSidebar />
 
       <div className="flex-grow">
         <div className="h-20"></div>
 
-        <div className="py-4 px-8 w-full h-full">
-          <SiteAll />
-        </div>
+        <div className="py-4 px-8 w-full h-full">{children}</div>
       </div>
-    </div>
+    </main>
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;

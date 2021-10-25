@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import DashboardLayout from "./DashboardLayout";
 
 const SiteAll = () => {
   const sites = [
@@ -23,7 +24,7 @@ const SiteAll = () => {
     },
   ];
   return (
-    <>
+    <DashboardLayout>
       <div className="flex justify-between items-center">
         <div className="leading-none text-2xl">All My Sites</div>
 
@@ -45,7 +46,7 @@ const SiteAll = () => {
           </Link>
         ))}
       </div>
-    </>
+    </DashboardLayout>
   );
 };
 

@@ -1,12 +1,9 @@
 import React, { FC } from "react";
 import styles from "./NavSidebar.module.scss";
-import { Link } from "react-router-dom";
-interface Props {
-  currentTab: string;
-  setCurrentTab: Function;
-}
+import { Link, useLocation } from "react-router-dom";
 
-const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
+const NavSidebar: FC = () => {
+  const { pathname } = useLocation();
   const sidebarTabs = [
     { name: "Profile", iconName: "person", link: "/dashboard/profile" },
     { name: "Sites", iconName: "form", link: "/dashboard/sites" },
@@ -29,11 +26,8 @@ const NavSidebar: FC<Props> = ({ currentTab, setCurrentTab }) => {
           {sidebarTabs.map((tab, index) => (
             <Link
               to={tab.link}
-              onClick={() => {
-                setCurrentTab(tab.name);
-              }}
               className={`${styles.Tab} ${
-                currentTab === tab.name && styles["Tab--activated"]
+                pathname === tab.link && styles["Tab--activated"]
               }`}
               key={`sidebar-${index}`}
             >
