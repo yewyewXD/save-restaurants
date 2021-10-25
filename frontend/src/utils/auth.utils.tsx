@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { useAuth } from "../context/auth/AuthState";
+// import { useAuth } from "../context/auth/AuthState";
 
 interface PrivateRouteProps {
   component: React.ComponentType;
@@ -14,6 +14,8 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   exact,
 }) => {
   const isLoggedIn = true;
+  // const {isLoggedIn}=useAuth()
+  // todo: reactivate isLoggedIn check
 
   return (
     <Route
