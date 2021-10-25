@@ -5,7 +5,7 @@ import React, {
   useContext,
   FC,
 } from "react";
-import NotificationBar from "../../globalUI/Notification/NotificationBar";
+import NotificationBar from "../../globalUI/NotificationBar";
 
 interface INotificationContextState {
   showNotification: Function;

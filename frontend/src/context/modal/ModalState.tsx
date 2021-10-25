@@ -5,7 +5,7 @@ import React, {
   useContext,
   FC,
 } from "react";
-import ModalComponent from "../../globalUI/Modal/ModalComponent";
+import ModalComponent from "../../globalUI/ModalComponent";
 import { debounce } from "../../utils/modal.utils";
 
 interface IModalContextState {
