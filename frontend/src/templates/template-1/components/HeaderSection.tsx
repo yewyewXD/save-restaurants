@@ -1,6 +1,5 @@
 import React, { useEffect, useState, FC, useCallback } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
-// import Scrollspy from "react-scrollspy";
 import { ISectionProps } from "../template1.types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDropzone } from "react-dropzone";
@@ -127,11 +126,7 @@ const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             elementName={"Navigation bar"}
             showTextInner={true}
           />
-          {/* <Scrollspy
-            className="w-full grid grid-cols-5 text-center justify-center  h-16"
-            items={navItems.map((navItem) => navItem.link)}
-            currentClassName="underline"
-          >
+          <div className="w-full grid grid-cols-5 text-center justify-center h-16">
             {navItems.map((navItem) => (
               <li
                 key={`navItem-${navItem.link}`}
@@ -150,7 +145,7 @@ const HeaderSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
                 </a>
               </li>
             ))}
-          </Scrollspy> */}
+          </div>
         </nav>
       </header>
     </div>
