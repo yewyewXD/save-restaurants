@@ -26,7 +26,7 @@ const SiteAll = () => {
   return (
     <DashboardLayout>
       <div className="flex justify-between items-center mb-8">
-        <div className="leading-none text-3xl">All My Sites</div>
+        <div className="leading-none text-3xl">My Sites</div>
 
         <div className="flex">
           <div className="bg-white shadow px-2 mr-3 flex">
@@ -46,10 +46,18 @@ const SiteAll = () => {
             className="flex items-center justify-center bg-primary px-6 py-3 rounded hover:text-white hover:bg-black transition duration-200 font-bold text-black hover:border-black"
           >
             <i className="icon-inno icon-inno_plus mr-3" />
-            <span>Create New </span>
+            <span>Add New Site</span>
           </Link>
         </div>
       </div>
+
+      {/* switch view depending on publish status */}
+      {/* <div className="mb-8 grid grid-cols-10 text-center">
+        <div className="flex flex-col justify-center items-center font-bold cursor-pointer transition duration-200">
+          <span>test</span>
+          <hr className={`border-black border-t w-6 mt-2`} />
+        </div>
+      </div> */}
 
       <div className="grid grid-cols-3 gap-16 auto-rows-auto">
         {sites.map((site, index) => (
