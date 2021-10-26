@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { verifyUser } from "../../api/auth.api";
 import AuthForm from "./components/AuthForm";
 import { getParsedQueries } from "../../utils/url.utils";
@@ -100,11 +100,11 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="w-full text-center mt-12">
+          {/* <div className="w-full text-center mt-12">
             <Link to="/password-reset" className="underline">
               Forgot Password?
             </Link>
-          </div>
+          </div> */}
         </div>
 
         <footer className="w-full flex justify-between py-10 text-gray-700 font-semibold text-sm">
