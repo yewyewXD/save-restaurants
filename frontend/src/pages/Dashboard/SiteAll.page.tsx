@@ -12,13 +12,13 @@ const SiteAll = () => {
     },
     {
       id: 2,
-      name: "site 1",
+      name: "site 2",
       updated: new Date().toDateString(),
       image: null,
     },
     {
       id: 3,
-      name: "site 1",
+      name: "site 3",
       updated: new Date().toDateString(),
       image: null,
     },
@@ -59,17 +59,31 @@ const SiteAll = () => {
         </div>
       </div> */}
 
-      <div className="grid grid-cols-3 gap-16 auto-rows-auto">
+      <div className="grid grid-cols-3 gap-x-6 auto-rows-auto">
         {sites.map((site, index) => (
           <Link
             to={`/dashboard/sites/${site.id}`}
             key={`site-${index}`}
-            className="border h-50 w-50 flex justify-center items-center flex-col border-red-600"
+            className="shadow-md rounded w-full h-full flex justify-center items-center flex-col transition transform duration-200 hover:-translate-y-3 hover:scale-105 hover:shadow-lg"
           >
-            <div className="h-28 w-full bg-black"></div>
-            <div className="p-3 flex justify-center items-center flex-col">
-              <div>{site.name}</div>
-              <div>{site.updated}</div>
+            <div className="py-2 px-3 flex justify-start w-full text-gray-500">
+              <span className="mr-2">L</span>
+              <span>https://www.google.com</span>
+            </div>
+
+            <div
+              className="h-28 w-full bg-cover bg-center bg-no-repeat border-t border-b border-gray-400 relative"
+              style={{
+                backgroundImage: `url(/images/publish-template.png)`,
+              }}
+            ></div>
+
+            <div className="py-2 px-3 flex justify-center items-start w-full flex-col">
+              <div className="flex items-center">
+                <i className="icon-inno icon-inno_globe-fill mr-2 text-blue-700" />
+                <span className="font-bold">{site.name}</span>
+              </div>
+              <div className="text-xs mt-1">Last update: {site.updated}</div>
             </div>
           </Link>
         ))}
