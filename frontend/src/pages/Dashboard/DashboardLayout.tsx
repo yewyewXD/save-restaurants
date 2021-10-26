@@ -7,9 +7,9 @@ const DashboardLayout: FC = ({ children }) => {
       <NavSidebar />
 
       <div className="flex-grow">
-        <div className="h-20"></div>
+        {/* <div className="h-20"></div> */}
 
-        <div className="py-4 px-8 w-full h-full">{children}</div>
+        <div className="p-8 w-full h-full">{children}</div>
       </div>
     </main>
   );

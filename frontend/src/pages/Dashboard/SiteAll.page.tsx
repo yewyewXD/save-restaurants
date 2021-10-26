@@ -25,13 +25,19 @@ const SiteAll = () => {
   ];
   return (
     <DashboardLayout>
-      <div className="flex justify-between items-center">
-        <div className="leading-none text-2xl">All My Sites</div>
+      <div className="flex justify-between items-center mb-8">
+        <div className="leading-none text-3xl">All My Sites</div>
 
-        <Link to="/dashboard/sites/new">Create New</Link>
+        <Link
+          to="/dashboard/sites/new"
+          className="flex items-center justify-center bg-primary px-6 py-3 rounded hover:text-white hover:bg-black transition duration-200 font-bold text-black hover:border-black"
+        >
+          <i className="icon-inno icon-inno_plus mr-3" />
+          <span>Create New </span>
+        </Link>
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-16 auto-rows-auto">
+      <div className="grid grid-cols-3 gap-16 auto-rows-auto">
         {sites.map((site, index) => (
           <Link
             to={`/dashboard/sites/${site.id}`}
