@@ -28,7 +28,7 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
           />
           Main home section text
         </h1>
-        <p className="my-6 leading-none borderOnHover">
+        <span className="my-6 leading-none borderOnHover">
           <HoverEffect
             onClick={() => {
               handleOpenMenu(<div>hero subtitle</div>);
@@ -36,7 +36,7 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             elementName="Subtitle"
           />
           Subtitle of home section
-        </p>
+        </span>
 
         <div className="borderOnHover">
           <HoverEffect

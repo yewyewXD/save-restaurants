@@ -19,7 +19,7 @@ const ContactSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             />
             Location
           </h2>
-          <p className="my-6 borderOnHover">
+          <span className="my-6 borderOnHover">
             <HoverEffect
               onClick={() => {
                 handleOpenMenu(<div>location content</div>);
@@ -28,7 +28,7 @@ const ContactSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             />
             1533, Jalan Sri Hijau 11, Taman Sri Hijau, 48000 Rawang, Selangor,
             Malaysia
-          </p>
+          </span>
           <div className="grid grid-cols-2 gap-4">
             <span>google map</span>
             <span>waze</span>
@@ -78,7 +78,7 @@ const ContactSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             />
             Find a table
           </h2>
-          <p className="my-6 borderOnHover">
+          <span className="my-6 borderOnHover">
             <HoverEffect
               onClick={() => {
                 handleOpenMenu(<div>booking content</div>);
@@ -88,7 +88,7 @@ const ContactSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad quae
             repellat tempora assumenda, ipsam aliquid esse suscipit porro soluta
             dolores, voluptates deleniti rerum perspic
-          </p>
+          </span>
           <a href="tel:0123456789" className="flex justify-center items-center">
             <i className="icon-inno icon-inno_phone mr-2" />
             <span>call 012-3456789</span>

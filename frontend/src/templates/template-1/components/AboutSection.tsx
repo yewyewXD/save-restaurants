@@ -18,7 +18,7 @@ const AboutSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
           />
           About
         </h1>
-        <p className="text-gray-700 mt-6 borderOnHover">
+        <span className="text-gray-700 mt-6 borderOnHover">
           <HoverEffect
             onClick={() => {
               handleOpenMenu(<div>about Description</div>);
@@ -29,7 +29,7 @@ const AboutSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
           perferendis deleniti eum alias unde et minus laborum perspiciatis
           accusantium voluptatibus. Lorem ipsum, dolor sit amet consectetur
           adipisicing elit. Excepturi, vitae.
-        </p>
+        </span>
       </div>
 
       <div
