@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 const NavSidebar: FC = () => {
   const { pathname } = useLocation();
   const sidebarTabs = [
-    { name: "Profile", iconName: "person", link: "/dashboard/profile" },
+    // { name: "Profile", iconName: "person", link: "/dashboard/profile" },
     { name: "Sites", iconName: "form", link: "/dashboard/sites" },
   ];
 
