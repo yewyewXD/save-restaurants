@@ -1,9 +1,47 @@
-import React, { FC } from "react";
-import ImageUploader from "../../../globalUI/ImageUploader";
+import React, { FC, useCallback } from "react";
+import ImageUploader from "../../../globalUI/forms/ImageUploader";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 
 const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
+  const HeroEdit = useCallback(() => {
+    return (
+      <>
+        <div className="mb-8">
+          <div className="mb-2 font-bold">Background</div>
+          <ImageUploader />
+        </div>
+
+        <div className="mb-8">
+          <div className="mb-2 font-bold">Title</div>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
+
+        <div className="mb-8">
+          <div className="mb-2 font-bold">Description</div>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
+
+        <div className="mb-8">
+          <div className="mb-2 font-bold">Button</div>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Username"
+          />
+        </div>
+      </>
+    );
+  }, []);
+
   return (
     <section
       style={{
@@ -15,7 +53,7 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
     >
       <HoverEffect
         onClick={() => {
-          handleOpenMenu(<ImageUploader />);
+          handleOpenMenu(<HeroEdit />);
         }}
         elementName="Hero section"
       />
