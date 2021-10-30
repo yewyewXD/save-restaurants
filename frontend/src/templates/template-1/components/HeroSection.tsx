@@ -17,39 +17,15 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
         onClick={() => {
           handleOpenMenu(<ImageUploader />);
         }}
-        elementName="Background"
+        elementName="Hero section"
       />
       <div className="container flex justify-center items-center flex-col">
-        <h1 className="text-5xl leading-none borderOnHover">
-          <HoverEffect
-            onClick={() => {
-              handleOpenMenu(<div>hero title</div>);
-            }}
-            elementName="Title"
-          />
-          Main home section text
-        </h1>
-        <span className="my-6 leading-none borderOnHover">
-          <HoverEffect
-            onClick={() => {
-              handleOpenMenu(<div>hero subtitle</div>);
-            }}
-            elementName="Subtitle"
-          />
-          Subtitle of home section
-        </span>
+        <h1 className="text-5xl leading-none ">Main home section text</h1>
+        <span className="my-6 leading-none ">Subtitle of home section</span>
 
-        <div className="borderOnHover">
-          <HoverEffect
-            onClick={() => {
-              handleOpenMenu(<div>Hero CTA button</div>);
-            }}
-            elementName="Button"
-          />
-          <button className="bg-primary px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
-            Button to Menu
-          </button>
-        </div>
+        <button className="bg-primary px-9 py-3 rounded text-black hover:text-white hover:bg-black transition duration-200 font-bold">
+          Button to Menu
+        </button>
       </div>
     </section>
   );
