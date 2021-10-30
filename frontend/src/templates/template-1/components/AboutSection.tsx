@@ -42,7 +42,7 @@ const AboutSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
         onClick={() => {
           handleOpenMenu(<AboutEdit />);
         }}
-        elementName="About section"
+        elementName="About Section"
       />
       <div className="p-10 flex flex-col justify-center items-start h-full ">
         <h1 className="text-4xl leading-none ">About</h1>

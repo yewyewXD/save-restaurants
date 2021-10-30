@@ -11,6 +11,8 @@ const HeroEdit: FC = () => {
 
   return (
     <>
+      <h1 className="mb-6 text-2xl">Hero Section</h1>
+
       <div className="mb-8">
         <div className="mb-2 font-bold">Background</div>
         <ImageUploader />
@@ -83,7 +85,7 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
         onClick={() => {
           handleOpenMenu(<HeroEdit />);
         }}
-        elementName="Hero section"
+        elementName="Hero Section"
       />
       <div className="container flex justify-center items-center flex-col">
         <h1 className="text-5xl leading-none text-center">
