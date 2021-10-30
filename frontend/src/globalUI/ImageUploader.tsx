@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, SyntheticEvent } from "react";
 import Dropzone from "react-dropzone";
 
 const ImageUploader = () => {
   const [previewImage, setPreviewImage] = useState("");
+
   const onDrop = useCallback((acceptedFiles) => {
     setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
   }, []);
@@ -53,9 +54,23 @@ const ImageUploader = () => {
               <hr className="border-t-2 border-gray-500 w-12" />
             </div>
 
-            <button className="mt-3 bg-black px-6 font-bold py-2 rounded hover:text-black hover:bg-transparent transition duration-200 text-white border-2 border-black">
-              Browse files
-            </button>
+            <div className="mt-3 flex justify-center items-center">
+              <button className="bg-black px-6 font-bold py-2 rounded  hover:bg-blue-600 transition duration-200 text-white border-2 border-black hover:border-blue-600">
+                Browse file
+              </button>
+
+              {previewImage && (
+                <button
+                  className="z-10 ml-4 bg-transparent px-6 font-bold py-2 rounded hover:text-white hover:bg-transparent transition duration-200 border-2 border-black hover:bg-red-600 hover:border-red-600"
+                  onClick={(e: SyntheticEvent): void => {
+                    e.stopPropagation();
+                    setPreviewImage("");
+                  }}
+                >
+                  Delete
+                </button>
+              )}
+            </div>
           </div>
         );
       }}
