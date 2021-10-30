@@ -30,7 +30,7 @@ const ModalComponent: FC<IProps> = ({ isShowing, content, close }) => {
       onRequestClose={close}
       shouldCloseOnOverlayClick={true}
     >
-      {content ? cloneElement(content, { close }) : null}
+      {content ? cloneElement(content) : null}
     </Modal>
   );
 };
