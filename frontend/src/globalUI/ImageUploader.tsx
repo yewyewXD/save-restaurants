@@ -1,8 +1,10 @@
 import React, { useCallback, useState, SyntheticEvent } from "react";
 import Dropzone from "react-dropzone";
+import { useModal } from "../context/modal/ModalState";
 
 const ImageUploader = () => {
   const [previewImage, setPreviewImage] = useState("");
+  const { handleHideModal } = useModal();
 
   const onDrop = useCallback((acceptedFiles) => {
     setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
@@ -65,6 +67,7 @@ const ImageUploader = () => {
                   onClick={(e: SyntheticEvent): void => {
                     e.stopPropagation();
                     setPreviewImage("");
+                    handleHideModal();
                   }}
                 >
                   Delete
