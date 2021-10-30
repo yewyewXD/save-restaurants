@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 
+const MenuEdit: React.FC = () => <div>something</div>;
+
 const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
   const [menuCategories, setMenuCategories] = useState([
     {
@@ -62,29 +64,23 @@ const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
 
   return (
     <section
-      className="w-full flex justify-center items-center flex-col py-16 min-h-screen"
+      className="w-full flex justify-center items-center flex-col py-20 borderOnHover"
       id="menu-section"
     >
-      <h1 className="text-4xl leading-none text-center mb-14 borderOnHover">
-        <HoverEffect
-          onClick={() => {
-            handleOpenMenu(<div>menu section title</div>);
-          }}
-          elementName="Title"
-        />
-        Menu
-      </h1>
+      <HoverEffect
+        onClick={() => {
+          handleOpenMenu(<MenuEdit />);
+        }}
+        elementName="Menu Section"
+      />
+      <h1 className="text-4xl leading-none text-center mb-10">Menu</h1>
       <div className="grid grid-cols-3 gap-10 px-10 auto-rows-auto w-full text-center">
         {menuCategories.map((menu, index) => {
           return (
-            <div key={menu.id} className="relative borderOnHover">
-              <HoverEffect
-                onClick={() => {
-                  handleOpenMenu(<div>edit whole menu {index + 1}</div>);
-                }}
-                elementName={`Menu ${index + 1}`}
-              />
-
+            <div
+              key={menu.id}
+              className="relative border-gray-700 border rounded p-4"
+            >
               <div className="flex justify-center items-center">
                 <h5 className="mb-6 w-max">{menu.title}</h5>
               </div>
@@ -106,14 +102,14 @@ const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
           );
         })}
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <div
             className="flex justify-center items-center mt-3 border border-black rounded p-2 cursor-pointer h-36 w-full transition duration-200 hover:bg-gray-200"
             onClick={handleAddMenu}
           >
             <i className="icon-inno icon-inno_plus" />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
