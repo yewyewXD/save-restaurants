@@ -19,22 +19,15 @@
   background: white;
   border-radius: 5px;
   max-height: 40rem;
-  max-width: 70rem;
   overflow-y: auto;
-  padding: 1em;
+  padding: 24px;
   position: fixed;
-  top: 3em;
-  width: 100%;
+  width: auto;
   z-index: 999;
 
-  &--autoWidth {
-    max-width: unset;
-    width: auto;
-    top: unset;
-    @media (max-width: 850px) {
-      max-width: 70rem;
-      width: 100%;
-    }
+  @media (max-width: 850px) {
+    max-width: 70rem;
+    width: 100%;
   }
 
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

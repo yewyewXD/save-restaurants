@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, FC, cloneElement } from "react";
+import React, { useRef, useEffect, FC } from "react";
 const Modal = require("react-modal");
 const { useLocation } = require("react-router-dom");
 
@@ -24,13 +24,13 @@ const ModalComponent: FC<IProps> = ({ isShowing, content, close }) => {
     <Modal
       appElement={document.getElementById("root")}
       isOpen={isShowing}
-      className="Modal Modal--autoWidth"
+      className="Modal"
       overlayClassName="ModalOverlay"
       closeTimeoutMS={250}
       onRequestClose={close}
       shouldCloseOnOverlayClick={true}
     >
-      {content ? cloneElement(content) : null}
+      {content}
     </Modal>
   );
 };
