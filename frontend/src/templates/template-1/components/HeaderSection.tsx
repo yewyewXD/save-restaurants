@@ -2,6 +2,7 @@ import React, { useEffect, useState, FC } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ImageUploader from "../../../globalUI/ImageUploader";
 
 // Edit component - start
 const HeaderEdit: FC = () => {
@@ -10,29 +11,6 @@ const HeaderEdit: FC = () => {
     { content: "Menu", id: "nav-menu-section" },
     { content: "Contact", id: "nav-contact-section" },
   ]);
-
-  const QuoteList = ({ quotes }: any) => {
-    return quotes.map((quote: any, index: any) => (
-      <Draggable draggableId={quote.id} index={index} key={quote.id}>
-        {(provided) => (
-          <div
-            style={{
-              width: "200px",
-              border: "1px solid grey",
-              marginBottom: "8px",
-              backgroundColor: "lightblue",
-              padding: "8px",
-            }}
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {quote.content}
-          </div>
-        )}
-      </Draggable>
-    ));
-  };
 
   const reorder = (list: any, startIndex: any, endIndex: any) => {
     const result = Array.from(list);
@@ -62,11 +40,38 @@ const HeaderEdit: FC = () => {
 
   return (
     <>
+      <div className="mb-8">
+        <div className="mb-2 font-bold">Logo</div>
+        <ImageUploader />
+      </div>
+
+      <div className="mb-2 font-bold">Navigation</div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="list">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <QuoteList quotes={stateQuotes} />
+              {stateQuotes.map((quote: any, index: number) => (
+                <Draggable draggableId={quote.id} index={index} key={quote.id}>
+                  {(provided, snapshot) => (
+                    <div
+                      className={`flex justify-between items-center my-2 bg-gray-${
+                        snapshot.isDragging ? "400" : "200"
+                      } rounded px-3`}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <input
+                        type="text"
+                        value={quote.content}
+                        className="appearance-none py-2 leading-tight focus:shadow-outline w-5/6 outline-none bg-transparent"
+                      />
+
+                      <i className="icon-inno icon-inno_move-vertical" />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
               {provided.placeholder}
             </div>
           )}
