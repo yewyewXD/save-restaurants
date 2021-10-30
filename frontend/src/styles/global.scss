@@ -31,17 +31,28 @@ h6 {
   font-family: "Cabin", sans-serif; // weight: 500,600,700
 }
 
-.bg-primary {
-  background: $primary-color;
+.text {
+  &-primary {
+    color: $primary-color;
+    &-light {
+      color: $primary-color-light;
+    }
+    &-xlight {
+      color: $primary-color-xlight;
+    }
+  }
 }
-.text-primary {
-  color: $primary-color;
-}
-.bg-primary-light {
-  background: $primary-color-light;
-}
-.text-primary-light {
-  color: $primary-color-light;
+
+.bg {
+  &-primary {
+    background-color: $primary-color;
+    &-light {
+      background-color: $primary-color-light;
+    }
+    &-xlight {
+      background-color: $primary-color-xlight;
+    }
+  }
 }
 
 .borderOnHover {
