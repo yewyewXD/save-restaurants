@@ -16,7 +16,7 @@ const ImageUploader = () => {
         return (
           <div
             {...getRootProps()}
-            className="flex justify-center items-center flex-col w-30 text-center font-bold bg-primary-xlight rounded border-dashed border-4 border-yellow-400 cursor-pointer  hover:bg-yellow-200 transition duration-200 m-2 px-12 py-8"
+            className="flex justify-center items-center flex-col w-30 text-center font-bold bg-primary-xlight rounded border-dashed border-4 border-yellow-400 cursor-pointer  hover:bg-yellow-200 transition duration-200 px-12 py-8"
           >
             <input {...getInputProps()} />
 
