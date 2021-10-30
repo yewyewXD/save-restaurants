@@ -1,6 +1,17 @@
 .ReactModal__Overlay {
   opacity: 0;
   transition: all 150ms ease-in-out;
+  background: rgba(0, 0, 0, 0.7) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 998;
 }
 
 .ReactModal__Overlay--after-open {
@@ -9,4 +20,17 @@
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
+}
+
+.ReactModal__Content {
+  position: unset !important;
+  inset: unset !important;
+  max-height: 90vh;
+  max-width: 90vw;
+  overflow-x: hidden !important;
+  border: none !important;
+  overflow-y: auto !important;
+  padding: 24px !important;
+  width: auto;
+  z-index: 999;
 }

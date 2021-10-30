@@ -24,8 +24,6 @@ const ModalComponent: FC<IProps> = ({ isShowing, content, close }) => {
     <Modal
       appElement={document.getElementById("root")}
       isOpen={isShowing}
-      className="Modal"
-      overlayClassName="ModalOverlay"
       closeTimeoutMS={250}
       onRequestClose={close}
       shouldCloseOnOverlayClick={true}
