@@ -1,43 +1,10 @@
 import React, { useEffect, useState, FC } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ImageUploader from "../../../globalUI/ImageUploader";
 
 // Edit component - start
 const HeaderEdit: FC = () => {
-  const [stateQuotes, setStateQuotes] = useState<any>([
-    { content: "About Us", id: "nav-about-section" },
-    { content: "Menu", id: "nav-menu-section" },
-    { content: "Contact", id: "nav-contact-section" },
-  ]);
-
-  const reorder = (list: any, startIndex: any, endIndex: any) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  function onDragEnd(result: any): void {
-    if (!result.destination) {
-      return;
-    }
-
-    if (result.destination.index === result.source.index) {
-      return;
-    }
-
-    const quotes = reorder(
-      stateQuotes,
-      result.source.index,
-      result.destination.index
-    );
-
-    setStateQuotes(quotes);
-  }
-
   return (
     <>
       <h1 className="mb-6 text-2xl">Header Section</h1>
@@ -48,37 +15,26 @@ const HeaderEdit: FC = () => {
       </div>
 
       <div className="mb-2 font-bold">Navigation</div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="list">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {stateQuotes.map((quote: any, index: number) => (
-                <Draggable draggableId={quote.id} index={index} key={quote.id}>
-                  {(provided, snapshot) => (
-                    <div
-                      className={`flex justify-between items-center my-2 bg-gray-${
-                        snapshot.isDragging ? "400" : "200"
-                      } rounded px-3`}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <input
-                        type="text"
-                        value={quote.content}
-                        className="appearance-none py-2 leading-tight focus:shadow-outline w-5/6 outline-none bg-transparent"
-                      />
+      <input
+        className="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="Username"
+        value="About Us"
+      />
 
-                      <i className="icon-inno icon-inno_move-vertical" />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <input
+        className="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="Username"
+        value="Menu"
+      />
+
+      <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="Username"
+        value="Contact"
+      />
     </>
   );
 };
