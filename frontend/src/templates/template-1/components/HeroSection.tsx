@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import ImageUploader from "../../../globalUI/forms/ImageUploader";
+import ImageUploader from "../../../globalUI/ImageUploader";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 import { HexColorPicker } from "react-colorful";
