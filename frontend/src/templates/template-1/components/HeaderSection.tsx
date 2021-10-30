@@ -1,16 +1,10 @@
-import React, { useEffect, useState, FC, useCallback } from "react";
+import React, { useEffect, useState, FC } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useDropzone } from "react-dropzone";
 
 // Edit component - start
 const HeaderEdit: FC = () => {
-  const onDrop = useCallback((acceptedFiles) => {
-    console.log({ acceptedFiles });
-  }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
   const [stateQuotes, setStateQuotes] = useState<any>([
     { content: "About Us", id: "nav-about-section" },
     { content: "Menu", id: "nav-menu-section" },
@@ -68,15 +62,6 @@ const HeaderEdit: FC = () => {
 
   return (
     <>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
-
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="list">
           {(provided) => (

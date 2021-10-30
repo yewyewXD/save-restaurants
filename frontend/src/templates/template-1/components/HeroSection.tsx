@@ -1,8 +1,14 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
+import { useDropzone } from "react-dropzone";
 
 const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log({ acceptedFiles });
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   return (
     <section
       style={{
@@ -14,7 +20,16 @@ const HeroSection: FC<ISectionProps> = ({ handleOpenMenu }) => {
     >
       <HoverEffect
         onClick={() => {
-          handleOpenMenu(<div>hero background</div>);
+          handleOpenMenu(
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the files here ...</p>
+              ) : (
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              )}
+            </div>
+          );
         }}
         elementName="Background"
       />
