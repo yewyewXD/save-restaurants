@@ -49,11 +49,11 @@ export const SiteContextProvider: FC = ({ children }) => {
   }, []);
 
   // actions
-  function updateSection(name: string, data: object): void {
+  function updateSection(field: string, data: object): void {
     dispatch({
       type: IActionTypes.UPDATE,
       payload: {
-        name,
+        field,
         data,
       },
     });

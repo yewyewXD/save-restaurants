@@ -16,7 +16,7 @@ export enum IActionTypes {
 export interface IReducerAction {
   type: IActionTypes.UPDATE;
   payload: {
-    name: string;
+    field: string;
     data: object;
   };
 }

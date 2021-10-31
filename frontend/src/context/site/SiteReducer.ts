@@ -5,7 +5,7 @@ const SiteReducer = (state: any, { type, payload }: IReducerAction) => {
     case IActionTypes.UPDATE:
       return {
         ...state,
-        [payload.name]: payload.data,
+        [payload.field]: payload.data,
       };
 
     default:
