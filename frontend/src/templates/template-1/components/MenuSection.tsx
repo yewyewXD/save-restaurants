@@ -135,10 +135,11 @@ const MenuEdit: React.FC = () => {
     );
   }
 
-  function handleEditMenuItemTitle(
+  function handleEditMenuItem(
     menuId: string,
     itemId: string,
-    value: string | number
+    value: string | number,
+    isTitle: boolean
   ) {
     setMenuCategories((prevMenus) =>
       prevMenus.map((menu) => {
@@ -151,7 +152,8 @@ const MenuEdit: React.FC = () => {
 
             return {
               ...item,
-              name: value.toString(),
+              name: isTitle ? value.toString() : item.name,
+              price: isTitle ? item.name : value.toString(),
             };
           }),
         };
@@ -247,10 +249,11 @@ const MenuEdit: React.FC = () => {
                           className="font-bold ml-3 border rounded border-black"
                           value={item.name}
                           onChange={(e) => {
-                            handleEditMenuItemTitle(
+                            handleEditMenuItem(
                               menu.id,
                               item.id,
-                              e.target.value
+                              e.target.value,
+                              true
                             );
                           }}
                         />
@@ -262,7 +265,24 @@ const MenuEdit: React.FC = () => {
                     <span className="flex-1 overflow-hidden">
                       .........................................................................................................................................................................................................................................................................................
                     </span>
-                    <b className="mr-3">{item.price}</b>
+
+                    {item.isEditing ? (
+                      <AutosizeInput
+                        autoFocus={true}
+                        className="font-bold mr-3 border rounded border-black"
+                        value={item.price}
+                        onChange={(e) => {
+                          handleEditMenuItem(
+                            menu.id,
+                            item.id,
+                            e.target.value,
+                            false
+                          );
+                        }}
+                      />
+                    ) : (
+                      <b className="mr-3">{item.price}</b>
+                    )}
 
                     <i
                       className={`icon-inno icon-inno_${
