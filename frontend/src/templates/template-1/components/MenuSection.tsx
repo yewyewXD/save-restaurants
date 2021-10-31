@@ -62,7 +62,7 @@ const MenuEdit: React.FC = () => {
     );
   }
 
-  function editMenuTitle(menuId: string, value: string | number) {
+  function handleEditMenuTitle(menuId: string, value: string | number) {
     setMenuCategories((prevMenus) =>
       prevMenus.map((menu) => {
         if (menu.id === menuId) {
@@ -135,6 +135,30 @@ const MenuEdit: React.FC = () => {
     );
   }
 
+  function handleEditMenuItemTitle(
+    menuId: string,
+    itemId: string,
+    value: string | number
+  ) {
+    setMenuCategories((prevMenus) =>
+      prevMenus.map((menu) => {
+        if (menu.id !== menuId) return menu;
+
+        return {
+          ...menu,
+          items: menu.items.map((item) => {
+            if (item.id !== itemId) return item;
+
+            return {
+              ...item,
+              name: value.toString(),
+            };
+          }),
+        };
+      })
+    );
+  }
+
   return (
     <>
       <h1 className="mb-6 text-2xl">Menu Section</h1>
@@ -185,7 +209,7 @@ const MenuEdit: React.FC = () => {
                       toggleMenuTitleEdit(menu.id);
                     }}
                     onChange={(e) => {
-                      editMenuTitle(menu.id, e.target.value);
+                      handleEditMenuTitle(menu.id, e.target.value);
                     }}
                   />
                 ) : (
@@ -205,7 +229,7 @@ const MenuEdit: React.FC = () => {
                 {menu.items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex align-baseline mt-3 relative max-w-md"
+                    className="flex align-baseline mt-3 relative max-w-xl"
                   >
                     <div
                       className="w-4 h-4 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-2 top-1"
@@ -223,8 +247,11 @@ const MenuEdit: React.FC = () => {
                           className="font-bold ml-3 border rounded border-black"
                           value={item.name}
                           onChange={(e) => {
-                            //  editMenuTitle(menu.id, e.target.value);
-                            console.log(e.target.value);
+                            handleEditMenuItemTitle(
+                              menu.id,
+                              item.id,
+                              e.target.value
+                            );
                           }}
                         />
                       ) : (
@@ -238,7 +265,9 @@ const MenuEdit: React.FC = () => {
                     <b className="mr-3">{item.price}</b>
 
                     <i
-                      className={`icon-inno icon-inno_${"edit"} text-xs -right-2 top-1 absolute cursor-pointer hover:text-blue-600 transition duration-200`}
+                      className={`icon-inno icon-inno_${
+                        item.isEditing ? "check-bold text-blue-600" : "edit"
+                      } text-xs -right-2 top-1 absolute cursor-pointer hover:text-blue-600 transition duration-200`}
                       onClick={() => {
                         toggleEditMenuItem(menu.id, item.id);
                       }}
