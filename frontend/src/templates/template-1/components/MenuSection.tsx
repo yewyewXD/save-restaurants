@@ -36,6 +36,12 @@ const MenuEdit: React.FC = () => {
     ]);
   }
 
+  function handleRemoveMenu(menuId: string) {
+    setMenuCategories((prevMenus) =>
+      prevMenus.filter((menu) => menu.id !== menuId)
+    );
+  }
+
   return (
     <>
       <h1 className="mb-6 text-2xl">Menu Section</h1>
@@ -67,6 +73,15 @@ const MenuEdit: React.FC = () => {
               key={menu.id}
               className="relative border-gray-700 border rounded p-4 mb-6"
             >
+              <div
+                className="ml-2 w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute right-3 top-3"
+                onClick={() => {
+                  handleRemoveMenu(menu.id);
+                }}
+              >
+                -
+              </div>
+
               <div className="flex justify-center items-center">
                 <h5 className="mb-6 w-max">{menu.title}</h5>
               </div>
@@ -93,12 +108,6 @@ const MenuEdit: React.FC = () => {
 };
 
 const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
-  // function handleRemoveMenu(menuId: string) {
-  //   setMenuCategories((prevMenus) =>
-  //     prevMenus.filter((menu) => menu.id !== menuId)
-  //   );
-  // }
-
   // function handleAddMenuItem(menuId: string) {
   //   setMenuCategories((prevMenus) => {
   //     return prevMenus.map((menu) => {
