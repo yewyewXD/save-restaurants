@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "./01-variables";
-@import "./modules/react-modal";
-@import "./modules/pure-react-carousel";
-@import "./modules/react-burger-menu";
+@import "./modules/modules";
 
 html {
   scroll-behavior: smooth;

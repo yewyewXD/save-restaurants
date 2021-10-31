@@ -205,7 +205,7 @@ const MenuEdit: React.FC = () => {
                 {menu.isEditingTitle ? (
                   <AutosizeInput
                     autoFocus={true}
-                    className="font-title"
+                    className="font-bold"
                     value={menu.title}
                     onBlur={() => {
                       toggleMenuTitleEdit(menu.id);
@@ -246,7 +246,7 @@ const MenuEdit: React.FC = () => {
                       {item.isEditing ? (
                         <AutosizeInput
                           autoFocus={true}
-                          className="font-bold ml-3 border rounded border-black"
+                          className="AutosizeInput font-bold ml-3 border rounded border-black"
                           value={item.name}
                           onChange={(e) => {
                             handleEditMenuItem(
@@ -269,7 +269,7 @@ const MenuEdit: React.FC = () => {
                     {item.isEditing ? (
                       <AutosizeInput
                         autoFocus={false}
-                        className="font-bold mr-3 border rounded border-black"
+                        className="AutosizeInput font-bold mr-3 border rounded border-black"
                         value={item.price}
                         onChange={(e) => {
                           handleEditMenuItem(
