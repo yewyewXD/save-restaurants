@@ -2,25 +2,26 @@ import React, { useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 import AutosizeInput from "react-input-autosize";
+import uniqid from "uniqid";
 
 const MenuEdit: React.FC = () => {
   const [menuCategories, setMenuCategories] = useState([
     {
-      id: "menu-category-1",
+      id: uniqid(),
       title: "Menu 1",
       isEditingTitle: false,
       items: [
-        { name: "food 1", price: "$1.00" },
-        { name: "food 2", price: "$1.00" },
+        { id: uniqid(), name: "food 1", price: "$1.00" },
+        { id: uniqid(), name: "food 2", price: "$1.00" },
       ],
     },
     {
-      id: "menu-category-2",
+      id: uniqid(),
       title: "Menu 2",
       isEditingTitle: false,
       items: [
-        { name: "food 1", price: "$1.00" },
-        { name: "food 2", price: "$1.00" },
+        { id: uniqid(), name: "food 1", price: "$1.00" },
+        { id: uniqid(), name: "food 2", price: "$1.00" },
       ],
     },
   ]);
@@ -29,12 +30,12 @@ const MenuEdit: React.FC = () => {
     setMenuCategories((prevMenus) => [
       ...prevMenus,
       {
-        id: `menu-category-${prevMenus.length + 1}`,
+        id: uniqid(),
         title: `New Menu`,
         isEditingTitle: false,
         items: [
-          { name: "food 1", price: "$1.00" },
-          { name: "food 2", price: "$1.00" },
+          { id: uniqid(), name: "food 1", price: "$1.00" },
+          { id: uniqid(), name: "food 2", price: "$1.00" },
         ],
       },
     ]);
@@ -76,6 +77,8 @@ const MenuEdit: React.FC = () => {
     );
   }
 
+  function handleRemoveMenuItem(menuId: string, itemId: string) {}
+
   return (
     <>
       <h1 className="mb-6 text-2xl">Menu Section</h1>
@@ -94,7 +97,7 @@ const MenuEdit: React.FC = () => {
           <span className="font-bold">Menu Categories</span>
 
           <div
-            className="w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border border-black hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-200"
+            className="ml-2 w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border border-black hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-200"
             onClick={handleAddMenu}
           >
             +
@@ -108,7 +111,7 @@ const MenuEdit: React.FC = () => {
               className="relative border-gray-700 border rounded p-4 mb-6"
             >
               <div
-                className="ml-2 w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute right-3 top-3"
+                className="w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute right-3 top-3"
                 onClick={() => {
                   handleRemoveMenu(menu.id);
                 }}
@@ -144,7 +147,7 @@ const MenuEdit: React.FC = () => {
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
                   <div
-                    key={`${menu.id}-${item.name}`}
+                    key={item.id}
                     className="flex align-baseline mt-3 relative"
                   >
                     <div className="w-5 h-5 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-3 top-0">
