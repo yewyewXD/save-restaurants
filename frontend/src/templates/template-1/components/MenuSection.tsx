@@ -11,8 +11,8 @@ const MenuEdit: React.FC = () => {
       title: "Menu 1",
       isEditingTitle: false,
       items: [
-        { id: uniqid(), name: "food 1", price: "$1.00" },
-        { id: uniqid(), name: "food 2", price: "$1.00" },
+        { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
+        { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
       ],
     },
     {
@@ -20,8 +20,8 @@ const MenuEdit: React.FC = () => {
       title: "Menu 2",
       isEditingTitle: false,
       items: [
-        { id: uniqid(), name: "food 1", price: "$1.00" },
-        { id: uniqid(), name: "food 2", price: "$1.00" },
+        { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
+        { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
       ],
     },
   ]);
@@ -34,8 +34,8 @@ const MenuEdit: React.FC = () => {
         title: `New Menu`,
         isEditingTitle: false,
         items: [
-          { id: uniqid(), name: "food 1", price: "$1.00" },
-          { id: uniqid(), name: "food 2", price: "$1.00" },
+          { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
+          { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
         ],
       },
     ]);
@@ -89,6 +89,7 @@ const MenuEdit: React.FC = () => {
                 id: uniqid(),
                 name: `new food`,
                 price: "$ 1.00",
+                isEditing: false,
               },
             ],
           };
@@ -112,6 +113,26 @@ const MenuEdit: React.FC = () => {
         }
       });
     });
+  }
+
+  function toggleEditMenuItem(menuId: string, itemId: string) {
+    setMenuCategories((prevMenus) =>
+      prevMenus.map((menu) => {
+        if (menu.id !== menuId) return menu;
+
+        return {
+          ...menu,
+          items: menu.items.map((item) => {
+            if (item.id !== itemId) return item;
+
+            return {
+              ...item,
+              isEditing: !item.isEditing,
+            };
+          }),
+        };
+      })
+    );
   }
 
   return (
@@ -195,7 +216,22 @@ const MenuEdit: React.FC = () => {
                       -
                     </div>
 
-                    <b className="ml-3">{item.name}</b>
+                    <div>
+                      {item.isEditing ? (
+                        <AutosizeInput
+                          autoFocus={true}
+                          className="font-bold ml-3 border rounded border-black"
+                          value={item.name}
+                          onChange={(e) => {
+                            //  editMenuTitle(menu.id, e.target.value);
+                            console.log(e.target.value);
+                          }}
+                        />
+                      ) : (
+                        <b className="ml-3">{item.name}</b>
+                      )}
+                    </div>
+
                     <span className="flex-1 overflow-hidden">
                       .........................................................................................................................................................................................................................................................................................
                     </span>
@@ -203,6 +239,9 @@ const MenuEdit: React.FC = () => {
 
                     <i
                       className={`icon-inno icon-inno_${"edit"} text-xs -right-2 top-1 absolute cursor-pointer hover:text-blue-600 transition duration-200`}
+                      onClick={() => {
+                        toggleEditMenuItem(menu.id, item.id);
+                      }}
                     />
                   </div>
                 ))}
