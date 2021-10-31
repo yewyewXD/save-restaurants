@@ -16,7 +16,7 @@ Started on: 3 Jul 2021 <br>
 
 <!-- Completed on: 7 Oct 2020 <br> -->
 
-Last modified on: 21 Oct 2021 <br>
+Last modified on: 31 Oct 2021 <br>
 
 _Disclaimer: Code is not clean, because we are doing our best to deliver the MVP_<br>
 
@@ -32,25 +32,25 @@ coming soon
 - React.js
 - Sass
 - TailwindCSS
-- Cypress (in progress)
-- AWS Lambda (coming soon)
+- Cypress (coming soon)
 
 #### Backend
 
-- MongoDB
-- Node.js
-- Express.js
-- Fastify.js (coming soon)
-- Chai (coming soon)
+- MongoDB (will be deprecated)
+- Node.js (will be deprecated)
+- Express.js (will be deprecated)
 - Mocha (coming soon)
-- AWS DynamoDB (coming soon)
+- DynamoDB (coming soon)
+- AWS Lambda (coming soon)
+- Amazon Cognito (coming soon)
+- Amazon SNS (coming soon)
 
 #### DevOps
 
-- Cypress CI (in progress)
-- Snyk CI (in progress)
+- Netlify
+- Cypress CI (coming soon)
+- Snyk CI (coming soon)
 - Sentry (coming soon)
-- Netlify (coming soon)
 
 ## Credits
 
@@ -58,4 +58,4 @@ coming soon
 
 ## Team
 
-coming soon
+**Azib Hasan:** Social media manager
