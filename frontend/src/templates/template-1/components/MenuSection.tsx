@@ -119,7 +119,8 @@ const MenuEdit: React.FC = () => {
               <div className="flex justify-center items-center mb-6">
                 {menu.isEditingTitle ? (
                   <AutosizeInput
-                    className="border border-black px-2 focus:border-white font-title"
+                    autoFocus={true}
+                    className="font-title"
                     value={menu.title}
                     onBlur={() => {
                       toggleMenuTitleEdit(menu.id);
