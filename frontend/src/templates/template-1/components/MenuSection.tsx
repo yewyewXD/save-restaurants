@@ -11,8 +11,8 @@ const MenuEdit: React.FC = () => {
       title: "Menu 1",
       isEditingTitle: false,
       items: [
-        { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
-        { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
+        { id: uniqid(), name: "food 1", price: "RM 1.00", isEditing: false },
+        { id: uniqid(), name: "food 2", price: "RM 1.00", isEditing: false },
       ],
     },
     {
@@ -20,8 +20,8 @@ const MenuEdit: React.FC = () => {
       title: "Menu 2",
       isEditingTitle: false,
       items: [
-        { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
-        { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
+        { id: uniqid(), name: "food 1", price: "RM 1.00", isEditing: false },
+        { id: uniqid(), name: "food 2", price: "RM 1.00", isEditing: false },
       ],
     },
   ]);
@@ -34,8 +34,8 @@ const MenuEdit: React.FC = () => {
         title: `New Menu`,
         isEditingTitle: false,
         items: [
-          { id: uniqid(), name: "food 1", price: "$1.00", isEditing: false },
-          { id: uniqid(), name: "food 2", price: "$1.00", isEditing: false },
+          { id: uniqid(), name: "food 1", price: "RM 1.00", isEditing: false },
+          { id: uniqid(), name: "food 2", price: "RM 1.00", isEditing: false },
         ],
       },
     ]);
@@ -88,7 +88,7 @@ const MenuEdit: React.FC = () => {
               {
                 id: uniqid(),
                 name: `new food`,
-                price: "$ 1.00",
+                price: "RM  1.00",
                 isEditing: false,
               },
             ],
@@ -153,7 +153,7 @@ const MenuEdit: React.FC = () => {
             return {
               ...item,
               name: isTitle ? value.toString() : item.name,
-              price: isTitle ? item.name : value.toString(),
+              price: isTitle ? item.price : value.toString(),
             };
           }),
         };
@@ -268,7 +268,7 @@ const MenuEdit: React.FC = () => {
 
                     {item.isEditing ? (
                       <AutosizeInput
-                        autoFocus={true}
+                        autoFocus={false}
                         className="font-bold mr-3 border rounded border-black"
                         value={item.price}
                         onChange={(e) => {
