@@ -87,7 +87,7 @@ const MenuEdit: React.FC = () => {
               ...menu.items,
               {
                 id: uniqid(),
-                name: `food ${menu.items.length + 1}`,
+                name: `new food`,
                 price: "$ 1.00",
               },
             ],
@@ -184,10 +184,10 @@ const MenuEdit: React.FC = () => {
                 {menu.items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex align-baseline mt-3 relative"
+                    className="flex align-baseline mt-3 relative max-w-md"
                   >
                     <div
-                      className="w-5 h-5 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-3 top-0"
+                      className="w-4 h-4 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-2 top-1"
                       onClick={() => {
                         handleRemoveMenuItem(menu.id, item.id);
                       }}
@@ -197,7 +197,7 @@ const MenuEdit: React.FC = () => {
 
                     <b className="ml-3">{item.name}</b>
                     <span className="flex-1 overflow-hidden">
-                      .........................................................................................................................
+                      .........................................................................................................................................................................................................................................................................................
                     </span>
                     <b className="mr-3">{item.price}</b>
 
