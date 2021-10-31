@@ -77,7 +77,27 @@ const MenuEdit: React.FC = () => {
     );
   }
 
-  function handleRemoveMenuItem(menuId: string, itemId: string) {}
+  function handleAddMenuItem(menuId: string) {
+    setMenuCategories((prevMenus) => {
+      return prevMenus.map((menu) => {
+        if (menu.id === menuId) {
+          return {
+            ...menu,
+            items: [
+              ...menu.items,
+              {
+                id: uniqid(),
+                name: `food ${menu.items.length + 1}`,
+                price: "$ 1.00",
+              },
+            ],
+          };
+        } else {
+          return menu;
+        }
+      });
+    });
+  }
 
   return (
     <>
@@ -144,6 +164,7 @@ const MenuEdit: React.FC = () => {
                   </h5>
                 )}
               </div>
+
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
                   <div
@@ -165,6 +186,17 @@ const MenuEdit: React.FC = () => {
                     />
                   </div>
                 ))}
+
+                <div className="px-3 flex justify-center items-center">
+                  <div
+                    className="rounded border border-black text-2xl text-center w-full py-1 hover:border-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer transition duration-200"
+                    onClick={() => {
+                      handleAddMenuItem(menu.id);
+                    }}
+                  >
+                    +
+                  </div>
+                </div>
               </div>
             </div>
           );
@@ -175,24 +207,6 @@ const MenuEdit: React.FC = () => {
 };
 
 const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
-  // function handleAddMenuItem(menuId: string) {
-  //   setMenuCategories((prevMenus) => {
-  //     return prevMenus.map((menu) => {
-  //       if (menu.id === menuId) {
-  //         return {
-  //           ...menu,
-  //           items: [
-  //             ...menu.items,
-  //             { name: `food ${menu.items.length + 1}`, price: "$ 1.00" },
-  //           ],
-  //         };
-  //       } else {
-  //         return menu;
-  //       }
-  //     });
-  //   });
-  // }
-
   return (
     <section
       className="w-full flex justify-center items-center flex-col py-20 borderOnHover"
