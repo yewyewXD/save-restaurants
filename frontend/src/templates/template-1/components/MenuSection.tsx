@@ -2,7 +2,20 @@ import React, { useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
 
-const MenuEdit: React.FC = () => <div>something</div>;
+const MenuEdit: React.FC = () => (
+  <>
+    <h1 className="mb-6 text-2xl">Menu Section</h1>
+
+    <div className="mb-8">
+      <div className="mb-2 font-bold">Title</div>
+      <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="Username"
+      />
+    </div>
+  </>
+);
 
 const MenuSection: React.FC<ISectionProps> = ({ handleOpenMenu }) => {
   const [menuCategories, setMenuCategories] = useState([
