@@ -61,6 +61,21 @@ const MenuEdit: React.FC = () => {
     );
   }
 
+  function editMenuTitle(menuId: string, value: string | number) {
+    setMenuCategories((prevMenus) =>
+      prevMenus.map((menu) => {
+        if (menu.id === menuId) {
+          return {
+            ...menu,
+            title: value.toString(),
+          };
+        } else {
+          return menu;
+        }
+      })
+    );
+  }
+
   return (
     <>
       <h1 className="mb-6 text-2xl">Menu Section</h1>
@@ -109,7 +124,9 @@ const MenuEdit: React.FC = () => {
                     onBlur={() => {
                       toggleMenuTitleEdit(menu.id);
                     }}
-                    onChange={function (event) {}}
+                    onChange={(e) => {
+                      editMenuTitle(menu.id, e.target.value);
+                    }}
                   />
                 ) : (
                   <h5 className="relative flex justify-center items-center">
