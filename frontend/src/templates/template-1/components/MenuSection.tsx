@@ -99,6 +99,21 @@ const MenuEdit: React.FC = () => {
     });
   }
 
+  function handleRemoveMenuItem(menuId: string, itemId: string) {
+    setMenuCategories((prevMenus) => {
+      return prevMenus.map((menu) => {
+        if (menu.id === menuId) {
+          return {
+            ...menu,
+            items: menu.items.filter((item) => item.id !== itemId),
+          };
+        } else {
+          return menu;
+        }
+      });
+    });
+  }
+
   return (
     <>
       <h1 className="mb-6 text-2xl">Menu Section</h1>
@@ -171,7 +186,12 @@ const MenuEdit: React.FC = () => {
                     key={item.id}
                     className="flex align-baseline mt-3 relative"
                   >
-                    <div className="w-5 h-5 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-3 top-0">
+                    <div
+                      className="w-5 h-5 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-3 top-0"
+                      onClick={() => {
+                        handleRemoveMenuItem(menu.id, item.id);
+                      }}
+                    >
                       -
                     </div>
 
