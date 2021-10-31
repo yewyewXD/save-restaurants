@@ -1,27 +1,27 @@
-name: Frontend Cypress Test
+# name: Frontend Cypress Test
 
-on: [push]
+# on: [push]
 
-jobs:
-  test:
-    name: Run Frontend Cypress Test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        machines: [1, 2, 3]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+# jobs:
+#   test:
+#     name: Run Frontend Cypress Test
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         machines: [1, 2, 3]
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
 
-      - name: Connect and test
-        uses: cypress-io/github-action@v1
-        with:
-          record: true
-          parallel: true
-          group: "Actions example"
-          build: yarn run build
-          start: yarn start
-          working-directory: frontend
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+#       - name: Connect and test
+#         uses: cypress-io/github-action@v1
+#         with:
+#           record: true
+#           parallel: true
+#           group: "Actions example"
+#           build: yarn run build
+#           start: yarn start
+#           working-directory: frontend
+#         env:
+#           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+#           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
