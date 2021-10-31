@@ -16,7 +16,7 @@ const initialState: ISiteContextState = {
   about: {},
   menu: {},
   contact: {},
-  footer: {},
+  social: {},
 
   updateSection: () => {},
 };
@@ -67,7 +67,7 @@ export const SiteContextProvider: FC = ({ children }) => {
         about: state.about,
         menu: state.menu,
         contact: state.contact,
-        footer: state.footer,
+        social: state.social,
         updateSection,
       }}
     >
@@ -77,8 +77,8 @@ export const SiteContextProvider: FC = ({ children }) => {
 };
 
 export function useSite(): ISiteContextState {
-  const { header, hero, about, menu, contact, footer, updateSection } =
+  const { header, hero, about, menu, contact, social, updateSection } =
     useContext(SiteContext);
 
-  return { header, hero, about, menu, contact, footer, updateSection };
+  return { header, hero, about, menu, contact, social, updateSection };
 }

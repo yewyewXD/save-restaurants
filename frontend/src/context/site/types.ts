@@ -4,7 +4,7 @@ export interface ISiteContextState {
   about: object;
   menu: object;
   contact: object;
-  footer: object;
+  social: object;
 
   updateSection: Function;
 }
