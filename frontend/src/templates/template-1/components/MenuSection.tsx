@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import HoverEffect from "../../../globalUI/Site/HoverEffect";
 import { ISectionProps } from "../template1.types";
+import AutosizeInput from "react-input-autosize";
 
 const MenuEdit: React.FC = () => {
   const [menuCategories, setMenuCategories] = useState([
     {
       id: "menu-category-1",
       title: "Menu 1",
+      isEditingTitle: false,
       items: [
         { name: "food 1", price: "$1.00" },
         { name: "food 2", price: "$1.00" },
@@ -15,6 +17,7 @@ const MenuEdit: React.FC = () => {
     {
       id: "menu-category-2",
       title: "Menu 2",
+      isEditingTitle: false,
       items: [
         { name: "food 1", price: "$1.00" },
         { name: "food 2", price: "$1.00" },
@@ -28,6 +31,7 @@ const MenuEdit: React.FC = () => {
       {
         id: `menu-category-${prevMenus.length + 1}`,
         title: `New Menu`,
+        isEditingTitle: false,
         items: [
           { name: "food 1", price: "$1.00" },
           { name: "food 2", price: "$1.00" },
@@ -39,6 +43,21 @@ const MenuEdit: React.FC = () => {
   function handleRemoveMenu(menuId: string) {
     setMenuCategories((prevMenus) =>
       prevMenus.filter((menu) => menu.id !== menuId)
+    );
+  }
+
+  function toggleMenuTitleEdit(menuId: string) {
+    setMenuCategories((prevMenus) =>
+      prevMenus.map((menu) => {
+        if (menu.id === menuId) {
+          return {
+            ...menu,
+            isEditingTitle: !menu.isEditingTitle,
+          };
+        } else {
+          return menu;
+        }
+      })
     );
   }
 
@@ -82,8 +101,27 @@ const MenuEdit: React.FC = () => {
                 -
               </div>
 
-              <div className="flex justify-center items-center">
-                <h5 className="mb-6 w-max">{menu.title}</h5>
+              <div className="flex justify-center items-center mb-6">
+                {menu.isEditingTitle ? (
+                  <AutosizeInput
+                    className="border border-black px-2 focus:border-white"
+                    value={menu.title}
+                    onBlur={() => {
+                      toggleMenuTitleEdit(menu.id);
+                    }}
+                    onChange={function (event) {}}
+                  />
+                ) : (
+                  <h5 className="relative flex justify-center items-center">
+                    {menu.title}
+                    <i
+                      className="icon-inno icon-inno_edit ml-3 text-xs cursor-pointer hover:text-blue-600 transition duration-200 absolute -right-6"
+                      onClick={() => {
+                        toggleMenuTitleEdit(menu.id);
+                      }}
+                    />
+                  </h5>
+                )}
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {menu.items.map((item) => (
