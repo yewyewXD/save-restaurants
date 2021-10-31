@@ -94,7 +94,7 @@ const MenuEdit: React.FC = () => {
           <span className="font-bold">Menu Categories</span>
 
           <div
-            className="ml-2 w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border border-black hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-200"
+            className="w-6 h-6 rounded-full cursor-pointer flex justify-center items-center border border-black hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-200"
             onClick={handleAddMenu}
           >
             +
@@ -145,13 +145,21 @@ const MenuEdit: React.FC = () => {
                 {menu.items.map((item) => (
                   <div
                     key={`${menu.id}-${item.name}`}
-                    className="flex align-baseline mt-3"
+                    className="flex align-baseline mt-3 relative"
                   >
-                    <b>{item.name}</b>
+                    <div className="w-5 h-5 rounded-full cursor-pointer flex justify-center items-center border bg-red-600 border-red-600 hover:bg-red-400 hover:border-red-400 text-white transition duration-200 absolute -left-3 top-0">
+                      -
+                    </div>
+
+                    <b className="ml-3">{item.name}</b>
                     <span className="flex-1 overflow-hidden">
                       .........................................................................................................................
                     </span>
-                    <b>{item.price}</b>
+                    <b className="mr-3">{item.price}</b>
+
+                    <i
+                      className={`icon-inno icon-inno_${"edit"} text-xs -right-2 top-1 absolute cursor-pointer hover:text-blue-600 transition duration-200`}
+                    />
                   </div>
                 ))}
               </div>
